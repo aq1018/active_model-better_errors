@@ -17,10 +17,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "activemodel-better-errors"
   gem.homepage = "http://github.com/aq1018/activemodel-better-errors"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "aq1018@gmail.com"
-  gem.authors = ["Aaron Qian"]
+  gem.summary = %Q{ActiveModel::Errors class is not designed for API consumption. This gem allows for that while keeping compatibility with existing rails API.}
+  gem.description = %Q{ActiveModel::Errors class is not designed for API consumption. This gem allows for that while keeping compatibility with existing rails API.}
+  gem.email = ["aq1018@gmail.com", "byronanderson32@gmail.com"]
+  gem.authors = ["Aaron Qian", "Byron Anderson"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
