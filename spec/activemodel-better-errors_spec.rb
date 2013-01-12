@@ -10,8 +10,7 @@ describe ActiveModel::ErrorCollecting do
   end
 
   describe "json reporter" do
-    before { errors.reporter = :json }
-    its(:to_hash) { should == [] }
+    its(:to_hash) { should == { :first_name => [:blank], :last_name => [:blank] } }
   end
 
 end
