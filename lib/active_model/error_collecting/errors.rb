@@ -16,7 +16,6 @@ module ActiveModel
       delegate :to_hash, to: :hash_reporter
       delegate :to_a, to: :array_reporter
 
-      alias_method :has_key? :include?
       alias_method :blank?, :empty?
 
       attr_accessor :error_collection, :human_reporter, :hash_reporter, :array_reporter
