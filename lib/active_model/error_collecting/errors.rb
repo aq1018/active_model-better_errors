@@ -4,7 +4,7 @@ module ActiveModel
       MODEL_METHODS = [
         :clear, :has_key?, :get, :set, :delete, :[], :[]=,
         :each, :size, :values, :keys, :count, :empty?,
-        :added?, :add, :add_on_empty, :add_on_blank
+        :added?, :add
       ]
 
       HUMAN_REPORTER_METHODS = [
@@ -26,10 +26,18 @@ module ActiveModel
         create_reporters options[:reporters]
       end
 
+      def add_on_blank(attributes, hash)
+        [*attributes].each do |attribute|
+          error_collection.add(attribute, [:blank, hash[:message]]) if @base.send(attribute).blank?
+        end
+      end
+
       def create_reporters(reporters)
-        @human_reporter = reporters[:human].new(error_collection)
-        @hash_reporter = reporters[:hash].new(error_collection)
-        @array_reporter = reporters[:array].new(error_collection)
+        #@human_reporter = reporters[:human].new(error_collection)
+        #@hash_reporter = reporters[:hash].new(error_collection)
+        #@array_reporter = reporters[:array].new(error_collection)
+        @hash_reporter = HashReporter.new(error_collection)
+        @human_reporter = HumanReporter.new(error_collection)
       end
 
       def to_xml(options={})
