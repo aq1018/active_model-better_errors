@@ -7,19 +7,19 @@ module ActiveModel
     end
 
     class << self
-      def set_consumer(consumer, error_klass)
+      def set_error_reporter(consumer, error_klass)
         @consumer_maps ||= {}
         @consumer_maps[consumer.to_s] = error_klass
       end
 
-      def errors_class_for(consumer)
-        @consumer_maps[consumer.to_s]
+      def errors_reporters
+        @consumer_maps
       end
     end
 
-    set_error_reporter :json, JsonReporter
-    set_error_reporter :xml,  XMLReporter
-    set_error_reporter :html, HTMLReporter
-    set_error_reporter :legacy, ::ActiveModel::Errors
+    set_error_reporter :hash, HashReporter
+    #set_error_reporter :xml,  XMLReporter
+    #set_error_reporter :html, HTMLReporter
+    #set_error_reporter :legacy, ::ActiveModel::Errors
   end
 end

@@ -3,6 +3,7 @@ require 'active_support/all'
 module ActiveModel
   module ErrorCollecting
     class ErrorCollection
+      include Enumerable
       def initialize
         @collection = Hash.new { |h, k| h[k] = ErrorMessageSet.new([]) }
       end
@@ -11,7 +12,7 @@ module ActiveModel
         @collection[attribute] << error
       end
 
-      delegate :[], :clear, :delete, :empty?, to: :@collection
+      delegate :[], :clear, :each, :delete, :empty?, to: :@collection
       alias_method :[]=, :add
       alias_method :get, :[]
 
