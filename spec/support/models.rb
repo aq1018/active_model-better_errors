@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'active_model/better_errors'
 require 'active_model'
 
 class BasicModel

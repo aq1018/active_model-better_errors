@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe ActiveModel::BetterErrors do
+describe ActiveModel::ErrorCollecting do
   let(:user) { User.new }
   subject(:errors) { user.errors }
   before { user.valid? }
