@@ -22,7 +22,7 @@ module ActiveModel
 
       def initialize(base, options={})
         @base = base
-        @error_collection = ErrorCollection.new
+        @error_collection = ErrorCollection.new(@base)
         create_reporters options[:reporters]
       end
 

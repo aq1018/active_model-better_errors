@@ -4,20 +4,30 @@ module ActiveModel
   module ErrorCollecting
     class ErrorCollection
       include Enumerable
-      def initialize
-        @collection = Hash.new { |h, k| h[k] = ErrorMessageSet.new([]) }
+      def initialize(base)
+        @base = base
+        @collection = []
       end
 
-      def add(attribute, error)
-        @collection[attribute] << error
+      def add(attribute, error, options = {})
+        @collection << ErrorMessage.new(@base, attribute, error, options)
       end
 
-      delegate :[], :clear, :each, :delete, :empty?, to: :@collection
+      def [](attribute)
+        @collection.select { |obj| obj.attribute == attribute }
+      end
+
+      delegate :clear, :each, :empty?, to: :@collection
       alias_method :[]=, :add
       alias_method :get, :[]
 
-      def set(attribute, error)
-        @collection[attribute] = ErrorMessageSet.new([*error])
+      def delete(attribute)
+        @collection.reject! { |error| error.attribute == attribute }
+      end
+
+      def set(attribute, error, options = {})
+        delete attribute
+        [*error].each { |e| @collection << ErrorMessageSet.new(@base, attribute, e, options) }
       end
 
       def remove()

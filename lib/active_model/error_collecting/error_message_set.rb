@@ -3,12 +3,19 @@ module ActiveModel
     class ErrorMessageSet
       include Enumerable
       delegate :each, :length, to: :@set
-      def initialize(array)
-        @set = array.map { |element| ErrorMessage.new(element) }.to_set
+      attr_reader :attribute
+      def initialize(base, attribute, messages, array)
+        @base = base
+        @attribute = attribute
+        @set = array.map { |element| ErrorMessage.new(@base, @attribute, element) }.to_set
       end
 
       def <<(element)
-        @set << ErrorMessage.new(element)
+        if element.is_a? ErrorMessage
+          @set << element
+        else
+          @set << ErrorMessage.new(@base, @attribute, element)
+        end
       end
 
       def to_a

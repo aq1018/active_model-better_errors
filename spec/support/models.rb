@@ -24,3 +24,9 @@ class User < BasicModel
 
   validates :first_name, :last_name, presence: { message: "plz...?" }
 end
+
+class Ruler < BasicModel
+  attr_accessor :length
+
+  validates_numericality_of :length, less_than_or_equal_to: 12, greater_than_or_equal_to: 4
+end

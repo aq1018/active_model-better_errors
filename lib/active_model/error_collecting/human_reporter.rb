@@ -6,11 +6,8 @@ module ActiveModel
       end
 
       def full_messages
-        @error_collection.each_with_object([]) do |attribute_errors, array|
-          attribute, errors = attribute_errors
-          errors.each do |error|
-            array << "#{human_name(attribute)} #{error.message}"
-          end
+        @error_collection.sort_by(&:attribute).map do |error|
+          "#{human_name(error.attribute)} #{error.message}"
         end
       end
 
