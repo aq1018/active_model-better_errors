@@ -14,7 +14,7 @@ describe ActiveModel::ErrorCollecting do
     end
 
     describe "json reporter" do
-      its(:to_hash) { should == { :length => [:less_than_or_equal_to] } }
+      its(:to_hash) { should == { :length => [[:less_than_or_equal_to, options]] } }
     end
   end
 

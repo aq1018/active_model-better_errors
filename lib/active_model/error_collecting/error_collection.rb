@@ -1,40 +1,84 @@
-require 'active_support/all'
-# holds all the error information
 module ActiveModel
   module ErrorCollecting
     class ErrorCollection
       include Enumerable
+
       def initialize(base)
         @base = base
-        @collection = []
+        @collection = {}
       end
 
-      def add(attribute, error, options = {})
-        @collection << ErrorMessage.new(@base, attribute, error, options)
+      def clear
+        @collection.clear
+      end
+
+      def include?(attribute)
+        ( v = @collection[attribute] ) && v.any?
+      end
+
+      def get(attribute)
+        @collection[attribute]
+      end
+
+      def set(attribute, errors)
+        return delete attribute if errors.nil?
+        @collection[attribute] = ErrorMessageSet.new(attribute, errors)
+      end
+
+      def delete(attribute)
+        @collection.delete attribute
       end
 
       def [](attribute)
-        @collection.select { |obj| obj.attribute == attribute }
+        get(attribute.to_sym) || set(attribute.to_sym, [])
       end
 
-      delegate :clear, :each, :empty?, to: :@collection
-      alias_method :[]=, :add
-      alias_method :get, :[]
-
-      def delete(attribute)
-        @collection.reject! { |error| error.attribute == attribute }
+      def []=(attribute, error)
+        self[attribute] << error
       end
 
-      def set(attribute, error, options = {})
-        delete attribute
-        [*error].each { |e| @collection << ErrorMessageSet.new(@base, attribute, e, options) }
+      def each
+        @collection.each_key do |attribute|
+          self[attribute].each { |error_message| yield attribute, error_message }
+        end
       end
 
-      def remove()
+      def size
+        values.flatten.size
       end
 
-      def has_key?(attribute)
-        get(attribute).any?
+      def values
+        @collection.values
+      end
+
+      def keys
+        @collection.keys
+      end
+
+      def to_a
+        array = []
+        @collection.each_key do |attribute|
+          self[attribute].each { |error_message| array << error_message }
+        end
+
+        array
+      end
+
+      def count
+        array.count
+      end
+
+      def empty?
+        all? { |attributes, set| set && set.empty? }
+      end
+
+      def add(attribute, message, options = {})
+        @collection[attribute] ||= ErrorMessageSet.new(attribute)
+        @collection[attribute].add(message, options)
+      end
+
+      def added?(attribute, message = nil, options = {})
+        self[attribute].include? ErrorMessage.build(attribute, message, options)
       end
     end
   end

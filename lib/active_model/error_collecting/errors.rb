@@ -1,51 +1,48 @@
 module ActiveModel
   module ErrorCollecting
     class Errors
-      MODEL_METHODS = [
-        :clear, :has_key?, :get, :set, :delete, :[], :[]=,
-        :each, :size, :values, :keys, :count, :empty?,
-        :added?, :add
-      ]
-
-      HUMAN_REPORTER_METHODS = [
-        :full_messages, :full_message, :generate_messages
-      ]
-
-      delegate *MODEL_METHODS,  to: :error_collection
-      delegate *HUMAN_REPORTER_METHODS,  to: :human_reporter
-      delegate :to_hash, to: :hash_reporter
-      delegate :to_a, to: :array_reporter
-
-      alias_method :blank?, :empty?
-
-      attr_accessor :error_collection, :human_reporter, :hash_reporter, :array_reporter
+      include Emulation
 
       def initialize(base, options={})
         @base = base
-        @error_collection = ErrorCollection.new(@base)
-        create_reporters options[:reporters]
+        @reporters ||= {}
       end
 
-      def add_on_blank(attributes, hash)
-        [*attributes].each do |attribute|
-          error_collection.add(attribute, [:blank, hash[:message]]) if @base.send(attribute).blank?
-        end
+      def error_collection
+        @error_collection ||= ErrorCollection.new(@base)
       end
 
-      def create_reporters(reporters)
-        #@human_reporter = reporters[:human].new(error_collection)
-        #@hash_reporter = reporters[:hash].new(error_collection)
-        #@array_reporter = reporters[:array].new(error_collection)
-        @hash_reporter = HashReporter.new(error_collection)
-        @human_reporter = HumanReporter.new(error_collection)
+      def human_reporter
+        get_reporter(:human)
       end
 
-      def to_xml(options={})
-        to_a.to_xml options.reverse_merge(:root => "errors", :skip_types => true)
+      def hash_reporter
+        get_reporter(:hash)
       end
 
-      def as_json(options=nil)
-        to_hash
+      def array_reporter
+        get_reporter(:array)
+      end
+
+      def set_reporter(type, klass)
+        type = type.to_s
+        @reporter_classes[type] = klass
+        @reporters.delete type
+      end
+
+      def get_reporter(type)
+        type = type.to_s
+        klass = get_reporter_class(type)
+        @reports[type] = klass.new(error_collection)
+      end
+
+      def reporter_classes
+        ::ActiveModel::ErrorCollecting.reporters
+      end
+
+      def get_reporter_class(type)
+        type = type.to_s
+        @reporter_classes[type]
       end
     end
   end

@@ -1,114 +1,97 @@
 require 'spec_helper'
-require 'active_model/error_collecting/error_collection'
-require 'active_model/error_collecting/error_message_set'
-require 'active_model/error_collecting/error_message'
 
 describe ActiveModel::ErrorCollecting::ErrorCollection do
+  subject(:collection) { klass.new(base) }
   let(:klass) { ActiveModel::ErrorCollecting::ErrorCollection }
-  let(:errors) { klass.new(User.new) }
+  let(:base)  { mock() }
+  let(:errors){{
+    :name     =>  [ [ :too_long, { count: 3 } ] ],
+    'email'   =>  [ [ :invalid, { message: "Invalid" } ] ],
+    :address  =>  [ :invalid ],
+  }}
 
-  describe "#[]=" do
-    it "adds error" do
-      errors[:foo] = 'omg'
-      errors[:foo] = 'wtf'
-      expect(errors[:foo].length).to eq(2)
+  before do
+    errors.each do |attribute, error_list|
+      error_list.each do |error|
+        collection[attribute] = error
+      end
     end
   end
 
   describe "#clear" do
-    it "removes all errors" do
-      errors[:foo] = 'omg'
-      errors.clear
-      expect(errors).to be_empty
-    end
+    before { collection.clear }
+    it { should be_empty}
   end
 
-  describe "#has_key?" do
-    context "when the attribute has an error" do
-      before { errors.add(:foo, "wtf") }
-      it "returns true" do
-        expect(errors).to have_key(:foo)
-      end
-    end
-
-    context "when attribute has empty array" do
-      before { errors.set(:foo, []) }
-      it "returns false" do
-        expect(errors).not_to have_key(:foo)
-      end
-    end
-
-    context "when empty" do
-      it "returns false" do
-        expect(errors).not_to have_key(:foo)
-      end
-    end
-
+  describe "#include?" do
+    it { should be_include :name }
+    it { should be_include :email }
+    it { should_not be_include 'name' }
+    it { should_not be_include 'email' }
   end
 
-  describe "humanity" do
-    specify do
-      errors.add(:foo, "omg")
-      error = errors[:foo].first
-      expect(error).not_to be_robot
-      expect(error).to be_human
-    end
+  describe "#get" do
+    subject { collection.get(:name) }
+    it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
+    its(:length) { should be 1 }
 
-    specify do
-      errors.add(:foo, :omg)
-      error = errors[:foo].first
-      #expect(error).not_to be_human
-      expect(error).to be_robot
-    end
-
-    specify do
-      errors.add(:foo, [:omg, "omg"])
-      error = errors[:foo].first
-      expect(error).to be_human
-      expect(error).to be_robot
-    end
-  end
-
-  describe "#[]<<" do
-    it "adds error" do
-      pending "unsupported with this architecture"
-      errors[:foo] << [:invalid, 'omg']
-      expect(errors[:foo].length).to eq(1)
-      expect(errors[:foo].first.key).to eq(:invalid)
-      expect(errors[:foo].first.message).to eq('omg')
-    end
-  end
-
-  describe "#delete" do
-    it "removes the error" do
-      errors[:foo] = 'omg'
-      errors.delete(:foo)
-      expect(errors).to be_empty
-    end
-  end
-
-  describe "#add" do
-    it "accepts array values" do
-      errors.add :base, [:invalid, "something is not right"]
-      expect(errors[:base].length).to eq(1)
-    end
-
-    it "accepts strings" do
-      errors.set :base, "the user is invalid"
-      expect(errors[:base].length).to eq(1)
+    describe "when value is nil" do
+      before { collection.delete :name }
+      it { should be_a nil }
     end
   end
 
   describe "#set" do
-    it "accepts array values" do
-      errors.add(:base, "wtf")
-      errors.set :base, ["the user is invalid", "something is not right"]
-      expect(errors[:base].length).to eq(2)
+    subject { collection[:name] }
+
+    describe "When value is array" do
+      before { collection.set(:name, []) }
+      it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
+      its(:length) { should be 0 }
     end
 
-    it "accepts strings" do
-      errors.set :base, "the user is invalid"
-      expect(errors[:base].length).to eq(1)
-    end
+      describe "When value is nil" do
+        before { collection.set(:name, nil) }
+        it { should be_nil }
+      end
+  end
+
+  describe "#delete" do
+    subject { collection.get(:name) }
+    before { collection.delete(:name) }
+    it { should be_nil }
+  end
+
+  describe "#[]" do
+  end
+
+  describe "#[]=" do
+  end
+
+  describe "#each" do
+  end
+
+  describe "#size" do
+  end
+
+  describe "#values" do
+  end
+
+  describe "#keys" do
+  end
+
+  describe "#to_a" do
+  end
+
+  describe "#count" do
+  end
+
+  describe "#empty?" do
+  end
+
+  describe "#add" do
+  end
+
+  describe "#added" do
   end
 end

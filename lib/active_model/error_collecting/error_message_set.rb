@@ -2,20 +2,24 @@ module ActiveModel
   module ErrorCollecting
     class ErrorMessageSet
       include Enumerable
-      delegate :each, :length, to: :@set
-      attr_reader :attribute
-      def initialize(base, attribute, messages, array)
-        @base = base
+      extend  Forwardable
+
+      def_delegators :@set, :each, :length, :clear
+
+      def initialize(attribute, errors=[])
         @attribute = attribute
-        @set = array.map { |element| ErrorMessage.new(@base, @attribute, element) }.to_set
+        @set  = Set.new
+        errors.each { |error| add *error }
       end
 
-      def <<(element)
-        if element.is_a? ErrorMessage
-          @set << element
-        else
-          @set << ErrorMessage.new(@base, @attribute, element)
-        end
+      def add(message, options=nil)
+        error_message = ErrorMessage.build(@attribute, message, options)
+        @set << error_message
+        error_message
+      end
+
+      def <<(error)
+        add *error
       end
 
       def to_a
