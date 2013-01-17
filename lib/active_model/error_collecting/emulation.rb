@@ -13,7 +13,7 @@ module ActiveModel
       ]
 
       HUMAN_REPORTER_METHODS = [
-        :full_messages, :full_message, :generate_messages
+        :full_messages, :full_message, :generate_message
       ]
 
       def self.included(base)

@@ -1,19 +1,39 @@
 module ActiveModel
   module ErrorCollecting
     class HumanReporter
-      def initialize(error_collection)
-        @error_collection = error_collection
+      def initialize(base, collection)
+        @collection = collection
+      end
+
+      def base
+        @collection.base
       end
 
       def full_messages
-        @error_collection.sort_by(&:attribute).map do |error|
-          "#{human_name(error.attribute)} #{error.message}"
+        @collection.map do |attribute, error_message|
+          formatter = HumanMessageFormatter.new(base, error_message)
+          message   = formatter.format_message
+          full_message attribute, message
         end
       end
 
-      private
-      def human_name(attribute)
-        attribute.to_s.split("_").join(" ").capitalize
+      def full_message(attribute, message)
+        return message if attribute == :base
+        attr_name = attribute.to_s.gsub('.', '_').humanize
+        attr_name = base.class.human_attribute_name(attribute, :default => attr_name)
+        I18n.t(:"errors.format", {
+          :default   => "%{attribute} %{message}",
+          :attribute => attr_name,
+          :message   => message
+        })
+      end
+
+      # This method is not used internally.
+      # This is for API Compatibility with ActiveModel::Errors only
+      def generate_message(attribute, type = :invalid, options = {})
+        error_message = ErrorMessage.build(attribute, type, options)
+        formatter     = HumanMessageFormatter.new(base, error_message)
+        formatter.format_message
       end
     end
   end

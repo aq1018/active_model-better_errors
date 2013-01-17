@@ -3,6 +3,7 @@ module ActiveModel
     class ErrorCollection
       include Enumerable
 
+      attr_reader :base
       def initialize(base)
         @base = base
         @collection = {}
