@@ -20,7 +20,7 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
 
   describe "#clear" do
     before { collection.clear }
-    it { should be_empty}
+    it { should be_empty }
   end
 
   describe "#include?" do
@@ -37,20 +37,20 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
 
     describe "when value is nil" do
       before { collection.delete :name }
-      it { should be_a nil }
+      it { should be nil }
     end
   end
 
   describe "#set" do
-    subject { collection[:name] }
+    subject { collection.get :name }
 
-    describe "When value is array" do
+    describe "when value is array" do
       before { collection.set(:name, []) }
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
       its(:length) { should be 0 }
     end
 
-      describe "When value is nil" do
+      describe "when value is nil" do
         before { collection.set(:name, nil) }
         it { should be_nil }
       end
@@ -63,35 +63,133 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
   end
 
   describe "#[]" do
+    subject { collection[:name] }
+
+    describe "when no error messages" do
+      before { collection.clear }
+      it { should be_blank }
+      it { should_not be_nil }
+      it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
+    end
+
+    describe "when there are error messages" do
+      it { should_not be_blank }
+      it { should_not be_nil }
+      it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
+    end
   end
 
   describe "#[]=" do
+    subject(:error_message_set) { collection.get field }
+
+    describe "when assigning existing attribute" do
+      let(:field) { :name }
+      it "should append to existing set" do
+        expect {
+          collection[field] = "I'm invalid."
+        }.to change { error_message_set.length }.by(1)
+      end
+    end
+
+    describe "when assigning to new attribute" do
+      let(:field) { :a_new_attribute }
+      before { collection[field] = "I'm invalid" }
+      it { should_not be_nil }
+      it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
+      its(:length) { should be 1 }
+    end
   end
 
   describe "#each" do
+    it "should loop through each error" do
+      count = 0
+      collection.each do |attribute, error|
+        attribute.should be_a Symbol
+        error.should be_a ActiveModel::ErrorCollecting::ErrorMessage
+        count += 1
+      end
+
+      expect(count).to be collection.size
+    end
   end
 
   describe "#size" do
+    subject { collection.size }
+    it { should be 3 }
+
+    describe "when adding one more error" do
+      before { collection[:name] = "Not Valid" }
+      it { should be 4 }
+    end
   end
 
   describe "#values" do
+    subject { collection.values }
+
+    it { should be_a Array }
+    its(:length) { should be 3 }
+
+    it "should contain ErrorMessageSet as elements" do
+      collection.values.each do |el|
+        el.should be_a ActiveModel::ErrorCollecting::ErrorMessageSet
+      end
+    end
   end
 
   describe "#keys" do
+    subject { collection.keys }
+    it { should == [:name, :email, :address] }
   end
 
   describe "#to_a" do
-  end
+    subject { collection.to_a }
+    its(:size) { should == 3 }
 
-  describe "#count" do
+    describe "when adding one more error" do
+      before { collection[:name] = "Not Valid" }
+      its(:size) { should == 4 }
+    end
+
+    it "should contain ErrorMessage as elements" do
+      collection.to_a.each do |error|
+        error.should be_a ActiveModel::ErrorCollecting::ErrorMessage
+      end
+    end
   end
 
   describe "#empty?" do
+    subject { collection.empty? }
+    it{ should be false }
+
+    describe "after clearing the collection" do
+      before { collection.clear }
+
+      it { should be true }
+    end
   end
 
   describe "#add" do
+    it "should add error to collection" do
+      expect {
+        collection.add :name, "Invalid"
+        }.to change { collection[:name].length }.by(1)
+    end
   end
 
-  describe "#added" do
+  describe "#added?" do
+    describe "when an error message is not added" do
+      subject { collection.added? :name, :not_there }
+      it { should be false }
+    end
+
+    describe "when an error message with the same option is added" do
+      subject { collection.added? :name, :too_long, { :count => 3 } }
+      it { should be true }
+    end
+
+    describe "when an error message with the different option is added" do
+      subject { collection.added? :name, :too_long, { :count => 4 } }
+      it { should be true }
+    end
   end
 end

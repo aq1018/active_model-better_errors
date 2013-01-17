@@ -4,7 +4,7 @@ module ActiveModel
       include Enumerable
       extend  Forwardable
 
-      def_delegators :@set, :each, :length, :clear
+      def_delegators :@set, :each, :length, :size, :clear
 
       def initialize(attribute, errors=[])
         @attribute = attribute
@@ -25,6 +25,12 @@ module ActiveModel
       def to_a
         @set.to_a
       end
+
+      def empty?
+        @set.length == 0
+      end
+      alias_method :blank?, :empty?
+
     end
   end
 end

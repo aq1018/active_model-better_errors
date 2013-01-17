@@ -72,4 +72,19 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
     it { should be_a Array }
     its(:length) { should == 2 }
   end
+
+  describe "#empty?" do
+    subject { set.empty? }
+
+    describe "when no error messages" do
+      it { should be_true }
+    end
+
+    describe "when contains error messages" do
+      let(:errors) { [:invalid, :too_long] }
+      it { should be_false }
+    end
+
+  end
+
 end

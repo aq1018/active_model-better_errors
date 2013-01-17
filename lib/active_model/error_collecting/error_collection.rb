@@ -44,8 +44,9 @@ module ActiveModel
       end
 
       def size
-        values.flatten.size
+        values.inject(0){ |sum, set| sum += set.size }
       end
+      alias_method :count, :size
 
       def values
         @collection.values
@@ -64,16 +65,12 @@ module ActiveModel
         array
       end
 
-      def count
-        array.count
-      end
-
       def empty?
-        all? { |attributes, set| set && set.empty? }
+        size == 0
       end
 
       def add(attribute, message, options = {})
-        @collection[attribute] ||= ErrorMessageSet.new(attribute)
+        self[attribute].add(message, options)
         @collection[attribute].add(message, options)
       end
 
