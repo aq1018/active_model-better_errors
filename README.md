@@ -1,9 +1,9 @@
-= activemodel-better-errors
+# activemodel-better-errors
 
 `activemodel-better-errors` is a `ActiveModel::Errors` compatible library to help you
 customize the presentation of your error messages by specifying.
 
-== Why `activemodel-better-errors`
+## Why `activemodel-better-errors`
 
 In `ActiveModel::Errors`, when an error is added, it is pre translated into human readable string.
 However, this becomes less ideal when output error messages in JSON or XML in your API.
@@ -11,7 +11,7 @@ Most of the times, we want error codes instead of human readable strings. This w
 API consumers to translate them in their own application and provide more flexibility for your
 API.
 
-== How `activemodel-better-errors` Helps
+## How `activemodel-better-errors` Helps
 
 `activemodel-better-errors` helps by sperating the concerns of error message storage and presentation.
 `ActiveModel::Errors` really handles four tasks in a single class:
@@ -23,10 +23,9 @@ API.
 
 This gem seperates these concerns and allows users to plugin various reporters for different presentation needs.
 
-== Setup
+## Setup
 
-
-=== With Bundler
+### With Bundler
 
 ```ruby
 # in Gemfile
@@ -38,13 +37,13 @@ gem 'activemodel-better-errors', '~> 1.2.0'
 bundle install
 ```
 
-=== With RubyGems
+### With RubyGems
 
 ```
 gem install activemodel-better-errors
 ```
 
-== Configure
+## Configure
 
 By default, `activemodel-better-errors` is a drop-in replacement for `ActiveModel::Errors`
 and will mostly function without modifications. This is because the default reporters are set like the following:
@@ -66,7 +65,7 @@ ActiveModel::ErrorCollecting.set_reporter :hash,     :machine
 Note: The configurations above determines *default* reporters to use, you can always switch to
 any reporters you want during runtime by invoking `errors.set_reporter`
 
-== Usage
+## Usage
 
 ```ruby
 user.errors # returns an instance of ActiveModel::ErrorCollecting::Errors
@@ -105,7 +104,7 @@ user.errors.to_json # custom behavior
 
 ```
 
-== In Depth
+## In Depth
 
 This library creates three types of reporters to take care of
 some presentation aspects of `ActiveModel::Errors`, and they are:
@@ -147,7 +146,7 @@ This library implements the following reporters of this type:
 * `MachineHashReporter`
 
 
-== Creating Custom Reporters
+## Creating Custom Reporters
 
 Creating a custom reporter is easy. Here is an example to create a hash reporter
 
@@ -162,7 +161,7 @@ end
 ActiveModel::ErrorCollecting.set_reporter :hash, MyHashReporter
 ```
 
-== Contributing to activemodel-better-errors
+## Contributing to activemodel-better-errors
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -172,7 +171,7 @@ ActiveModel::ErrorCollecting.set_reporter :hash, MyHashReporter
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2013 Aaron Qian. See LICENSE.txt for
 further details.
