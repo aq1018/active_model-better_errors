@@ -5,6 +5,8 @@ require 'active_model/error_collecting/human_message_formatter'
 require 'active_model/error_collecting/human_message_reporter'
 require 'active_model/error_collecting/human_hash_reporter'
 require 'active_model/error_collecting/human_array_reporter'
+require 'active_model/error_collecting/machine_hash_reporter'
+require 'active_model/error_collecting/machine_array_reporter'
 require 'active_model/error_collecting/emulation'
 require 'active_model/error_collecting/errors'
 
