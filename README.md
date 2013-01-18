@@ -1,9 +1,9 @@
-# activemodel-better-errors
+# ActiveModel Better Errors
 
 `activemodel-better-errors` is a `ActiveModel::Errors` compatible library to help you
 customize the presentation of your error messages by specifying.
 
-## Why `activemodel-better-errors`
+## Why Better Errors
 
 In `ActiveModel::Errors`, when an error is added, it is pre translated into human readable string.
 However, this becomes less ideal when output error messages in JSON or XML in your API.
@@ -11,9 +11,9 @@ Most of the times, we want error codes instead of human readable strings. This w
 API consumers to translate them in their own application and provide more flexibility for your
 API.
 
-## How `activemodel-better-errors` Helps
+## How Better Errors Work
 
-`activemodel-better-errors` helps by sperating the concerns of error message storage and presentation.
+`activemodel-better-errors` works by sperating the concerns of error message storage and presentation.
 `ActiveModel::Errors` really handles four tasks in a single class:
 
 * error data storage
