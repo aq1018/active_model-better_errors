@@ -26,8 +26,9 @@ module ActiveModel
         get_reporter(:array)
       end
 
-      def set_reporter(type, klass)
+      def set_reporter(type, reporter)
         type = type.to_s
+        klass = ::ActiveModel::ErrorCollecting.get_reporter_class(type, reporter)
         @reporter_classes[type] = klass
         @reporters.delete type
       end

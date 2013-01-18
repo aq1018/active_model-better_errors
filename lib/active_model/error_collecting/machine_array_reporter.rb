@@ -1,21 +1,6 @@
 module ActiveModel
   module ErrorCollecting
-    class MachineArrayReporter
-      attr_reader :collection
-      def initialize(collection)
-        @collection = collection
-      end
-
-      def base
-        @collection.base
-      end
-
-      def to_a
-        @collection.to_a.map do |error_message|
-          format_error_message error_message
-        end
-      end
-
+    class MachineArrayReporter < ArrayReporter
       def format_error_message(error_message)
         result = {}
         result[:attribute] = error_message.attribute.to_s

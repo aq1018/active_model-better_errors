@@ -1,15 +1,6 @@
 module ActiveModel
   module ErrorCollecting
-    class HumanArrayReporter
-      attr_reader :collection
-      def initialize(collection)
-        @collection = collection
-      end
-
-      def base
-        @collection.base
-      end
-
+    class HumanArrayReporter < ArrayReporter
       def to_a
         HumanMessageReporter.new(collection).full_messages
       end

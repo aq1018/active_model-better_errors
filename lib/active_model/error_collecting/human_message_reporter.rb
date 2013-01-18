@@ -1,15 +1,6 @@
 module ActiveModel
   module ErrorCollecting
-    class HumanMessageReporter
-      attr_reader :collection
-      def initialize(collection)
-        @collection = collection
-      end
-
-      def base
-        @collection.base
-      end
-
+    class HumanMessageReporter < MessageReporter
       def full_messages
         @collection.map do |attribute, error_message|
           formatter = HumanMessageFormatter.new(base, error_message)
