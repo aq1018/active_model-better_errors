@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "activemodel-better-errors"
-  s.version = "1.1.0"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Qian", "Byron Anderson"]
@@ -27,17 +27,21 @@ Gem::Specification.new do |s|
     "VERSION",
     "activemodel-better-errors.gemspec",
     "lib/active_model/error_collecting.rb",
+    "lib/active_model/error_collecting/array_reporter.rb",
     "lib/active_model/error_collecting/emulation.rb",
     "lib/active_model/error_collecting/error_collection.rb",
     "lib/active_model/error_collecting/error_message.rb",
     "lib/active_model/error_collecting/error_message_set.rb",
     "lib/active_model/error_collecting/errors.rb",
+    "lib/active_model/error_collecting/hash_reporter.rb",
     "lib/active_model/error_collecting/human_array_reporter.rb",
     "lib/active_model/error_collecting/human_hash_reporter.rb",
     "lib/active_model/error_collecting/human_message_formatter.rb",
     "lib/active_model/error_collecting/human_message_reporter.rb",
     "lib/active_model/error_collecting/machine_array_reporter.rb",
     "lib/active_model/error_collecting/machine_hash_reporter.rb",
+    "lib/active_model/error_collecting/message_reporter.rb",
+    "lib/active_model/error_collecting/reporter.rb",
     "lib/activemodel-better-errors.rb",
     "spec/activemodel-better-errors_spec.rb",
     "spec/lib/active_model/error_collecting/emulation_spec.rb",
