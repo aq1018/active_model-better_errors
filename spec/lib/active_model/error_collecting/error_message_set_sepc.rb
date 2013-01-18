@@ -84,7 +84,13 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
       let(:errors) { [:invalid, :too_long] }
       it { should be_false }
     end
-
   end
 
+  describe "#==" do
+    subject { set == errors }
+    let(:errors) { [:invalid, :too_long] }
+    describe "When comparing with array" do
+      it { should be true }
+    end
+  end
 end

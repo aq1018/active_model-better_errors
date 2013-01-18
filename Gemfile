@@ -10,4 +10,6 @@ group :development do
   gem "bundler"
   gem "jeweler"
   gem "simplecov"
+  gem 'bcrypt-ruby', '~> 3.0.0'
+  gem 'mocha', '>= 0.12.1'
 end

@@ -17,7 +17,7 @@ describe ActiveModel::ErrorCollecting::Emulation do
   delegation_map = {
     error_collection: [
       :clear, :include?, :get, :set, :delete, :[], :[]=, :each, :size,
-      :values, :keys, :count, :empty?, :added?, :add
+      :values, :keys, :count, :empty?, :added?
     ],
 
     message_reporter: [

@@ -64,17 +64,17 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when override is nil" do
         let(:override) { nil }
-        it { should == [:invalid, "Invalid"] }
+        it { should == [nil, "Invalid"] }
       end
 
       context "when override is a string" do
         let(:override) { "not good" }
-        it { should == [:invalid, "not good"] }
+        it { should == [nil, "not good"] }
       end
 
       context "when override is a proc" do
         let(:override) { proc { "Not Good" } }
-        it { should == [:invalid, "Not Good"] }
+        it { should == [nil, "Not Good"] }
       end
     end
 
@@ -88,17 +88,17 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when override is nil" do
         let(:override) { nil }
-        it { should == [:invalid, nil] }
+        it { should == [nil, nil] }
       end
 
       context "when override is a string" do
         let(:override) { "not good" }
-        it { should == [:invalid, "not good"] }
+        it { should == [nil, "not good"] }
       end
 
       context "when override is a proc" do
         let(:override) { proc { "Not Good" } }
-        it { should == [:invalid, "Not Good"] }
+        it { should == [nil, "Not Good"] }
       end
     end
 
@@ -112,17 +112,17 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when override is nil" do
         let(:override) { nil }
-        it { should == [:invalid, "invalid"] }
+        it { should == [nil, "invalid"] }
       end
 
       context "when override is a string" do
         let(:override) { "not good" }
-        it { should == [:invalid, "not good"] }
+        it { should == [nil, "not good"] }
       end
 
       context "when override is a proc" do
         let(:override) { proc { "Not Good" } }
-        it { should == [:invalid, "Not Good"] }
+        it { should == [nil, "Not Good"] }
       end
     end
   end
@@ -162,7 +162,7 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when options[:message] is a string" do
         let(:options) { { message: "Not Really Valid!" } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == options[:message] }
       end
 
@@ -174,13 +174,13 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when options[:message] is nil" do
         let(:options) { { } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == message }
       end
 
       context "when options[:message] is proc" do
         let(:options) { { message: proc { "Not Really Valid!" } } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == options[:message].call }
       end
     end
@@ -190,7 +190,7 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when options[:message] is a string" do
         let(:options) { { message: "Not Really Valid!" } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == options[:message] }
       end
 
@@ -202,13 +202,13 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when options[:message] is nil" do
         let(:options) { { } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == message.call }
       end
 
       context "when options[:message] is proc" do
         let(:options) { { message: proc { "Not Really Valid!" } } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == options[:message].call }
       end
     end
@@ -219,7 +219,7 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when options[:message] is a string" do
         let(:options) { { message: "Not Really Valid!" } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == options[:message] }
       end
 
@@ -231,13 +231,13 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
 
       context "when options[:message] is nil" do
         let(:options) { { } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == nil }
       end
 
       context "when options[:message] is proc" do
         let(:options) { { message: proc { "Not Really Valid!" } } }
-        its(:type)    { should == :invalid }
+        its(:type)    { should == nil }
         its(:message) { should == options[:message].call }
       end
     end
@@ -288,6 +288,5 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
       let(:e2) { klass.build :name, :invalid }
       it { should == 0 }
     end
-
   end
 end

@@ -36,6 +36,21 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
+dir = File.dirname(__FILE__)
+
+require 'rake/testtask'
+
+test_files = []
+test_files << "test/integration"
+test_files << "vendor/rails/activemodel/test/cases/errors_test.rb"
+
+Rake::TestTask.new("test:integration") do |t|
+  t.libs << "vendor/rails/activemodel/test"
+  t.test_files = test_files
+  t.warning = true
+end
+
+
 task :default => :spec
 
 require 'yard'

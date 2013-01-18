@@ -4,12 +4,12 @@ module ActiveModel
       include Enumerable
       extend  Forwardable
 
-      def_delegators :@set, :each, :length, :size, :clear
+      def_delegators :@set, :each, :length, :size, :clear, :first, :last, :[]
 
       def initialize(attribute, errors=[])
         @attribute = attribute
-        @set  = Set.new
-        errors.each { |error| add *error }
+        @set  = []
+        errors.each { |error| add(*error) }
       end
 
       def add(message, options=nil)
@@ -18,12 +18,16 @@ module ActiveModel
         error_message
       end
 
+      def []=(index, error)
+        @set[index] = ErrorMessage.build(@attribute, *error)
+      end
+
       def <<(error)
-        add *error
+        add(*error)
       end
 
       def to_a
-        @set.to_a
+        @set.dup
       end
 
       def empty?

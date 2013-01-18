@@ -3,7 +3,7 @@ module ActiveModel
     class HumanMessageFormatter
       extend Forwardable
 
-      def_delegators :@error_message, :attribute, :type, :message, :options
+      def_delegators :@error_message, :attribute, :message, :options
 
       attr_reader :base, :error_message
 
@@ -11,7 +11,13 @@ module ActiveModel
         @base, @error_message = base, error_message
       end
 
+      def type
+        @error_message.type || :invalid
+      end
+
       def format_message
+        return message if message
+
         keys = i18n_keys
         key  = keys.shift
 

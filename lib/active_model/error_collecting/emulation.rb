@@ -9,7 +9,7 @@ module ActiveModel
       MODEL_METHODS = [
         :clear, :include?, :get, :set, :delete, :[], :[]=,
         :each, :size, :values, :keys, :count, :empty?,
-        :added?, :add
+        :added?
       ]
 
       MESSAGE_REPORTER_METHODS = [
@@ -44,6 +44,22 @@ module ActiveModel
         end
       end
 
+      def add(attribute, message, options = {})
+        if options[:strict]
+          error   = ErrorMessage.build(attribute, message, options)
+          message = HumanMessageFormatter.new(@base, error).format_message
+          raise ActiveModel::StrictValidationFailed, full_message(attribute, message)
+        end
+        error_collection.add attribute, message, options
+      end
+
+      def to_xml(options={})
+        to_a.to_xml options.reverse_merge(:root => "errors", :skip_types => true)
+      end
+
+      def as_json(options=nil)
+        to_hash
+      end
     end
   end
 end

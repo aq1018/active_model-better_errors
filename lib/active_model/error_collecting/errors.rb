@@ -7,7 +7,7 @@ module ActiveModel
       def initialize(base)
         @base = base
         @reporters = {}
-        @reporter_classes = {}
+        @reporter_classes = reporter_classes
       end
 
       def error_collection

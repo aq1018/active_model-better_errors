@@ -31,7 +31,6 @@ module ActiveModel
         string = override if override.is_a?(String)
 
         string = nil if string.blank?
-        symbol ||= :invalid
 
         [symbol, string]
       end
@@ -55,15 +54,7 @@ module ActiveModel
       end
 
       def <=> (other)
-        equal = [:attribute, :type, :message].all? do |method|
-          ( send(method) <=> other.send(method) ) == 0
-        end
-
-        equal ? 0 : nil
-      end
-
-      def eql?(other)
-        self.class == other.class && self <=> other
+        to_hash <=> other.to_hash
       end
 
       def to_hash

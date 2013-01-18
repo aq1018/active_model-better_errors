@@ -197,7 +197,7 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
 
     describe "when an error message with the different option is added" do
       subject { collection.added? :name, :too_long, { :count => 4 } }
-      it { should be true }
+      it { should be false }
     end
   end
 end

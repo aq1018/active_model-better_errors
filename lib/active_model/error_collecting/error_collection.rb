@@ -76,7 +76,6 @@ module ActiveModel
 
       def add(attribute, message, options = {})
         self[attribute].add(message, options)
-        @collection[attribute].add(message, options)
       end
 
       def added?(attribute, message = nil, options = {})
