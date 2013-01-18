@@ -66,6 +66,10 @@ module ActiveModel
         array
       end
 
+      def to_hash
+        @collection.dup
+      end
+
       def empty?
         size == 0
       end

@@ -157,6 +157,14 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
     end
   end
 
+  describe "#to_hash" do
+    subject { collection.to_hash }
+
+    it { should be_a Hash }
+    it { should == collection.instance_variable_get(:@collection) }
+    it { should_not be collection.instance_variable_get(:@collection) }
+  end
+
   describe "#empty?" do
     subject { collection.empty? }
     it{ should be false }

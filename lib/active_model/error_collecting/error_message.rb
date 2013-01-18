@@ -18,8 +18,12 @@ module ActiveModel
         end
       end
 
-      def identify(message, override)
+      def self.identify(message, override)
         symbol = string = nil
+
+        message   = normalize message
+        override  = normalize override
+
         symbol = message if message.is_a?(Symbol)
         symbol = override if override.is_a?(Symbol)
 
@@ -27,20 +31,16 @@ module ActiveModel
         string = override if override.is_a?(String)
 
         string = nil if string.blank?
+        symbol ||= :invalid
 
         [symbol, string]
       end
 
       def self.build(attribute, message, options=nil)
-        raise ArgumentError, "message cannot be nil" if message.blank?
-
         options   = options ? options : {}
         options   = options.except(*CALLBACKS_OPTIONS)
 
-        message   = normalize_message message
-        override  = normalize_message options.delete(:message)
-
-        symbol, string = identify message, override
+        symbol, string = identify message, options.delete(:message)
 
         new(attribute, symbol, string, options)
       end

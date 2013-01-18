@@ -5,8 +5,11 @@ require 'active_model/error_collecting/error_message'
 require 'active_model/error_collecting/error_message_set'
 require 'active_model/error_collecting/error_collection'
 
-require 'active_model/error_collecting/hash_reporter'
-require 'active_model/error_collecting/human_reporter'
+require 'active_model/error_collecting/human_message_formatter'
+require 'active_model/error_collecting/human_message_reporter'
+require 'active_model/error_collecting/human_hash_reporter'
+require 'active_model/error_collecting/human_array_reporter'
+
 require 'active_model/error_collecting/emulation'
 require 'active_model/error_collecting/errors'
 

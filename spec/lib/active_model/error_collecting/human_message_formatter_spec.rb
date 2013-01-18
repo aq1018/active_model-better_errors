@@ -1,35 +1,22 @@
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::HumanMessageFormatter do
-  subject(:formatter) { klass.new base, }
-  let(:klass) { ActiveModel::ErrorCollecting::HumanMessageFormatter }
+  subject(:formatter) { klass.new base, error_message }
+  let(:klass)         { ActiveModel::ErrorCollecting::HumanMessageFormatter }
+  let(:base)          { User.new }
+  let(:error_message) { ActiveModel::ErrorCollecting::ErrorMessage.build :first_name, :invalid }
 
-  delegation_map = {
-    error_collection: [
-      :clear, :include?, :get, :set, :delete, :[], :[]=, :each, :size,
-      :values, :keys, :count, :empty?, :added?, :add
-    ],
+  describe "#initialize" do
+    its(:base) { should be base }
+    its(:error_message) { should be error_message }
+    its(:attribute) { should be error_message.attribute }
+    its(:type) { should be error_message.type }
+    its(:message) { should be error_message.message }
+    its(:options) { should be error_message.options }
+  end
 
-    human_reporter: [
-      :full_messages, :full_message, :generate_messages
-    ],
-
-    hash_reporter: [
-      :to_hash
-    ],
-
-    hash_reporter: [
-      :to_hash
-    ]
-  }
-
-  delegation_map.each do |target, methods|
-    methods.each do |method|
-      describe "delegating ##{method} to  ##{target}" do
-        let(:target) { target }
-        let(:method) { method }
-        it_should_behave_like "a delegated method"
-      end
-    end
+  describe "#format_message" do
+    subject { formatter.format_message }
+    it { should == "is invalid" }
   end
 end

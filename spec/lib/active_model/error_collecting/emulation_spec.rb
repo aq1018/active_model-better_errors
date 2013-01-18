@@ -21,7 +21,7 @@ describe ActiveModel::ErrorCollecting::Emulation do
     ],
 
     human_reporter: [
-      :full_messages, :full_message, :generate_messages
+      :full_messages, :full_message, :generate_message
     ],
 
     hash_reporter: [

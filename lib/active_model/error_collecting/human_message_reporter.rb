@@ -1,7 +1,8 @@
 module ActiveModel
   module ErrorCollecting
-    class HumanReporter
-      def initialize(base, collection)
+    class HumanMessageReporter
+      attr_reader :collection
+      def initialize(collection)
         @collection = collection
       end
 
