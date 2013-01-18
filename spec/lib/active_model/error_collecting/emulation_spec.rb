@@ -20,7 +20,7 @@ describe ActiveModel::ErrorCollecting::Emulation do
       :values, :keys, :count, :empty?, :added?, :add
     ],
 
-    human_reporter: [
+    message_reporter: [
       :full_messages, :full_message, :generate_message
     ],
 
