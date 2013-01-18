@@ -51,7 +51,7 @@ Rake::TestTask.new("test:integration") do |t|
 end
 
 
-task :default => :spec
+task :default => [ :spec, :"test:integration" ]
 
 require 'yard'
 YARD::Rake::YardocTask.new
