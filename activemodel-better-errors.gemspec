@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "activemodel-better-errors"
-  s.version = "1.0.0"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Qian", "Byron Anderson"]
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "activemodel-better-errors.gemspec",
     "lib/active_model/error_collecting.rb",
     "lib/active_model/error_collecting/emulation.rb",
     "lib/active_model/error_collecting/error_collection.rb",
@@ -35,6 +36,8 @@ Gem::Specification.new do |s|
     "lib/active_model/error_collecting/human_hash_reporter.rb",
     "lib/active_model/error_collecting/human_message_formatter.rb",
     "lib/active_model/error_collecting/human_message_reporter.rb",
+    "lib/active_model/error_collecting/machine_array_reporter.rb",
+    "lib/active_model/error_collecting/machine_hash_reporter.rb",
     "lib/activemodel-better-errors.rb",
     "spec/activemodel-better-errors_spec.rb",
     "spec/lib/active_model/error_collecting/emulation_spec.rb",
@@ -46,6 +49,8 @@ Gem::Specification.new do |s|
     "spec/lib/active_model/error_collecting/human_hash_reporter_spec.rb",
     "spec/lib/active_model/error_collecting/human_message_formatter_spec.rb",
     "spec/lib/active_model/error_collecting/human_message_reporter_spec.rb",
+    "spec/lib/active_model/error_collecting/machine_array_reporter_spec.rb",
+    "spec/lib/active_model/error_collecting/machine_hash_reporter_spec.rb",
     "spec/lib/active_model/error_collecting_spec.rb",
     "spec/spec_helper.rb",
     "spec/support/models.rb",
