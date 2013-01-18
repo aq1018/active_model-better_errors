@@ -3,17 +3,19 @@ module ActiveModel
     class Errors
       include Emulation
 
-      def initialize(base, options={})
+      attr_reader :base
+      def initialize(base)
         @base = base
-        @reporters ||= {}
+        @reporters = {}
+        @reporter_classes = {}
       end
 
       def error_collection
         @error_collection ||= ErrorCollection.new(@base)
       end
 
-      def human_reporter
-        get_reporter(:human)
+      def message_reporter
+        get_reporter(:message)
       end
 
       def hash_reporter
@@ -33,7 +35,7 @@ module ActiveModel
       def get_reporter(type)
         type = type.to_s
         klass = get_reporter_class(type)
-        @reports[type] = klass.new(error_collection)
+        @reporters[type] = klass.new(error_collection)
       end
 
       def reporter_classes

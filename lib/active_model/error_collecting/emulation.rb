@@ -12,7 +12,7 @@ module ActiveModel
         :added?, :add
       ]
 
-      HUMAN_REPORTER_METHODS = [
+      MESSAGE_REPORTER_METHODS = [
         :full_messages, :full_message, :generate_message
       ]
 
@@ -20,7 +20,7 @@ module ActiveModel
         base.class_eval do
           extend Forwardable
           def_delegators :error_collection, *MODEL_METHODS
-          def_delegators :human_reporter,   *HUMAN_REPORTER_METHODS
+          def_delegators :message_reporter, *MESSAGE_REPORTER_METHODS
           def_delegators :hash_reporter,    :to_hash
           def_delegators :array_reporter,   :to_a
 
