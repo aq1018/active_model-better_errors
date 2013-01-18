@@ -1,6 +1,6 @@
 module ActiveModel
   module ErrorCollecting
-    class HashReporter < Reporter
+    class ArrayReporter < Reporter
       def to_a
         raise "abstract method"
       end

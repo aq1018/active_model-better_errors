@@ -6,7 +6,7 @@ describe ActiveModel::ErrorCollecting do
     before { ActiveModel::ErrorCollecting.set_reporter name, reporter }
     after  { ActiveModel::ErrorCollecting.set_reporter name, nil }
     let(:name) { :mock }
-    let(:reporter) { mock() }
+    let(:reporter) { Class.new }
     it { should be reporter }
   end
 

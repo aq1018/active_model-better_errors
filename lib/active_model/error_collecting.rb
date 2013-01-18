@@ -24,8 +24,8 @@ module ActiveModel
       def set_reporter(name, reporter)
         name = name.to_s
         @reporter_maps ||= {}
+        return @reporter_maps.delete(name) unless reporter
         @reporter_maps[name] = get_reporter_class(name, reporter)
-        @reporter_maps.delete(name) unless reporter
       end
 
       def reporters
@@ -35,8 +35,8 @@ module ActiveModel
 
       def get_reporter_class(name, reporter)
         return reporter if reporter.is_a? Class
-        class_name = "active_model/error_collecting/#{reporter}/#{name}/Reporter"
-        class_name.classify.contantize
+        class_name = "active_model/error_collecting/#{reporter}_#{name}_reporter"
+        class_name.classify.constantize
       end
     end
 
