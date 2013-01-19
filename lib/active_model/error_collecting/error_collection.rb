@@ -75,7 +75,7 @@ module ActiveModel
       end
 
       def add(attribute, message, options = {})
-        self[attribute].add(message, options)
+        self[attribute] << [ message, options ]
       end
 
       def added?(attribute, message = nil, options = {})
