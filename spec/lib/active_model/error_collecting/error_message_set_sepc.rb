@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::ErrorMessageSet do
-  subject(:set)   { klass.new attribute, errors }
+  subject(:set)   { klass.new base, attribute, errors }
   let(:klass)     { ActiveModel::ErrorCollecting::ErrorMessageSet }
   let(:attribute) { :name }
   let(:errors)    { [] }
-
+  let(:base)      { User.new }
 
   describe "#initialize" do
     context "with no errors" do

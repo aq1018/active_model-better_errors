@@ -23,7 +23,7 @@ module ActiveModel
 
       def set(attribute, errors)
         return delete attribute if errors.nil?
-        @collection[attribute] = ErrorMessageSet.new(attribute, errors)
+        @collection[attribute] = ErrorMessageSet.new(base, attribute, errors)
       end
 
       def delete(attribute)
@@ -79,7 +79,7 @@ module ActiveModel
       end
 
       def added?(attribute, message = nil, options = {})
-        self[attribute].include? ErrorMessage.build(attribute, message, options)
+        self[attribute].include? ErrorMessage.build(base, attribute, message, options)
       end
     end
   end

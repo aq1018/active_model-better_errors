@@ -23,7 +23,7 @@ module ActiveModel
       # This method is not used internally.
       # This is for API Compatibility with ActiveModel::Errors only
       def generate_message(attribute, type = :invalid, options = {})
-        error_message = ErrorMessage.build(attribute, type, options)
+        error_message = ErrorMessage.build(base, attribute, type, options)
         formatter     = HumanMessageFormatter.new(base, error_message)
         formatter.format_message
       end

@@ -17,10 +17,10 @@ describe ActiveModel::ErrorCollecting::HumanMessageReporter do
 
   describe "#full_message" do
     subject { reporter.full_message attribute, message }
-    let(:attribute) { :name }
+    let(:attribute) { :first_name }
     let(:message)   { "is invalid" }
 
-    it { should == "Name is invalid" }
+    it { should == "First name is invalid" }
   end
 
   describe "#full_messages" do

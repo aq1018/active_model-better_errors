@@ -6,20 +6,21 @@ module ActiveModel
 
       def_delegators :@set, :each, :length, :size, :clear, :first, :last, :[]
 
-      def initialize(attribute, errors=[])
+      def initialize(base, attribute, errors=[])
+        @base      = base
         @attribute = attribute
-        @set  = []
+        @set        = []
         errors.each { |error| add(*error) }
       end
 
       def add(message, options=nil)
-        error_message = ErrorMessage.build(@attribute, message, options)
+        error_message = ErrorMessage.build(@base, @attribute, message, options)
         @set << error_message
         error_message
       end
 
       def []=(index, error)
-        @set[index] = ErrorMessage.build(@attribute, *error)
+        @set[index] = ErrorMessage.build(@base, @attribute, *error)
       end
 
       def <<(error)

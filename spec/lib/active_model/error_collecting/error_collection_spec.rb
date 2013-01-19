@@ -3,11 +3,11 @@ require 'spec_helper'
 describe ActiveModel::ErrorCollecting::ErrorCollection do
   subject(:collection) { klass.new(base) }
   let(:klass) { ActiveModel::ErrorCollecting::ErrorCollection }
-  let(:base)  { mock() }
+  let(:base)  { User.new }
   let(:errors){{
-    :name     =>  [ [ :too_long, { count: 3 } ] ],
-    'email'   =>  [ [ :invalid, { message: "Invalid" } ] ],
-    :address  =>  [ :invalid ],
+    :first_name =>  [ [ :too_long, { count: 3 } ] ],
+    'last_name' =>  [ [ :invalid, { message: "Invalid" } ] ],
+    :email  =>  [ :invalid ],
   }}
 
   before do
@@ -24,46 +24,48 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
   end
 
   describe "#include?" do
-    it { should be_include :name }
+    it { should be_include :first_name }
+    it { should be_include :last_name }
     it { should be_include :email }
-    it { should_not be_include 'name' }
+    it { should_not be_include 'first_name' }
+    it { should_not be_include 'last_name' }
     it { should_not be_include 'email' }
   end
 
   describe "#get" do
-    subject { collection.get(:name) }
+    subject { collection.get(:first_name) }
     it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
     its(:length) { should be 1 }
 
     describe "when value is nil" do
-      before { collection.delete :name }
+      before { collection.delete :first_name }
       it { should be nil }
     end
   end
 
   describe "#set" do
-    subject { collection.get :name }
+    subject { collection.get :first_name }
 
     describe "when value is array" do
-      before { collection.set(:name, []) }
+      before { collection.set(:first_name, []) }
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessageSet }
       its(:length) { should be 0 }
     end
 
       describe "when value is nil" do
-        before { collection.set(:name, nil) }
+        before { collection.set(:first_name, nil) }
         it { should be_nil }
       end
   end
 
   describe "#delete" do
-    subject { collection.get(:name) }
-    before { collection.delete(:name) }
+    subject { collection.get(:first_name) }
+    before { collection.delete(:first_name) }
     it { should be_nil }
   end
 
   describe "#[]" do
-    subject { collection[:name] }
+    subject { collection[:first_name] }
 
     describe "when no error messages" do
       before { collection.clear }
@@ -83,7 +85,7 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
     subject(:error_message_set) { collection.get field }
 
     describe "when assigning existing attribute" do
-      let(:field) { :name }
+      let(:field) { :first_name }
       it "should append to existing set" do
         expect {
           collection[field] = "I'm invalid."
@@ -138,7 +140,7 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
 
   describe "#keys" do
     subject { collection.keys }
-    it { should == [:name, :email, :address] }
+    it { should == [:first_name, :last_name, :email] }
   end
 
   describe "#to_a" do
@@ -191,7 +193,7 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
     end
 
     describe "when an error message with the same option is added" do
-      subject { collection.added? :name, :too_long, { :count => 3 } }
+      subject { collection.added? :first_name, :too_long, { :count => 3 } }
       it { should be true }
     end
 

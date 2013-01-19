@@ -3,7 +3,8 @@ require 'spec_helper'
 describe ActiveModel::ErrorCollecting::ErrorMessage do
   let(:klass)     { ActiveModel::ErrorCollecting::ErrorMessage }
   let(:attribute) { :name }
-  subject(:error_message) { klass.build(attribute, message, options) }
+  let(:base)      { User.new }
+  subject(:error_message) { klass.build(base, attribute, message, options) }
 
   describe ".normalize" do
     subject { klass.normalize message }
@@ -266,26 +267,26 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
     subject { e1 <=> e2 }
 
     context "when attribute is different" do
-      let(:e1) { klass.build :name, :invalid }
-      let(:e2) { klass.build :name1, :invalid }
+      let(:e1) { klass.build base, :name, :invalid }
+      let(:e2) { klass.build base, :name1, :invalid }
       it {should == nil }
     end
 
     context "when type is different" do
-      let(:e1) { klass.build :name, :invalid }
-      let(:e2) { klass.build :name, :invalid1 }
+      let(:e1) { klass.build base, :name, :invalid }
+      let(:e2) { klass.build base, :name, :invalid1 }
       it {should == nil }
     end
 
     context "when message is different" do
-      let(:e1) { klass.build :name, :invalid, :message => "a" }
-      let(:e2) { klass.build :name, :invalid, :message => "b" }
+      let(:e1) { klass.build base, :name, :invalid, :message => "a" }
+      let(:e2) { klass.build base, :name, :invalid, :message => "b" }
       it {should == nil }
     end
 
     context "when it is the same" do
-      let(:e1) { klass.build :name, :invalid }
-      let(:e2) { klass.build :name, :invalid }
+      let(:e1) { klass.build base, :name, :invalid }
+      let(:e2) { klass.build base, :name, :invalid }
       it { should == 0 }
     end
   end

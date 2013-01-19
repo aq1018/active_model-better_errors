@@ -35,18 +35,19 @@ module ActiveModel
         [symbol, string]
       end
 
-      def self.build(attribute, message, options=nil)
+      def self.build(base, attribute, message, options=nil)
         options   = options ? options : {}
         options   = options.except(*CALLBACKS_OPTIONS)
 
         symbol, string = identify message, options.delete(:message)
 
-        new(attribute, symbol, string, options)
+        new(base, attribute, symbol, string, options)
       end
 
-      attr_reader :attribute, :type, :message, :options
+      attr_reader :base, :attribute, :type, :message, :options
 
-      def initialize(attribute, type, message, options = {})
+      def initialize(base, attribute, type, message, options = {})
+        @base       = base
         @attribute  = attribute
         @type       = type
         @message    = message
@@ -69,6 +70,12 @@ module ActiveModel
       def hash
         to_hash.hash
       end
+
+      def to_s
+        return message if message
+        HumanMessageFormatter.new(base, self).format_message
+      end
+
     end
   end
 end

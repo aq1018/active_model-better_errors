@@ -4,7 +4,7 @@ describe ActiveModel::ErrorCollecting::HumanMessageFormatter do
   subject(:formatter) { klass.new base, error_message }
   let(:klass)         { ActiveModel::ErrorCollecting::HumanMessageFormatter }
   let(:base)          { User.new }
-  let(:error_message) { ActiveModel::ErrorCollecting::ErrorMessage.build :first_name, :invalid }
+  let(:error_message) { ActiveModel::ErrorCollecting::ErrorMessage.build base, :first_name, :invalid }
 
   describe "#initialize" do
     its(:base) { should be base }

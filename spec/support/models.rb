@@ -16,7 +16,7 @@ class BasicModel
 end
 
 class User < BasicModel
-  attr_accessor :first_name, :last_name
+  attr_accessor :first_name, :last_name, :email
 
   validates :first_name, :last_name, presence: { message: "plz...?" }
 end
