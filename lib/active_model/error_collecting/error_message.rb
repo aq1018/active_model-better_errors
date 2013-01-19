@@ -72,8 +72,11 @@ module ActiveModel
       end
 
       def to_s
-        return message if message
         HumanMessageFormatter.new(base, self).format_message
+      end
+
+      def inspect
+        to_s.inspect
       end
 
     end

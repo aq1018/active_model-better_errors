@@ -1,11 +1,6 @@
 module ActiveModel
   module ErrorCollecting
     class ErrorMessageSet < Array
-      # include Enumerable
-      # extend  Forwardable
-
-#      def_delegators :@set, :each, :length, :size, :clear, :first, :last, :[]
-
       def initialize(base, attribute, errors=[])
         @base      = base
         @attribute = attribute

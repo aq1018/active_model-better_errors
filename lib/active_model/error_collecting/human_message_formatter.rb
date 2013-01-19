@@ -12,28 +12,30 @@ module ActiveModel
       end
 
       def type
-        @error_message.type || :invalid
+        @error_message.type
       end
 
       def format_message
-        return message if message
+        return message if message && type.nil?
+
+        type = self.type || :invalid
 
         keys = i18n_keys
         key  = keys.shift
 
-        I18n.translate key, {
+        value = (attribute != :base ? base.send(:read_attribute_for_validation, attribute) : nil)
+
+        options = {
           :default => keys,
           :model => base.class.model_name.human,
           :attribute => base.class.human_attribute_name(attribute),
-          :value => attribute_value
-        }.merge(options)
+          :value => value
+        }.merge(self.options)
+
+        I18n.translate key, options
       end
 
       private
-
-      def attribute_value
-        attribute != :base ? base.send(:read_attribute_for_validation, attribute) : nil
-      end
 
       def i18n_keys
         if base.class.respond_to?(:i18n_scope)

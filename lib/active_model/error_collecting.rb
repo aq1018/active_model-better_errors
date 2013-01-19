@@ -18,6 +18,8 @@ require 'active_model/error_collecting/machine_array_reporter'
 require 'active_model/error_collecting/emulation'
 require 'active_model/error_collecting/errors'
 
+require 'active_model/error_collecting/core_ext'
+
 module ActiveModel
   module ErrorCollecting
     class << self

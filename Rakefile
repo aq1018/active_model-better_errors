@@ -42,7 +42,7 @@ require 'rake/testtask'
 
 test_files = []
 test_files << "test/integration"
-test_files << "vendor/rails/activemodel/test/cases/errors_test.rb"
+test_files += Dir.glob("#{dir}/vendor/rails/activemodel/test/cases/**/*_test.rb").sort
 
 Rake::TestTask.new("test:integration") do |t|
   t.libs << "vendor/rails/activemodel/test"
