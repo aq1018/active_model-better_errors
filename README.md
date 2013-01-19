@@ -29,7 +29,7 @@ This gem seperates these concerns and allows users to plugin various reporters f
 
 ```ruby
 # in Gemfile
-gem 'activemodel-better-errors', '~> 1.2.0'
+gem 'activemodel-better-errors', '>= 1.4.0'
 ```
 
 ```
