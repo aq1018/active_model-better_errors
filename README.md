@@ -1,5 +1,6 @@
 # ActiveModel Better Errors
 
+[![Gem Version](https://badge.fury.io/rb/activemodel-better-errors.png)](http://badge.fury.io/rb/activemodel-better-errors)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/aq1018/activemodel-better-errors)
 [![Build Status](https://travis-ci.org/aq1018/activemodel-better-errors.png?branch=master)](https://travis-ci.org/aq1018/activemodel-better-errors)
 
