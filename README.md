@@ -1,8 +1,9 @@
 # ActiveModel Better Errors
 
 [![Gem Version](https://badge.fury.io/rb/activemodel-better-errors.png)](http://badge.fury.io/rb/activemodel-better-errors)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/aq1018/activemodel-better-errors)
 [![Build Status](https://travis-ci.org/aq1018/activemodel-better-errors.png?branch=master)](https://travis-ci.org/aq1018/activemodel-better-errors)
+[![Dependency Status](https://gemnasium.com/aq1018/activemodel-better-errors.png)](https://gemnasium.com/aq1018/activemodel-better-errors)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/aq1018/activemodel-better-errors)
 
 `activemodel-better-errors` is a `ActiveModel::Errors` compatible library to help you
 customize the presentation of your error messages by specifying.
