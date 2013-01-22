@@ -2,7 +2,9 @@ source :rubygems
 
 gem "activemodel", "~> 3.0"
 
-group :development do
+
+group :development, :test do
+  gem "rake"
   gem "rspec", "~> 2.12.0"
   gem "pry"
   gem "yard"
