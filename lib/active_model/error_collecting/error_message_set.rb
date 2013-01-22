@@ -1,10 +1,14 @@
+require 'pry'
+
 module ActiveModel
   module ErrorCollecting
     class ErrorMessageSet < Array
       def initialize(base, attribute, errors=[])
         @base      = base
         @attribute = attribute
-        self.each { |error| add(*error) }
+        errors.each do |error|
+          push(*error)
+        end
       end
 
       def <<(error)

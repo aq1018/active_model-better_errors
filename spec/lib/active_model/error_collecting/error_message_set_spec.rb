@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ActiveModel::ErrorCollecting::ErrorMessageSet do
   subject(:set)   { klass.new base, attribute, errors }
   let(:klass)     { ActiveModel::ErrorCollecting::ErrorMessageSet }
-  let(:attribute) { :name }
+  let(:attribute) { :first_name }
   let(:errors)    { [] }
   let(:base)      { User.new }
 
@@ -13,20 +13,21 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
     end
 
     context "with one error" do
-      let(:errors)    { [:invalid] }
+      let(:errors) { [:invalid] }
       its(:length) { should == 1 }
     end
   end
 
-  describe "#add" do
-    subject { set.add error, options }
+  describe "#push" do
+    before { set.push error, options }
     let(:error)  { :invalid }
     let(:options)   { nil }
+    subject { set.first }
 
     describe "without options" do
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessage }
       its(:message)   { should == nil }
-      its(:key)       { should == error }
+      its(:type)      { should == error }
     end
 
     describe "with options" do
@@ -34,26 +35,20 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
 
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessage }
       its(:message)   { should == options[:message] }
-      its(:key)       { should == error }
-    end
-
-    it "does not store duplicates" do
-      set.add error, options
-      set.add error, options
-
-      set.length.should == 1
+      its(:type)      { should == error }
     end
   end
 
   describe "#<<" do
-    subject { set << error }
+    before  { set << error }
+    subject { set.first }
 
     describe "when accepting error as a symbol" do
       let(:error)  { :invalid }
 
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessage }
       its(:message)   { should == nil }
-      its(:key)       { should == error }
+      its(:type)      { should == error }
     end
 
     describe "when accepting error as a tuple" do
@@ -61,7 +56,7 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
 
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessage }
       its(:message)   { should == "OMG!!" }
-      its(:key)       { should == :invalid }
+      its(:type)      { should == :invalid }
     end
   end
 
@@ -87,10 +82,15 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
   end
 
   describe "#==" do
-    subject { set == errors }
-    let(:errors) { [:invalid, :too_long] }
-    describe "When comparing with array" do
-      it { should be true }
+    subject { errors == set }
+    let(:errors) { [:invalid] }
+    let(:expected) { ["is invalid"] }
+    specify do
+      set.should == expected
+    end
+
+    specify do
+      expected.should == set
     end
   end
 end

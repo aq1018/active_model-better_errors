@@ -79,6 +79,10 @@ module ActiveModel
         to_s.inspect
       end
 
+      def ==(other)
+        return type == other if other.is_a?(Symbol)
+        to_s == other.to_s
+      end
     end
   end
 end
