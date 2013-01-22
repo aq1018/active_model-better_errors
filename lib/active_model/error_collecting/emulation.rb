@@ -8,7 +8,7 @@ module ActiveModel
     module Emulation
       MODEL_METHODS = [
         :clear, :include?, :get, :set, :delete, :[], :[]=,
-        :each, :size, :values, :keys, :count, :empty?,
+        :each, :size, :values, :keys, :count, :empty?, :any?,
         :added?
       ]
 
