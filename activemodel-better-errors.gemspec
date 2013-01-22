@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "activemodel-better-errors"
-  s.version = "1.4.0"
+  s.version = "1.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Qian", "Byron Anderson"]
-  s.date = "2013-01-19"
+  s.date = "2013-01-22"
   s.description = "ActiveModel::Errors class is not designed for API consumption. This gem allows for that while keeping compatibility with existing rails API."
   s.email = ["aq1018@gmail.com", "byronanderson32@gmail.com"]
   s.extra_rdoc_files = [
