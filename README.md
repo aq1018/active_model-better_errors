@@ -1,11 +1,11 @@
 # ActiveModel Better Errors
 
-[![Gem Version](https://badge.fury.io/rb/activemodel-better-errors.png)](http://badge.fury.io/rb/activemodel-better-errors)
-[![Build Status](https://travis-ci.org/aq1018/activemodel-better-errors.png?branch=master)](https://travis-ci.org/aq1018/activemodel-better-errors)
-[![Dependency Status](https://gemnasium.com/aq1018/activemodel-better-errors.png)](https://gemnasium.com/aq1018/activemodel-better-errors)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/aq1018/activemodel-better-errors)
+[![Gem Version](https://badge.fury.io/rb/active_model-better_errors.png)](http://badge.fury.io/rb/active_model-better_errors)
+[![Build Status](https://travis-ci.org/aq1018/active_model-better_errors.png?branch=master)](https://travis-ci.org/aq1018/active_model-better_errors)
+[![Dependency Status](https://gemnasium.com/aq1018/active_model-better_errors.png)](https://gemnasium.com/aq1018/active_model-better_errors)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/aq1018/active_model-better_errors)
 
-`activemodel-better-errors` is a `ActiveModel::Errors` compatible library to help you
+`active_model-better_errors` is a `ActiveModel::Errors` compatible library to help you
 customize the presentation of your error messages.
 
 ## Why Better Errors
@@ -18,7 +18,7 @@ API.
 
 ## How Better Errors Work
 
-`activemodel-better-errors` works by sperating the concerns of error message storage and presentation.
+`active_model-better_errors` works by sperating the concerns of error message storage and presentation.
 `ActiveModel::Errors` really handles four tasks in a single class:
 
 * error data storage
@@ -34,7 +34,7 @@ This gem seperates these concerns and allows users to plugin various reporters f
 
 ```ruby
 # in Gemfile
-gem 'activemodel-better-errors', '>= 1.4.0'
+gem 'active_model-better_errors', '>= 1.4.0'
 ```
 
 ```
@@ -45,12 +45,12 @@ bundle install
 ### With RubyGems
 
 ```
-gem install activemodel-better-errors
+gem install active_model-better_errors
 ```
 
 ## Configure
 
-By default, `activemodel-better-errors` is a drop-in replacement for `ActiveModel::Errors`
+By default, `active_model-better_errors` is a drop-in replacement for `ActiveModel::Errors`
 and will mostly function without modifications. This is because the default reporters are set like the following:
 
 ```ruby
@@ -166,7 +166,7 @@ end
 ActiveModel::ErrorCollecting.set_reporter :hash, MyHashReporter
 ```
 
-## Contributing to activemodel-better-errors
+## Contributing to active_model-better_errors
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
