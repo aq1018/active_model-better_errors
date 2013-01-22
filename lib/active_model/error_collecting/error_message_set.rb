@@ -24,7 +24,7 @@ module ActiveModel
       end
 
       def to_a
-        @set.dup
+        dup
       end
     end
   end
