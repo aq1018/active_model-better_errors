@@ -4,7 +4,7 @@ require 'rspec'
 require 'pry'
 
 require 'active_model'
-require 'activemodel-better-errors'
+require 'active_model/better_errors'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
