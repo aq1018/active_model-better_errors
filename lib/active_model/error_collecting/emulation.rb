@@ -44,7 +44,7 @@ module ActiveModel
         end
       end
 
-      def add(attribute, message, options = {})
+      def add(attribute, message=nil, options = {})
         if options[:strict]
           error   = ErrorMessage.build(attribute, message, options)
           message = HumanMessageFormatter.new(@base, error).format_message
