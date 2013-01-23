@@ -12,13 +12,11 @@ module ActiveModel
       end
 
       def type
-        @error_message.type
+        @error_message.type || :invalid
       end
 
       def format_message
-        return message if message && type.nil?
-
-        type = self.type || :invalid
+        return message if message && error_message.type.nil?
 
         keys = i18n_keys
         key  = keys.shift
