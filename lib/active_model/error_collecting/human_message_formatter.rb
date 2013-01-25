@@ -21,8 +21,6 @@ module ActiveModel
         keys = i18n_keys
         key  = keys.shift
 
-        value = (attribute != :base ? base.send(:read_attribute_for_validation, attribute) : nil)
-
         options = {
           :default => keys,
           :model => base.class.model_name.human,
@@ -35,17 +33,31 @@ module ActiveModel
 
       private
 
-      def i18n_keys
-        if base.class.respond_to?(:i18n_scope)
-          keys = base.class.lookup_ancestors.map do |klass|
-            [ :"#{base.class.i18n_scope}.errors.models.#{klass.model_name.i18n_key}.attributes.#{attribute}.#{type}",
-              :"#{base.class.i18n_scope}.errors.models.#{klass.model_name.i18n_key}.#{type}" ]
-          end
-        else
-          keys = []
+      def value
+        return if attribute == :base
+        base.send :read_attribute_for_validation, attribute
+      end
+
+      def ancestor_keys
+        return [] unless base.class.respond_to?(:i18n_scope)
+        scope = base.class.i18n_scope
+        base.class.lookup_ancestors.map do |klass|
+          model_key = klass.model_name.i18n_key
+          [
+            :"#{scope}.errors.models.#{model_key}.attributes.#{attribute}.#{type}",
+            :"#{scope}.errors.models.#{model_key}.#{type}"
+          ]
         end
+      end
+
+      def i18n_keys
+        keys = ancestor_keys
         keys << message
-        keys << :"#{base.class.i18n_scope}.errors.messages.#{type}" if base.class.respond_to?(:i18n_scope)
+
+        if base.class.respond_to?(:i18n_scope)
+          keys << :"#{base.class.i18n_scope}.errors.messages.#{type}"
+        end
+
         keys << :"errors.attributes.#{attribute}.#{type}"
         keys << :"errors.messages.#{type}"
 
