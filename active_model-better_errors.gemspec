@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
     "lib/active_model/better_errors.rb",
     "lib/active_model/error_collecting.rb",
     "lib/active_model/error_collecting/array_reporter.rb",
-    "lib/active_model/error_collecting/core_ext.rb",
     "lib/active_model/error_collecting/emulation.rb",
     "lib/active_model/error_collecting/error_collection.rb",
     "lib/active_model/error_collecting/error_message.rb",

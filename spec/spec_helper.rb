@@ -11,5 +11,11 @@ require 'active_model/better_errors'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
+end
 
+class String
+  def ==(other)
+    return super other.to_s if other.is_a? ActiveModel::ErrorCollecting::ErrorMessage
+    super
+  end
 end
