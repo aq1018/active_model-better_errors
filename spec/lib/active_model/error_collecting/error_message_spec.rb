@@ -263,6 +263,22 @@ describe ActiveModel::ErrorCollecting::ErrorMessage do
     its(:attribute) { should == attribute }
   end
 
+  describe '#to_hash' do
+    let(:message) { :invalid }
+    let(:options) { {} }
+
+    its(:to_hash) { should == { attribute: attribute, type: :invalid, message: nil, options: {} } }
+  end
+
+  describe '#as_json' do
+    let(:message) { :invalid }
+    let(:options) { {} }
+
+    it "should respond to as_json taking json arguments" do
+      subject.as_json(test: :arguments).should == { attribute: attribute, type: :invalid, message: nil, options: {} }
+    end
+  end
+
   describe '#<=>' do
     subject { e1 <=> e2 }
 
