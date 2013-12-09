@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "activemodel", "~> 3.0"
+gem "activemodel", ">= 3.0"
 
 
 group :development, :test do
