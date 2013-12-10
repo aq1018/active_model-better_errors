@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module ActiveModel
   module BetterErrors
     VERSION = '1.6.4'

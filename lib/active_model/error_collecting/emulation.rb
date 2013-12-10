@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 #
 # Allows included class to emulate ActiveModel::Errors class
 # by defining a set of methods to delegate to facilities

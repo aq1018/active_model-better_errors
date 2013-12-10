@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class BasicModel
   extend  ActiveModel::Naming
   extend  ActiveModel::Translation

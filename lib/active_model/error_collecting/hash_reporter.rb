@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module ActiveModel
   module ErrorCollecting
     class HashReporter < Reporter

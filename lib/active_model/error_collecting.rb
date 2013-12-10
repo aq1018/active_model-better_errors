@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'active_model/error_collecting/error_message'
 require 'active_model/error_collecting/error_message_set'
 require 'active_model/error_collecting/error_collection'
