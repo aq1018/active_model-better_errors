@@ -15,18 +15,6 @@ end
 
 dir = File.dirname(__FILE__)
 
-require 'rake/testtask'
-
-test_files = []
-test_files << "test/integration"
-test_files += Dir.glob("#{dir}/vendor/rails/activemodel/test/cases/**/*_test.rb").sort
-
-Rake::TestTask.new("test:integration") do |t|
-  t.libs << "vendor/rails/activemodel/test"
-  t.test_files = test_files
-  t.warning = true
-end
-
 
 task :default => [ :spec ]
 
