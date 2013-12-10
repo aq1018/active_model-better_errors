@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'active_model/better_errors/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "foo"
+  spec.name          = "active_model-better_errors"
   spec.version       = ActiveModel::BetterErrors::VERSION
   spec.authors       = ["Aaron Qian", "Byron Anderson"]
   spec.email         = ["aq1018@gmail.com", "byronanderson32@gmail.com"]
