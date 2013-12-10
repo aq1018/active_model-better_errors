@@ -35,7 +35,7 @@ module ActiveModel
         [symbol, string]
       end
 
-      def self.build(base, attribute, message, options=nil)
+      def self.build(base, attribute, message, options = nil)
         options   = options ? options : {}
         options   = options.except(*CALLBACKS_OPTIONS)
 
@@ -54,7 +54,7 @@ module ActiveModel
         @options    = options
       end
 
-      def <=> (other)
+      def <=>(other)
         to_hash <=> other.to_hash
       end
 

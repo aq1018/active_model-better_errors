@@ -14,7 +14,7 @@ module ActiveModel
       end
 
       def include?(attribute)
-        ( v = @collection[attribute] ) && v.any?
+        ( v = @collection[attribute]) && v.any?
       end
 
       def get(attribute)
@@ -45,7 +45,7 @@ module ActiveModel
       end
 
       def size
-        values.inject(0){ |sum, set| sum += set.size }
+        values.reduce(0) { |sum, set| sum += set.size }
       end
       alias_method :count, :size
 
@@ -75,7 +75,7 @@ module ActiveModel
       end
 
       def add(attribute, message, options = {})
-        self[attribute] << [ message, options ]
+        self[attribute] << [message, options]
       end
 
       def added?(attribute, message = nil, options = {})

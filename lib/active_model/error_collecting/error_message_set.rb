@@ -1,7 +1,7 @@
 module ActiveModel
   module ErrorCollecting
     class ErrorMessageSet < Array
-      def initialize(base, attribute, errors=[])
+      def initialize(base, attribute, errors = [])
         @base      = base
         @attribute = attribute
         errors.each do |error|

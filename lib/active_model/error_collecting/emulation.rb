@@ -44,20 +44,20 @@ module ActiveModel
         end
       end
 
-      def add(attribute, message=nil, options = {})
+      def add(attribute, message = nil, options = {})
         if options[:strict]
           error   = ErrorMessage.build(attribute, message, options)
           message = HumanMessageFormatter.new(@base, error).format_message
-          raise ActiveModel::StrictValidationFailed, full_message(attribute, message)
+          fail ActiveModel::StrictValidationFailed, full_message(attribute, message)
         end
         error_collection.add attribute, message, options
       end
 
-      def to_xml(options={})
-        to_a.to_xml options.reverse_merge(:root => "errors", :skip_types => true)
+      def to_xml(options = {})
+        to_a.to_xml options.reverse_merge(root: 'errors', skip_types: true)
       end
 
-      def as_json(options=nil)
+      def as_json(options = nil)
         to_hash
       end
     end

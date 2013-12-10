@@ -12,11 +12,11 @@ module ActiveModel
       def full_message(attribute, message)
         return message if attribute == :base
         attr_name = attribute.to_s.gsub('.', '_').humanize
-        attr_name = base.class.human_attribute_name(attribute, :default => attr_name)
+        attr_name = base.class.human_attribute_name(attribute, default: attr_name)
         I18n.t(:"errors.format", {
-          :default   => "%{attribute} %{message}",
-          :attribute => attr_name,
-          :message   => message
+          default: '%{attribute} %{message}',
+          attribute: attr_name,
+          message: message
         })
       end
 

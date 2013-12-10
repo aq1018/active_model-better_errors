@@ -2,7 +2,7 @@ module ActiveModel
   module ErrorCollecting
     class ArrayReporter < Reporter
       def to_a
-        raise "abstract method"
+        fail 'abstract method'
       end
     end
   end

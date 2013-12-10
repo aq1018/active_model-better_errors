@@ -4,9 +4,9 @@ class BasicModel
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  def initialize(params={})
+  def initialize(params = {})
     params.each do |attr, value|
-      self.public_send("#{attr}=", value)
+      public_send("#{attr}=", value)
     end
   end
 
@@ -18,7 +18,7 @@ end
 class User < BasicModel
   attr_accessor :first_name, :last_name, :email
 
-  validates :first_name, :last_name, presence: { message: "plz...?" }
+  validates :first_name, :last_name, presence: { message: 'plz...?' }
 end
 
 class Ruler < BasicModel

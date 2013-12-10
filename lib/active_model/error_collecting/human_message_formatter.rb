@@ -22,10 +22,10 @@ module ActiveModel
         key  = keys.shift
 
         options = {
-          :default => keys,
-          :model => base.class.model_name.human,
-          :attribute => base.class.human_attribute_name(attribute),
-          :value => value
+          default: keys,
+          model: base.class.model_name.human,
+          attribute: base.class.human_attribute_name(attribute),
+          value: value
         }.merge(self.options)
 
         I18n.translate key, options
