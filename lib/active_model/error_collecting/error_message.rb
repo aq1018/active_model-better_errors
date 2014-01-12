@@ -2,9 +2,14 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # ErrorMessage
+    #
     class ErrorMessage
       include Comparable
-      CALLBACKS_OPTIONS = [:if, :unless, :on, :allow_nil, :allow_blank, :strict]
+      CALLBACKS_OPTIONS = [
+        :if, :unless, :on, :allow_nil, :allow_blank, :strict
+      ]
 
       # return the message either as nil, symbol, or string
       def self.normalize(message)

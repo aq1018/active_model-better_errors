@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # Errors
+    #
     class Errors
       include Emulation
 
@@ -30,7 +33,9 @@ module ActiveModel
 
       def set_reporter(type, reporter)
         type = type.to_s
-        klass = ::ActiveModel::ErrorCollecting.get_reporter_class(type, reporter)
+        klass = ::ActiveModel::ErrorCollecting
+          .get_reporter_class(type, reporter)
+
         @reporter_classes[type] = klass
         @reporters.delete type
       end

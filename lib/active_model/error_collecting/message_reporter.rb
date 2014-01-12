@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # MessageReporter
+    #
     class MessageReporter < Reporter
       def full_messages
         fail 'abstract method'

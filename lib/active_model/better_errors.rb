@@ -6,6 +6,9 @@ require 'active_model/error_collecting'
 require 'active_model/validations'
 
 module ActiveModel
+  #
+  # ActiveModel::Validations.errors override
+  #
   module Validations
     def errors
       @errors ||= ErrorCollecting::Errors.new(self)

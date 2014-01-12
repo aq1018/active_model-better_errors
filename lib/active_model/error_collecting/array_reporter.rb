@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # ArrayReporter
+    #
     class ArrayReporter < Reporter
       def to_a
         fail 'abstract method'

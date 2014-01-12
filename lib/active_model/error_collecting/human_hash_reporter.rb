@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # HumanHashReporter
+    #
     class HumanHashReporter < HashReporter
       def to_hash
         collection.to_hash.reduce({}) do |hash, kv|

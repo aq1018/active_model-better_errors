@@ -3,10 +3,11 @@
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::MachineArrayReporter do
-  subject(:reporter)  { klass.new collection }
-  let(:klass)         { ActiveModel::ErrorCollecting::MachineArrayReporter }
-  let(:collection)    { ActiveModel::ErrorCollecting::ErrorCollection.new base }
-  let(:base)          { User.new }
+  subject           { reporter }
+  let(:reporter)    { klass.new collection }
+  let(:klass)       { ActiveModel::ErrorCollecting::MachineArrayReporter }
+  let(:collection)  { ActiveModel::ErrorCollecting::ErrorCollection.new base }
+  let(:base)        { User.new }
 
   describe '#initialize' do
     its(:collection) { should be collection }
@@ -25,17 +26,19 @@ describe ActiveModel::ErrorCollecting::MachineArrayReporter do
       collection[:last_name] << :invalid
     end
 
-    let(:expected) do [{
-      attribute: 'first_name',
-      type:      :invalid
-    }, {
-      attribute: 'first_name',
-      type:      :too_short,
-      options:   { count: 3 }
-    }, {
-      attribute: 'last_name',
-      type:      :invalid
-    }]en d
+    let(:expected) do
+      [{
+        attribute: 'first_name',
+        type:      :invalid
+      }, {
+        attribute: 'first_name',
+        type:      :too_short,
+        options:   { count: 3 }
+      }, {
+        attribute: 'last_name',
+        type:      :invalid
+      }]
+    end
 
     it { should == expected }
   end

@@ -6,11 +6,13 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
   subject(:collection) { klass.new(base) }
   let(:klass) { ActiveModel::ErrorCollecting::ErrorCollection }
   let(:base)  { User.new }
-  let(:errors)d o{
-    :first_name =>  [[:too_long, { count: 3 }]],
-    'last_name' =>  [[:invalid, { message: 'Invalid' }]],
-    :email  =>  [:invalid],
-  }end
+  let(:errors) do
+    {
+      :first_name =>  [[:too_long, { count: 3 }]],
+      'last_name' =>  [[:invalid, { message: 'Invalid' }]],
+      :email  =>  [:invalid],
+    }
+  end
 
   before do
     errors.each do |attribute, error_list|
@@ -54,10 +56,10 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
       its(:length) { should be 0 }
     end
 
-      describe 'when value is nil' do
-        before { collection.set(:first_name, nil) }
-        it { should be_nil }
-      end
+    describe 'when value is nil' do
+      before { collection.set(:first_name, nil) }
+      it { should be_nil }
+    end
   end
 
   describe '#delete' do
@@ -183,8 +185,8 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
   describe '#add' do
     it 'should add error to collection' do
       expect do
-        collection.add :name, 'Invalid'
-        end.to change { collection[:name].length }.by(1)
+        collection.add(:name, 'Invalid')
+      end.to change { collection[:name].length }.by(1)
     end
   end
 
@@ -195,12 +197,12 @@ describe ActiveModel::ErrorCollecting::ErrorCollection do
     end
 
     describe 'when an error message with the same option is added' do
-      subject { collection.added? :first_name, :too_long, { count: 3 } }
+      subject { collection.added? :first_name, :too_long, count: 3 }
       it { should be true }
     end
 
     describe 'when an error message with the different option is added' do
-      subject { collection.added? :first_name, :too_long, { count: 4 } }
+      subject { collection.added? :first_name, :too_long, count: 4 }
       it { should be false }
     end
   end

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 shared_examples_for 'a delegated method' do
-  let(:target_instance) { mock }
+  let(:target_instance) { double }
   before do
     target_instance.should_receive method
     instance.stub(target).and_return(target_instance)

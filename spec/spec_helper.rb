@@ -14,9 +14,15 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 RSpec.configure do |config|
 end
 
+#
+# String
+#
 class String
   def ==(other)
-    return super other.to_s if other.is_a? ActiveModel::ErrorCollecting::ErrorMessage
-    super
+    if other.is_a? ActiveModel::ErrorCollecting::ErrorMessage
+      return super other.to_s
+    else
+      super
+    end
   end
 end

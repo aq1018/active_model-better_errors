@@ -28,7 +28,7 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
 
     describe 'without options' do
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessage }
-      its(:message)   { should == nil }
+      its(:message)   { should be_nil }
       its(:type)      { should == error }
     end
 
@@ -49,7 +49,7 @@ describe ActiveModel::ErrorCollecting::ErrorMessageSet do
       let(:error)  { :invalid }
 
       it { should be_a ActiveModel::ErrorCollecting::ErrorMessage }
-      its(:message)   { should == nil }
+      its(:message)   { should be_nil }
       its(:type)      { should == error }
     end
 

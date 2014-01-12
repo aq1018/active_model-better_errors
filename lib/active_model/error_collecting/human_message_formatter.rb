@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # HumanMessageFormatter
+    #
     class HumanMessageFormatter
       extend Forwardable
 
@@ -43,11 +46,12 @@ module ActiveModel
       def ancestor_keys
         return [] unless base.class.respond_to?(:i18n_scope)
         scope = base.class.i18n_scope
+
         base.class.lookup_ancestors.map do |klass|
-          model_key = klass.model_name.i18n_key
+          key_base = "#{scope}.errors.models.#{klass.model_name.i18n_key}"
           [
-            :"#{scope}.errors.models.#{model_key}.attributes.#{attribute}.#{type}",
-            :"#{scope}.errors.models.#{model_key}.#{type}"
+            :"#{key_base}.attributes.#{attribute}.#{type}",
+            :"#{key_base}.#{type}"
           ]
         end
       end

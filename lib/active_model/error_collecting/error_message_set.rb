@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # ErrorMessageSet
+    #
     class ErrorMessageSet < Array
       def initialize(base, attribute, errors = [])
         @base      = base

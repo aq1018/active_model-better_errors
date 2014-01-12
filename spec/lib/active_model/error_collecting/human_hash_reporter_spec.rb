@@ -3,10 +3,11 @@
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::HumanHashReporter do
-  subject(:reporter)  { klass.new collection }
-  let(:klass)         { ActiveModel::ErrorCollecting::HumanHashReporter }
-  let(:collection)    { ActiveModel::ErrorCollecting::ErrorCollection.new base }
-  let(:base)          { User.new }
+  subject { reporter }
+  let(:reporter)    { klass.new collection }
+  let(:klass)       { ActiveModel::ErrorCollecting::HumanHashReporter }
+  let(:collection)  { ActiveModel::ErrorCollecting::ErrorCollection.new base }
+  let(:base)        { User.new }
 
   describe '#initialize' do
     its(:collection) { should be collection }
@@ -18,10 +19,12 @@ describe ActiveModel::ErrorCollecting::HumanHashReporter do
 
   describe '#to_hash' do
     subject { reporter.to_hash }
-    let(:expected) do{
-      first_name: ['is invalid', "can't be empty"],
-      last_name: ['is invalid']
-    }end
+    let(:expected) do
+      {
+        first_name: ['is invalid', "can't be empty"],
+        last_name: ['is invalid']
+      }
+    end
 
     before  do
       collection[:first_name] << :invalid

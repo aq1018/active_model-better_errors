@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::HumanMessageReporter do
-  subject(:reporter)  { klass.new collection }
-  let(:klass)         { ActiveModel::ErrorCollecting::HumanMessageReporter }
-  let(:collection)    { ActiveModel::ErrorCollecting::ErrorCollection.new base }
-  let(:base)          { User.new }
-
+  subject { reporter }
+  let(:reporter)    { klass.new collection }
+  let(:klass)       { ActiveModel::ErrorCollecting::HumanMessageReporter }
+  let(:collection)  { ActiveModel::ErrorCollecting::ErrorCollection.new base }
+  let(:base)        { User.new }
 
   describe '#initialize' do
     its(:collection) { should be collection }
@@ -27,11 +27,13 @@ describe ActiveModel::ErrorCollecting::HumanMessageReporter do
 
   describe '#full_messages' do
     subject { reporter.full_messages }
-    let(:expected) do [
+    let(:expected) do
+      [
         'First name is invalid',
         "First name can't be empty",
         'Last name is invalid'
-    ]en d
+      ]
+    end
 
     before  do
       collection[:first_name] << :invalid

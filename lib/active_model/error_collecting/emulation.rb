@@ -7,6 +7,10 @@
 #
 module ActiveModel
   module ErrorCollecting
+    #
+    # Emulation
+    # The ActiveModel Emulation Layer
+    #
     module Emulation
       MODEL_METHODS = [
         :clear, :include?, :get, :set, :delete, :[], :[]=,
@@ -50,7 +54,8 @@ module ActiveModel
         if options[:strict]
           error   = ErrorMessage.build(attribute, message, options)
           message = HumanMessageFormatter.new(@base, error).format_message
-          fail ActiveModel::StrictValidationFailed, full_message(attribute, message)
+          full_message = full_message(attribute, message)
+          fail ActiveModel::StrictValidationFailed, full_message
         end
         error_collection.add attribute, message, options
       end

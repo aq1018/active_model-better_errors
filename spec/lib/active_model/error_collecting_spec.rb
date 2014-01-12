@@ -14,11 +14,13 @@ describe ActiveModel::ErrorCollecting do
 
   describe '.reporters' do
     subject { ActiveModel::ErrorCollecting.reporters }
-    let(:expected) do{
-      'message' => ActiveModel::ErrorCollecting::HumanMessageReporter,
-      'array'   => ActiveModel::ErrorCollecting::HumanArrayReporter,
-      'hash'    => ActiveModel::ErrorCollecting::HumanHashReporter
-    }end
+    let(:expected) do
+      {
+        'message' => ActiveModel::ErrorCollecting::HumanMessageReporter,
+        'array'   => ActiveModel::ErrorCollecting::HumanArrayReporter,
+        'hash'    => ActiveModel::ErrorCollecting::HumanHashReporter
+      }
+    end
     it { should == expected }
   end
 end

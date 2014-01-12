@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # Reporter
+    #
     class Reporter
       attr_reader :collection
       def initialize(collection)

@@ -2,6 +2,9 @@
 
 module ActiveModel
   module ErrorCollecting
+    #
+    # MachineHashReporter
+    #
     class MachineHashReporter < HashReporter
       def to_hash
         collection.to_hash.reduce({}) do |hash, kv|
@@ -16,7 +19,9 @@ module ActiveModel
       def format_error_message(error_message)
         result = {}
         result[:type] = error_message.type || :invalid
-        result[:options] = error_message.options unless error_message.options.blank?
+
+        options = error_message.options
+        result[:options] = options unless options.blank?
         result
       end
     end

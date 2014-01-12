@@ -26,12 +26,12 @@ describe ActiveModel::ErrorCollecting::Errors do
 
   describe '#message_reporter' do
     subject { instance.message_reporter }
-    let(:mock_reporter) { mock }
+    let(:mock_reporter) { double }
     before do
-      instance.
-        should_receive(:get_reporter).
-        with(:message).
-        and_return(mock_reporter)
+      instance
+        .should_receive(:get_reporter)
+        .with(:message)
+        .and_return(mock_reporter)
     end
 
     it { should be mock_reporter }
@@ -39,12 +39,12 @@ describe ActiveModel::ErrorCollecting::Errors do
 
   describe '#hash_reporter' do
     subject { instance.hash_reporter }
-    let(:mock_reporter) { mock }
+    let(:mock_reporter) { double }
     before do
-      instance.
-        should_receive(:get_reporter).
-        with(:hash).
-        and_return(mock_reporter)
+      instance
+        .should_receive(:get_reporter)
+        .with(:hash)
+        .and_return(mock_reporter)
     end
 
     it { should be mock_reporter }
@@ -52,12 +52,12 @@ describe ActiveModel::ErrorCollecting::Errors do
 
   describe '#array_reporter' do
     subject { instance.array_reporter }
-    let(:mock_reporter) { mock }
+    let(:mock_reporter) { double }
     before do
-      instance.
-        should_receive(:get_reporter).
-        with(:array).
-        and_return(mock_reporter)
+      instance
+        .should_receive(:get_reporter)
+        .with(:array)
+        .and_return(mock_reporter)
     end
 
     it { should be mock_reporter }
@@ -72,7 +72,7 @@ describe ActiveModel::ErrorCollecting::Errors do
 
     it 'should delete old reporter instance' do
       reporters = instance.instance_variable_get(:@reporters)
-      reporters[reporter_name] = mock
+      reporters[reporter_name] = double
       instance.set_reporter reporter_name, mock_reporter
       reporters.key?(reporter_name.to_s).should be false
     end
