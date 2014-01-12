@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 #
 # Allows included class to emulate ActiveModel::Errors class
 # by defining a set of methods to delegate to facilities
@@ -5,6 +7,10 @@
 #
 module ActiveModel
   module ErrorCollecting
+    #
+    # Emulation
+    # The ActiveModel Emulation Layer
+    #
     module Emulation
       MODEL_METHODS = [
         :clear, :include?, :get, :set, :delete, :[], :[]=,
@@ -44,20 +50,21 @@ module ActiveModel
         end
       end
 
-      def add(attribute, message=nil, options = {})
+      def add(attribute, message = nil, options = {})
         if options[:strict]
           error   = ErrorMessage.build(attribute, message, options)
           message = ::ActiveModel::ErrorCollecting.format_message(@base, error)
-          raise ActiveModel::StrictValidationFailed, full_message(attribute, message)
+          full_message = full_message(attribute, message)
+          fail ActiveModel::StrictValidationFailed, full_message
         end
         error_collection.add attribute, message, options
       end
 
-      def to_xml(options={})
-        to_a.to_xml options.reverse_merge(:root => "errors", :skip_types => true)
+      def to_xml(options = {})
+        to_a.to_xml options.reverse_merge(root: 'errors', skip_types: true)
       end
 
-      def as_json(options=nil)
+      def as_json(options = nil)
         to_hash
       end
     end

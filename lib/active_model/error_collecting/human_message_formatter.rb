@@ -1,5 +1,10 @@
+# encoding: utf-8
+
 module ActiveModel
   module ErrorCollecting
+    #
+    # HumanMessageFormatter
+    #
     class HumanMessageFormatter < Formatter
       def format_message
         return message if message && type.nil?
@@ -8,10 +13,10 @@ module ActiveModel
         key  = keys.shift
 
         options = {
-          :default => keys,
-          :model => base.class.model_name.human,
-          :attribute => base.class.human_attribute_name(attribute),
-          :value => value
+          default: keys,
+          model: base.class.model_name.human,
+          attribute: base.class.human_attribute_name(attribute),
+          value: value
         }.merge(self.options)
 
         I18n.translate key, options
@@ -31,11 +36,12 @@ module ActiveModel
       def ancestor_keys
         return [] unless base.class.respond_to?(:i18n_scope)
         scope = base.class.i18n_scope
+
         base.class.lookup_ancestors.map do |klass|
-          model_key = klass.model_name.i18n_key
+          key_base = "#{scope}.errors.models.#{klass.model_name.i18n_key}"
           [
-            :"#{scope}.errors.models.#{model_key}.attributes.#{attribute}.#{type}",
-            :"#{scope}.errors.models.#{model_key}.#{type}"
+            :"#{key_base}.attributes.#{attribute}.#{type}",
+            :"#{key_base}.#{type}"
           ]
         end
       end

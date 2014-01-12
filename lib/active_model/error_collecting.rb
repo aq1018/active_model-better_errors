@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'active_model/error_collecting/error_message'
 require 'active_model/error_collecting/error_message_set'
 require 'active_model/error_collecting/error_collection'
@@ -21,6 +23,9 @@ require 'active_model/error_collecting/emulation'
 require 'active_model/error_collecting/errors'
 
 module ActiveModel
+  #
+  # ErrorCollecting
+  #
   module ErrorCollecting
     class << self
       attr_accessor :formatter
@@ -39,8 +44,8 @@ module ActiveModel
 
       def get_reporter_class(name, reporter)
         return reporter if reporter.is_a? Class
-        class_name = "active_model/error_collecting/#{reporter}_#{name}_reporter"
-        class_name.classify.constantize
+        class_name = "#{reporter}_#{name}_reporter"
+        "active_model/error_collecting/#{class_name}".classify.constantize
       end
 
       def format_message(base, message)

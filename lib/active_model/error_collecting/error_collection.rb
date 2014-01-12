@@ -1,5 +1,10 @@
+# encoding: utf-8
+
 module ActiveModel
   module ErrorCollecting
+    #
+    # ErrorCollection
+    #
     class ErrorCollection
       include Enumerable
 
@@ -14,7 +19,7 @@ module ActiveModel
       end
 
       def include?(attribute)
-        ( v = @collection[attribute] ) && v.any?
+        ( v = @collection[attribute]) && v.any?
       end
 
       def get(attribute)
@@ -40,12 +45,14 @@ module ActiveModel
 
       def each
         @collection.each_key do |attribute|
-          self[attribute].each { |error_message| yield attribute, error_message }
+          self[attribute].each do |error_message|
+            yield attribute, error_message
+          end
         end
       end
 
       def size
-        values.inject(0){ |sum, set| sum += set.size }
+        values.reduce(0) { |a, e| a + e.size }
       end
       alias_method :count, :size
 
@@ -75,11 +82,12 @@ module ActiveModel
       end
 
       def add(attribute, message, options = {})
-        self[attribute] << [ message, options ]
+        self[attribute] << [message, options]
       end
 
       def added?(attribute, message = nil, options = {})
-        self[attribute].include? ErrorMessage.build(base, attribute, message, options)
+        message = ErrorMessage.build(base, attribute, message, options)
+        self[attribute].include? message
       end
     end
   end

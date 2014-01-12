@@ -1,7 +1,9 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
-shared_examples_for "a delegated method" do
-  let(:target_instance) { mock() }
+shared_examples_for 'a delegated method' do
+  let(:target_instance) { double }
   before do
     target_instance.should_receive method
     instance.stub(target).and_return(target_instance)
@@ -38,7 +40,7 @@ describe ActiveModel::ErrorCollecting::Emulation do
       describe "delegating ##{method} to  ##{target}" do
         let(:target) { target }
         let(:method) { method }
-        it_should_behave_like "a delegated method"
+        it_should_behave_like 'a delegated method'
       end
     end
   end
