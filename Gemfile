@@ -6,6 +6,7 @@ gemspec
 
 group :development do
   gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
+  gem 'gem-release'
 end
 
 # Added by devtools
