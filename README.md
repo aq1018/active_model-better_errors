@@ -54,17 +54,17 @@ By default, `active_model-better_errors` is a drop-in replacement for `ActiveMod
 and will mostly function without modifications. This is because the default reporters are set like the following:
 
 ```ruby
-ActiveModel::ErrorCollecting.set_reporter :message,  :human
-ActiveModel::ErrorCollecting.set_reporter :array,    :human
-ActiveModel::ErrorCollecting.set_reporter :hash,     :human
+ActiveModel::BetterErrors.set_reporter :message,  :human
+ActiveModel::BetterErrors.set_reporter :array,    :human
+ActiveModel::BetterErrors.set_reporter :hash,     :human
 ```
 
 If you want to output API friendly JSON / XML by default, you can use the following config.
 
 ```ruby
-ActiveModel::ErrorCollecting.set_reporter :message,  :human
-ActiveModel::ErrorCollecting.set_reporter :array,    :machine
-ActiveModel::ErrorCollecting.set_reporter :hash,     :machine
+ActiveModel::BetterErrors.set_reporter :message,  :human
+ActiveModel::BetterErrors.set_reporter :array,    :machine
+ActiveModel::BetterErrors.set_reporter :hash,     :machine
 ```
 
 Note: The configurations above determines *default* reporters to use, you can always switch to
@@ -73,7 +73,7 @@ any reporters you want during runtime by invoking `errors.set_reporter`
 ## Usage
 
 ```ruby
-user.errors # returns an instance of ActiveModel::ErrorCollecting::Errors
+user.errors # returns an instance of ActiveModel::BetterErrors::Errors
 
 # Use MachineArrayReporter to output API friendly error messages
 user.errors.set_reporter(:array, :machine)
@@ -156,14 +156,14 @@ This library implements the following reporters of this type:
 Creating a custom reporter is easy. Here is an example to create a hash reporter
 
 ```ruby
-class MyHashReporter < ActiveModel::ErrorCollecting::HashReporter
+class MyHashReporter < ActiveModel::BetterErrors::HashReporter
   def to_hash
     # you have access to #collection and #base
   end
 end
 
 # set it to use it.
-ActiveModel::ErrorCollecting.set_reporter :hash, MyHashReporter
+ActiveModel::BetterErrors.set_reporter :hash, MyHashReporter
 ```
 
 ## Contributing to active_model-better_errors

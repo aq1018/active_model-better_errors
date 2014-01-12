@@ -1,31 +1,24 @@
 # encoding: utf-8
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-
-require 'rspec'
-require 'active_model'
-require 'active_model/better_errors'
-
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-
-RSpec.configure do |config|
-end
-
+# SimpleCov MUST be started before require 'rom-relation'
 #
-# String
-#
-class String
-  def ==(other)
-    if other.is_a? ActiveModel::ErrorCollecting::ErrorMessage
-      return super other.to_s
-    else
-      super
-    end
+if ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  require 'coveralls'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+
+  SimpleCov.start do
+    command_name 'spec:unit'
+
+    add_filter 'config'
+    add_filter 'lib/rom/support'
+    add_filter 'spec'
   end
 end
 
-# silence deprecation warnings
-I18n.enforce_available_locales = false
+require 'active_model/better_errors'
+require 'devtools/spec_helper'
