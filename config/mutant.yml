@@ -1,3 +1,3 @@
 ---
 name: active_model/better_errors
-namespace: ActiveModel::ErrorCollecting::Errors
+namespace: ActiveModel::ErrorCollecting
