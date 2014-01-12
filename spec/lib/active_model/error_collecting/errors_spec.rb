@@ -14,6 +14,9 @@ describe ActiveModel::ErrorCollecting::Errors do
     end
   end
 
+  before { ActiveModel::ErrorCollecting.set_reporter(:mock, mock_reporter) }
+  after { ActiveModel::ErrorCollecting.set_reporter(:mock, nil) }
+
   describe '#initialize' do
     its(:base) { should be base }
   end
@@ -26,7 +29,6 @@ describe ActiveModel::ErrorCollecting::Errors do
 
   describe '#message_reporter' do
     subject { instance.message_reporter }
-    let(:mock_reporter) { double }
     before do
       instance
         .should_receive(:get_reporter)
@@ -39,7 +41,6 @@ describe ActiveModel::ErrorCollecting::Errors do
 
   describe '#hash_reporter' do
     subject { instance.hash_reporter }
-    let(:mock_reporter) { double }
     before do
       instance
         .should_receive(:get_reporter)
@@ -52,7 +53,6 @@ describe ActiveModel::ErrorCollecting::Errors do
 
   describe '#array_reporter' do
     subject { instance.array_reporter }
-    let(:mock_reporter) { double }
     before do
       instance
         .should_receive(:get_reporter)
@@ -64,6 +64,7 @@ describe ActiveModel::ErrorCollecting::Errors do
   end
 
   describe '#set_reporter' do
+    before { instance.get_reporter(:mock) }
     it 'should set the reporter class' do
       instance.set_reporter reporter_name, mock_reporter
       reporter_classes = instance.instance_variable_get(:@reporter_classes)

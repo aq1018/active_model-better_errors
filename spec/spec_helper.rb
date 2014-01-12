@@ -2,8 +2,8 @@
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'rspec'
 
+require 'rspec'
 require 'active_model'
 require 'active_model/better_errors'
 
@@ -26,3 +26,6 @@ class String
     end
   end
 end
+
+# silence deprecation warnings
+I18n.enforce_available_locales = false
