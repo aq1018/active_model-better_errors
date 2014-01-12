@@ -5,23 +5,9 @@ module ActiveModel
     #
     # HumanMessageFormatter
     #
-    class HumanMessageFormatter
-      extend Forwardable
-
-      def_delegators :@error_message, :attribute, :message, :options
-
-      attr_reader :base, :error_message
-
-      def initialize(base, error_message)
-        @base, @error_message = base, error_message
-      end
-
-      def type
-        @error_message.type || :invalid
-      end
-
+    class HumanMessageFormatter < Formatter
       def format_message
-        return message if message && error_message.type.nil?
+        return message if message && type.nil?
 
         keys = i18n_keys
         key  = keys.shift
@@ -37,6 +23,10 @@ module ActiveModel
       end
 
       private
+
+      def type
+        error_message.type || :invalid
+      end
 
       def value
         return if attribute == :base
