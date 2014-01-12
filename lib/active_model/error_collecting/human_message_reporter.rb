@@ -8,7 +8,9 @@ module ActiveModel
     class HumanMessageReporter < MessageReporter
       def full_messages
         @collection.map do |attribute, error_message|
-          message = ::ActiveModel::ErrorCollecting.format_message(base, error_message)
+          message = ::ActiveModel::ErrorCollecting.format_message(
+            base, error_message
+          )
           full_message attribute, message
         end
       end
