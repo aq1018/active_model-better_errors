@@ -47,7 +47,7 @@ module ActiveModel
       def add(attribute, message=nil, options = {})
         if options[:strict]
           error   = ErrorMessage.build(attribute, message, options)
-          message = HumanMessageFormatter.new(@base, error).format_message
+          message = ::ActiveModel::ErrorCollecting.format_message(@base, error)
           raise ActiveModel::StrictValidationFailed, full_message(attribute, message)
         end
         error_collection.add attribute, message, options

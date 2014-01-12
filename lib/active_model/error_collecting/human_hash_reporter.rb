@@ -5,7 +5,7 @@ module ActiveModel
         collection.to_hash.inject({}) do |hash, kv|
           attribute, error_message_set = kv
           hash[attribute] = error_message_set.map do |error_message|
-            HumanMessageFormatter.new(base, error_message).format_message
+            ::ActiveModel::ErrorCollecting.format_message(base, error_message)
           end
           hash
         end

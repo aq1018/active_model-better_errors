@@ -19,4 +19,9 @@ describe ActiveModel::ErrorCollecting do
     }}
     it { should == expected }
   end
+
+  describe '.formatter' do
+    subject { ActiveModel::ErrorCollecting.formatter }
+    it { should == ActiveModel::ErrorCollecting::HumanMessageFormatter }
+  end
 end

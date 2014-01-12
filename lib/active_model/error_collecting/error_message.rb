@@ -76,7 +76,7 @@ module ActiveModel
       end
 
       def to_s
-        HumanMessageFormatter.new(base, self).format_message
+        ::ActiveModel::ErrorCollecting.format_message(base, self)
       end
 
       def inspect
