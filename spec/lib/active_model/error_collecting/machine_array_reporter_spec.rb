@@ -1,39 +1,44 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::MachineArrayReporter do
-  subject(:reporter)  { klass.new collection }
-  let(:klass)         { ActiveModel::ErrorCollecting::MachineArrayReporter }
-  let(:collection)    { ActiveModel::ErrorCollecting::ErrorCollection.new base}
-  let(:base)          { User.new }
+  subject           { reporter }
+  let(:reporter)    { klass.new collection }
+  let(:klass)       { ActiveModel::ErrorCollecting::MachineArrayReporter }
+  let(:collection)  { ActiveModel::ErrorCollecting::ErrorCollection.new base }
+  let(:base)        { User.new }
 
-  describe "#initialize" do
+  describe '#initialize' do
     its(:collection) { should be collection }
   end
 
-  describe "#base" do
+  describe '#base' do
     its(:base) { should be base }
   end
 
-  describe "#to_a" do
+  describe '#to_a' do
     subject { reporter.to_a }
 
     before  do
       collection[:first_name] << :invalid
-      collection[:first_name] << [ :too_short, { count: 3 } ]
+      collection[:first_name] << [:too_short, { count: 3 }]
       collection[:last_name] << :invalid
     end
 
-    let(:expected) {[{
-      attribute: 'first_name',
-      type:      :invalid
-    }, {
-      attribute: 'first_name',
-      type:      :too_short,
-      options:   { count: 3 }
-    },{
-      attribute: 'last_name',
-      type:      :invalid
-    }]}
+    let(:expected) do
+      [{
+        attribute: 'first_name',
+        type:      :invalid
+      }, {
+        attribute: 'first_name',
+        type:      :too_short,
+        options:   { count: 3 }
+      }, {
+        attribute: 'last_name',
+        type:      :invalid
+      }]
+    end
 
     it { should == expected }
   end

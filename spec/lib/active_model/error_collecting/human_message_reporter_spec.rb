@@ -1,35 +1,39 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::HumanMessageReporter do
-  subject(:reporter)  { klass.new collection }
-  let(:klass)         { ActiveModel::ErrorCollecting::HumanMessageReporter }
-  let(:collection)    { ActiveModel::ErrorCollecting::ErrorCollection.new base}
-  let(:base)          { User.new }
+  subject { reporter }
+  let(:reporter)    { klass.new collection }
+  let(:klass)       { ActiveModel::ErrorCollecting::HumanMessageReporter }
+  let(:collection)  { ActiveModel::ErrorCollecting::ErrorCollection.new base }
+  let(:base)        { User.new }
 
-
-  describe "#initialize" do
+  describe '#initialize' do
     its(:collection) { should be collection }
   end
 
-  describe "#base" do
+  describe '#base' do
     its(:base) { should be base }
   end
 
-  describe "#full_message" do
+  describe '#full_message' do
     subject { reporter.full_message attribute, message }
     let(:attribute) { :first_name }
-    let(:message)   { "is invalid" }
+    let(:message)   { 'is invalid' }
 
-    it { should == "First name is invalid" }
+    it { should == 'First name is invalid' }
   end
 
-  describe "#full_messages" do
+  describe '#full_messages' do
     subject { reporter.full_messages }
-    let(:expected) {[
-        "First name is invalid",
+    let(:expected) do
+      [
+        'First name is invalid',
         "First name can't be empty",
-        "Last name is invalid"
-    ]}
+        'Last name is invalid'
+      ]
+    end
 
     before  do
       collection[:first_name] << :invalid
@@ -40,19 +44,19 @@ describe ActiveModel::ErrorCollecting::HumanMessageReporter do
     it { should == expected }
   end
 
-  describe "#generate_message" do
+  describe '#generate_message' do
     subject { reporter.generate_message attribute, type, options }
     let(:attribute) { :first_name }
 
-    context "when passing symbols as message" do
+    context 'when passing symbols as message' do
       let(:type)      { :too_short }
-      let(:options)   { {count: 3} }
-      let(:expected)  { "is too short (minimum is 3 characters)" }
+      let(:options)   { { count: 3 } }
+      let(:expected)  { 'is too short (minimum is 3 characters)' }
       it { should == expected }
     end
 
-    context "when passing strings as message" do
-      let(:type)      { "foo" }
+    context 'when passing strings as message' do
+      let(:type)      { 'foo' }
       let(:options)   { nil }
       let(:expected)  { type }
       it { should == expected }

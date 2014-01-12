@@ -1,16 +1,21 @@
+# encoding: utf-8
+
 module ActiveModel
   module ErrorCollecting
+    #
+    # MessageReporter
+    #
     class MessageReporter < Reporter
       def full_messages
-        raise "abstract method"
+        fail 'abstract method'
       end
 
       def full_message(attribute, message)
-        raise "abstract method"
+        fail 'abstract method'
       end
 
       def generate_message(attribute, type = :invalid, options = {})
-        raise "abstract method"
+        fail 'abstract method'
       end
     end
   end

@@ -1,12 +1,18 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe ActiveModel::ErrorCollecting::HumanMessageFormatter do
   subject(:formatter) { klass.new base, error_message }
   let(:klass)         { ActiveModel::ErrorCollecting::HumanMessageFormatter }
   let(:base)          { User.new }
-  let(:error_message) { ActiveModel::ErrorCollecting::ErrorMessage.build base, :first_name, :invalid }
+  let(:error_message) do
+    ActiveModel::ErrorCollecting::ErrorMessage.build(
+      base, :first_name, :invalid
+    )
+  end
 
-  describe "#initialize" do
+  describe '#initialize' do
     its(:base) { should be base }
     its(:error_message) { should be error_message }
     its(:attribute) { should be error_message.attribute }
@@ -15,8 +21,8 @@ describe ActiveModel::ErrorCollecting::HumanMessageFormatter do
     its(:options) { should be error_message.options }
   end
 
-  describe "#format_message" do
+  describe '#format_message' do
     subject { formatter.format_message }
-    it { should == "is invalid" }
+    it { should == 'is invalid' }
   end
 end

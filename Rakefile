@@ -2,21 +2,23 @@
 
 require "bundler/gem_tasks"
 
-require 'rspec/core'
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec) do |spec|
-  spec.pattern = FileList['spec/**/*_spec.rb']
-end
+# Added by devtools
+require 'devtools'
+Devtools.init_rake_tasks
 
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-end
+task :default => [
+  # Make sure ruby style is good
+  'metrics:rubocop',
 
-dir = File.dirname(__FILE__)
+  # Duplicate code testing
+  'metrics:flay',
 
+  # Check for code smells
+  'metrics:reek',
 
-task :default => [ :spec ]
+  # run spec and generate coverage
+  'metrics:coverage',
 
-require 'yard'
-YARD::Rake::YardocTask.new
+  # We need to kill all mutants before enabling this for ci
+  # 'metrics:mutant'
+]

@@ -1,12 +1,14 @@
+# encoding: utf-8
+
 require 'forwardable'
-
-require 'active_support/core_ext/string/inflections'
-
+require 'active_support/all'
+require 'active_model'
 require 'active_model/error_collecting'
 
-require 'active_model/validations'
-
 module ActiveModel
+  #
+  # ActiveModel::Validations.errors override
+  #
   module Validations
     def errors
       @errors ||= ErrorCollecting::Errors.new(self)

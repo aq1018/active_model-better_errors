@@ -1,8 +1,15 @@
+# encoding: utf-8
+
 module ActiveModel
   module ErrorCollecting
+    #
+    # ErrorMessage
+    #
     class ErrorMessage
       include Comparable
-      CALLBACKS_OPTIONS = [:if, :unless, :on, :allow_nil, :allow_blank, :strict]
+      CALLBACKS_OPTIONS = [
+        :if, :unless, :on, :allow_nil, :allow_blank, :strict
+      ]
 
       # return the message either as nil, symbol, or string
       def self.normalize(message)
@@ -35,7 +42,7 @@ module ActiveModel
         [symbol, string]
       end
 
-      def self.build(base, attribute, message, options=nil)
+      def self.build(base, attribute, message, options = nil)
         options   = options ? options : {}
         options   = options.except(*CALLBACKS_OPTIONS)
 
@@ -54,7 +61,7 @@ module ActiveModel
         @options    = options
       end
 
-      def <=> (other)
+      def <=>(other)
         to_hash <=> other.to_hash
       end
 

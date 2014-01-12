@@ -1,7 +1,12 @@
+# encoding: utf-8
+
 module ActiveModel
   module ErrorCollecting
+    #
+    # ErrorMessageSet
+    #
     class ErrorMessageSet < Array
-      def initialize(base, attribute, errors=[])
+      def initialize(base, attribute, errors = [])
         @base      = base
         @attribute = attribute
         errors.each do |error|
