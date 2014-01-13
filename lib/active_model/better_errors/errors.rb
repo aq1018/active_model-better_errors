@@ -6,53 +6,34 @@ module ActiveModel
     # Errors
     #
     class Errors
-      include Emulation
+      include Helper, Emulation
 
-      attr_reader :base
+      attr_reader :base, :formatter_type
+
       def initialize(base)
-        @base = base
-        @reporters = {}
-        @reporter_classes = reporter_classes
+        @base, @formatter_type = base, default_formatter_type
       end
+
+      def format(type)
+        @formatter_type = type
+        self
+      end
+
+      private
 
       def error_collection
-        @error_collection ||= ErrorCollection.new(@base)
+        @error_collection ||= ErrorCollection.new(base)
       end
 
-      def message_reporter
-        get_reporter(:message)
+      def reporter_for(type)
+        reporters.build(type, error_collection, formatter_type)
       end
 
-      def hash_reporter
-        get_reporter(:hash)
-      end
-
-      def array_reporter
-        get_reporter(:array)
-      end
-
-      def set_reporter(type, reporter)
-        type = type.to_s
-        klass = ::ActiveModel::BetterErrors
-          .get_reporter_class(type, reporter)
-
-        @reporter_classes[type] = klass
-        @reporters.delete type
-      end
-
-      def get_reporter(type)
-        type = type.to_s
-        klass = get_reporter_class(type)
-        @reporters[type] = klass.new(error_collection)
-      end
-
-      def reporter_classes
-        ::ActiveModel::BetterErrors.reporters
-      end
-
-      def get_reporter_class(type)
-        type = type.to_s
-        @reporter_classes[type]
+      #
+      # Build #message_reporter, #hash_reporter,
+      # #array_reporter methods that are used by Emulaltion module.
+      Helper.reporter_types.each do |type|
+        define_method(:"#{type}_reporter") { reporter_for(type) }
       end
     end
   end

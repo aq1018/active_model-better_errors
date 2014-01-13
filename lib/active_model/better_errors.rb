@@ -1,30 +1,29 @@
 # encoding: utf-8
 
-require 'forwardable'
+require 'abstract_type'
+require 'concord'
 require 'active_support/all'
 require 'active_model'
 
+require 'active_model/better_errors/constants'
+require 'active_model/better_errors/helper'
 require 'active_model/better_errors/error_message'
 require 'active_model/better_errors/error_message_set'
 require 'active_model/better_errors/error_collection'
 
 require 'active_model/better_errors/formatter'
-require 'active_model/better_errors/human_message_formatter'
+require 'active_model/better_errors/formatter/human'
+require 'active_model/better_errors/formatter/machine'
 
 require 'active_model/better_errors/reporter'
-require 'active_model/better_errors/message_reporter'
-require 'active_model/better_errors/hash_reporter'
-require 'active_model/better_errors/array_reporter'
-
-require 'active_model/better_errors/human_message_reporter'
-require 'active_model/better_errors/human_hash_reporter'
-require 'active_model/better_errors/human_array_reporter'
-
-require 'active_model/better_errors/machine_hash_reporter'
-require 'active_model/better_errors/machine_array_reporter'
+require 'active_model/better_errors/reporter/message'
+require 'active_model/better_errors/reporter/hash'
+require 'active_model/better_errors/reporter/array'
 
 require 'active_model/better_errors/emulation'
 require 'active_model/better_errors/errors'
+require 'active_model/better_errors/registry'
+require 'active_model/better_errors/version'
 
 module ActiveModel
   #
@@ -32,44 +31,29 @@ module ActiveModel
   #
   module BetterErrors
     class << self
-      attr_accessor :formatter
-
-      def set_reporter(name, reporter)
-        name = name.to_s
-        @reporter_maps ||= {}
-        return @reporter_maps.delete(name) unless reporter
-        @reporter_maps[name] = get_reporter_class(name, reporter)
-      end
+      attr_accessor :default_formatter_type
 
       def reporters
-        @reporter_maps ||= {}
-        @reporter_maps.clone
+        @reporters ||= Registry.new
       end
 
-      def get_reporter_class(name, reporter)
-        return reporter if reporter.is_a? Class
-        class_name = "#{reporter}_#{name}_reporter"
-        "active_model/better_errors/#{class_name}".classify.constantize
-      end
-
-      def format_message(base, message)
-        formatter.new(base, message).format_message
+      def formatters
+        @formatters ||= Registry.new
       end
     end
 
-    set_reporter :message,  :human
-    set_reporter :array,    :human
-    set_reporter :hash,     :human
+    reporters
+      .register(:array, Formatter::Array)
+      .register(:hash, Reporter::Hash)
+      .register(:message, Reporter::Message)
 
-    self.formatter = HumanMessageFormatter
-  end
+    formatters
+      .register(:human, Formatter::Human)
+      .register(:machine, Formatter::Machine)
 
-  #
-  # ActiveModel::Validations.errors override
-  #
-  module Validations
-    def errors
-      @errors ||= BetterErrors::Errors.new(self)
-    end
+    self.default_formatter_type = :human
   end
 end
+
+# Overrides ActiveSupport::Validation#errors here
+require 'active_model/better_errors/hook'

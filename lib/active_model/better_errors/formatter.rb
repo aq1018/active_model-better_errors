@@ -5,22 +5,30 @@ module ActiveModel
     #
     # Abstract Formatter class
     class Formatter
-      extend Forwardable
+      include AbstractType, Concord.new(:error_message)
 
-      def_delegators :@error_message, :attribute, :message, :options
-
-      attr_reader :base, :error_message
-
-      def initialize(base, error_message)
-        @base, @error_message = base, error_message
-      end
+      delegate :base, :attribute, :type, :message, :options, to: :error_message
 
       #
-      # @abstract
-      # Formats the error message into a comsumable string.
-      # see HumanMessageFormatter for more details.
-      def format_message
-      end
+      # Format attribute from `attribute`.
+      #
+      # @return [String, Symbol] the formatted attribute.
+      #
+      abstract_method :format_attribute
+
+      #
+      # Format message from `type` or `message`.
+      #
+      # @return [String, Symbol] the formatted attribute.
+      #
+      abstract_method :format_message
+
+      #
+      # Format full message from `attribute`, `type` and `message`.
+      #
+      # @return [String, Hash] the formatted attribute.
+      #
+      abstract_method :format_full_message
     end
   end
 end

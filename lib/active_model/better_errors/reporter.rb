@@ -6,13 +6,12 @@ module ActiveModel
     # Reporter
     #
     class Reporter
-      attr_reader :collection
-      def initialize(collection)
-        @collection = collection
-      end
+      include Helper, Concord.new(:collection, :formatter_type)
 
-      def base
-        @collection.base
+      delegate :base, to: :collection
+
+      def formatter_for(error_message)
+        formatters.build(formatter_type, error_message)
       end
     end
   end

@@ -9,7 +9,7 @@ module ActiveModel
   module BetterErrors
     #
     # Emulation
-    # The ActiveModel Emulation Layer
+    # Provides a compatible interface to ActiveModel::Errors
     #
     module Emulation
       MODEL_METHODS = [
@@ -19,16 +19,23 @@ module ActiveModel
       ]
 
       MESSAGE_REPORTER_METHODS = [
-        :full_messages, :full_message, :generate_message
+        :full_messages, :full_messages_for, :full_message, :generate_message
+      ]
+
+      HASH_REPORTER_METHODS = [
+        :to_hash
+      ]
+
+      ARRAY_REPORTER_METHODS = [
+        :to_a
       ]
 
       def self.included(base)
         base.class_eval do
-          extend Forwardable
-          def_delegators :error_collection, *MODEL_METHODS
-          def_delegators :message_reporter, *MESSAGE_REPORTER_METHODS
-          def_delegators :hash_reporter,    :to_hash
-          def_delegators :array_reporter,   :to_a
+          delegate(*MODEL_METHODS, to: :error_collection)
+          delegate(*MESSAGE_REPORTER_METHODS, to: :message_reporter)
+          delegate(*HASH_REPORTER_METHODS, to: :hash_reporter)
+          delegate(*ARRAY_REPORTER_METHODS, to: :array_reporter)
 
           alias_method :blank?, :empty?
           alias_method :has_key?, :include?

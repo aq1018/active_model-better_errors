@@ -6,7 +6,8 @@ module ActiveModel
     # ErrorMessage
     #
     class ErrorMessage
-      include Comparable
+      include Helper, Comparable
+
       CALLBACKS_OPTIONS = [
         :if, :unless, :on, :allow_nil, :allow_blank, :strict
       ]
@@ -83,7 +84,7 @@ module ActiveModel
       end
 
       def to_s
-        ::ActiveModel::BetterErrors.format_message(base, self)
+        formatters.build(:human, self).format_message
       end
 
       def inspect
