@@ -29,6 +29,12 @@ describe ActiveModel::BetterErrors::ErrorMessage do
       let(:message) { proc { 'bad' } }
       it { should == 'bad' }
     end
+
+    context 'when message has #to_s method' do
+      let(:message) { double() }
+      before { message.should_receive(:to_s).and_return('bad') }
+      it { should == 'bad' }
+    end
   end
 
   describe '.identify' do
