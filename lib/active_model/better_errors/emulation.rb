@@ -59,7 +59,10 @@ module ActiveModel
 
       def add(attribute, message = nil, options = {})
         if options[:strict]
-          error   = ErrorMessage.build(attribute, message, options)
+          error = ErrorMessage::Builder.build(
+            @base, attribute, message, options
+          )
+
           message = ::ActiveModel::BetterErrors.format_message(@base, error)
           full_message = full_message(attribute, message)
           fail ActiveModel::StrictValidationFailed, full_message

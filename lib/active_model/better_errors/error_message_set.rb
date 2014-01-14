@@ -15,19 +15,19 @@ module ActiveModel
       end
 
       def <<(error)
-        super ErrorMessage.build(@base, @attribute, *error)
+        super ErrorMessage::Builder.build(@base, @attribute, *error)
       end
 
       def push(message, options = {})
-        super ErrorMessage.build(@base, @attribute, message, options)
+        super ErrorMessage::Builder.build(@base, @attribute, message, options)
       end
 
       def []=(index, error)
-        super index, ErrorMessage.build(@base, @attribute, *error)
+        super index, ErrorMessage::Builder.build(@base, @attribute, *error)
       end
 
       def insert(index, error)
-        super index, ErrorMessage.build(@base, @attribute, *error)
+        super index, ErrorMessage::Builder.build(@base, @attribute, *error)
       end
 
       def to_a

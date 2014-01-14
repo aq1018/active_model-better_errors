@@ -18,7 +18,7 @@ module ActiveModel
             if message.is_a?(ErrorMessage)
               message
             else
-              ErrorMessage.build(base, attribute, nil, message)
+              ErrorMessage::Builder.build(base, attribute, nil, message)
             end
 
           formatter_for(error_message).format_full_message
@@ -33,7 +33,7 @@ module ActiveModel
         # This method is not used internally.
         # This is for API Compatibility with ActiveModel::Errors only
         def generate_message(attribute, type = :invalid, options = {})
-          error_message = ErrorMessage.build(
+          error_message = ErrorMessage::Builder.build(
             base, attribute, type, nil, options
           )
           formatter_for(error_message).format_message

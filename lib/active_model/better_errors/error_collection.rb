@@ -86,7 +86,10 @@ module ActiveModel
       end
 
       def added?(attribute, message = nil, options = {})
-        message = ErrorMessage.build(base, attribute, message, options)
+        message = ErrorMessage::Builder.build(
+          base, attribute, message, options
+        )
+
         self[attribute].include? message
       end
     end

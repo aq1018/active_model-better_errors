@@ -2,12 +2,14 @@
 
 require 'abstract_type'
 require 'concord'
-require 'active_support/all'
+require 'active_support'
+require 'active_support/core_ext'
 require 'active_model'
 
 require 'active_model/better_errors/constants'
 require 'active_model/better_errors/helper'
 require 'active_model/better_errors/error_message'
+require 'active_model/better_errors/error_message/builder'
 require 'active_model/better_errors/error_message_set'
 require 'active_model/better_errors/error_collection'
 
