@@ -27,8 +27,6 @@ module ActiveModel
       end
 
       def self.identify(message, override)
-        symbol = string = nil
-
         message   = normalize message
         override  = normalize override
 

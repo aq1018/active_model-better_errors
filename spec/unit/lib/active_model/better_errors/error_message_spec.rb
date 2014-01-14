@@ -46,6 +46,11 @@ describe ActiveModel::BetterErrors::ErrorMessage do
         it { should == [:invalid, nil] }
       end
 
+      context 'when override is ""' do
+        let(:override) { "" }
+        it { should == [:invalid, nil] }
+      end
+
       context 'when override is a string' do
         let(:override) { 'invalid' }
         it { should == [:invalid, 'invalid'] }
