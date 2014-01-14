@@ -47,7 +47,7 @@ describe ActiveModel::BetterErrors::Errors do
   end
 
   describe '#message_reporter' do
-    subject { instance.message_reporter }
+    subject { instance.send :message_reporter }
     before do
       instance
         .should_receive(:reporter_for)
@@ -59,7 +59,7 @@ describe ActiveModel::BetterErrors::Errors do
   end
 
   describe '#hash_reporter' do
-    subject { instance.hash_reporter }
+    subject { instance.send :hash_reporter }
     before do
       instance
         .should_receive(:reporter_for)
@@ -71,7 +71,7 @@ describe ActiveModel::BetterErrors::Errors do
   end
 
   describe '#array_reporter' do
-    subject { instance.array_reporter }
+    subject { instance.send :array_reporter }
     before do
       instance
         .should_receive(:reporter_for)
