@@ -38,22 +38,26 @@ describe ActiveModel::BetterErrors::ErrorMessage::Builder do
     end
   end
 
-  # describe '#normalized_message' do
-  #   subject         { builder.normalized_message }
-  #   let(:message)   { -> { 'foo' } }
-  #   let(:expected)  { 'foo' }
-
-  #   it { should == expected }
-
-  #   it 'memoizes' do
-  #     v1 = builder.normalized_message
-  #     v2 = builder.normalized_message
-  #     expect(v2).to be(v1)
-  #   end
-  # end
-
   describe '#normalized_message' do
     subject         { builder.normalized_message }
+    let(:expected)  { 'foo' }
+
+    before do
+      builder.class.should_receive(:normalize)
+        .with(message).and_return(expected)
+    end
+
+    it { should == expected }
+
+    it 'memoizes' do
+      v1 = builder.normalized_message
+      v2 = builder.normalized_message
+      expect(v2).to be(v1)
+    end
+  end
+
+  describe '#normalized_override' do
+    subject         { builder.normalized_override }
     let(:expected)  { 'foo' }
 
     before do

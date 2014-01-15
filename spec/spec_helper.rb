@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-# SimpleCov MUST be started before require 'rom-relation'
-#
 if ENV['COVERAGE'] == 'true'
   require 'simplecov'
   require 'coveralls'
