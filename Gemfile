@@ -6,11 +6,11 @@ gemspec
 
 group :development do
   gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
-  gem 'gem-release'
+  gem 'bogus'
 end
 
-group :test do
-  gem 'bogus'
+group :release do
+  gem 'gem-release'
 end
 
 # Added by devtools
