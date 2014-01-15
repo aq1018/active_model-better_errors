@@ -9,5 +9,9 @@ group :development do
   gem 'gem-release'
 end
 
+group :test do
+  gem 'bogus'
+end
+
 # Added by devtools
 eval_gemfile 'Gemfile.devtools'

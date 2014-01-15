@@ -20,3 +20,5 @@ end
 
 require 'active_model/better_errors'
 require 'devtools/spec_helper'
+
+include ActiveModel::BetterErrors
