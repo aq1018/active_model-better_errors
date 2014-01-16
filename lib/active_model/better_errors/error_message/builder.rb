@@ -63,8 +63,6 @@ module ActiveModel
             normalized_override
           elsif normalized_message.is_a?(Symbol)
             normalized_message
-          else
-            nil
           end
         end
 
@@ -73,11 +71,9 @@ module ActiveModel
                   normalized_override
                 elsif normalized_message.is_a?(String)
                   normalized_message
-                else
-                  nil
                 end
 
-          str.blank? ? nil : str
+          str unless str.blank?
         end
 
         def build

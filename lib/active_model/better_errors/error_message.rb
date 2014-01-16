@@ -10,7 +10,7 @@ module ActiveModel
 
       attr_reader :base, :attribute, :type, :message, :options
 
-      def initialize(base, attribute, type, message, options = {})
+      def initialize(base, attribute, type, message, options)
         @base       = base
         @attribute  = attribute
         @type       = type
