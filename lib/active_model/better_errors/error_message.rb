@@ -10,6 +10,9 @@ module ActiveModel
 
       attr_reader :base, :attribute, :type, :message, :options
 
+      delegate :hash, to: :to_hash
+      delegate :inspect, to: :to_s
+
       def initialize(base, attribute, type, message, options)
         @base       = base
         @attribute  = attribute
@@ -35,19 +38,12 @@ module ActiveModel
         to_hash
       end
 
-      def hash
-        to_hash.hash
-      end
-
       def to_s
         formatters.build(:human, self).format_message
       end
 
-      def inspect
-        to_s.inspect
-      end
-
       def ==(other)
+
         return type == other if other.is_a?(Symbol)
         to_s == other.to_s
       end
