@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
+# TODO
+#  kill mutants
 describe ErrorMessageSet, '#build_error_message' do
   subject         { object.send :build_error_message, error }
 

@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
+# TODO
+#  kill mutants
 describe ErrorCollection, '#[]=' do
   subject { object[field] }
 
