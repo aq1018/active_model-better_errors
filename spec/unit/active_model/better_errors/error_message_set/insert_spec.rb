@@ -2,14 +2,14 @@
 
 require 'spec_helper'
 
-describe ErrorMessageSet, '#<<' do
+describe ErrorMessageSet, '#insert' do
   subject { object.first }
 
   let(:object)      { described_class.new base, field }
   let(:base)        { User.new }
   let(:field)       { :first_name }
 
-  before            { object << error }
+  before            { object.insert(0, error) }
 
   describe 'when accepting error as a symbol' do
     let(:error)     { :invalid }

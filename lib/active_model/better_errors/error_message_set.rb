@@ -15,23 +15,26 @@ module ActiveModel
       end
 
       def <<(error)
-        super ErrorMessage::Builder.build(@base, @attribute, *error)
+        super build_error_message(*error)
       end
 
       def push(message, options = nil)
-        super ErrorMessage::Builder.build(@base, @attribute, message, options)
-      end
-
-      def []=(index, error)
-        super index, ErrorMessage::Builder.build(@base, @attribute, *error)
+        super build_error_message(message, options)
       end
 
       def insert(index, error)
-        super index, ErrorMessage::Builder.build(@base, @attribute, *error)
+        super index, build_error_message(*error)
       end
+      alias_method :[]=, :insert
 
       def to_a
         dup
+      end
+
+      private
+
+      def build_error_message(error, options = nil)
+        ErrorMessage::Builder.build(base, attribute, error, options)
       end
     end
   end
