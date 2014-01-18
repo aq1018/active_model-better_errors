@@ -9,27 +9,6 @@ describe ActiveModel::BetterErrors::ErrorMessageSet do
   let(:errors)    { [] }
   let(:base)      { User.new }
 
-  describe '#<<' do
-    before  { set << error }
-    subject { set.first }
-
-    describe 'when accepting error as a symbol' do
-      let(:error)  { :invalid }
-
-      it { should be_a ActiveModel::BetterErrors::ErrorMessage }
-      its(:message)   { should be_nil }
-      its(:type)      { should == error }
-    end
-
-    describe 'when accepting error as a tuple' do
-      let(:error)  { [:invalid, { message: 'OMG!!' }] }
-
-      it { should be_a ActiveModel::BetterErrors::ErrorMessage }
-      its(:message)   { should == 'OMG!!' }
-      its(:type)      { should == :invalid }
-    end
-  end
-
   describe '#to_a' do
     let(:errors) { [:invalid, :too_long] }
     subject { set.to_a }
