@@ -6,12 +6,12 @@ module ActiveModel
     # ErrorMessageSet
     #
     class ErrorMessageSet < Array
+      attr_reader :base, :attribute
+
       def initialize(base, attribute, errors = [])
         @base      = base
         @attribute = attribute
-        errors.each do |error|
-          push(*error)
-        end
+        errors.each { |error| push(*error) }
       end
 
       def <<(error)

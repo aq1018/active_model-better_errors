@@ -43,7 +43,6 @@ module ActiveModel
       end
 
       def ==(other)
-
         return type == other if other.is_a?(Symbol)
         to_s == other.to_s
       end

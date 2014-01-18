@@ -9,17 +9,6 @@ describe ActiveModel::BetterErrors::ErrorMessageSet do
   let(:errors)    { [] }
   let(:base)      { User.new }
 
-  describe '#initialize' do
-    context 'with no errors' do
-      its(:length) { should == 0 }
-    end
-
-    context 'with one error' do
-      let(:errors) { [:invalid] }
-      its(:length) { should == 1 }
-    end
-  end
-
   describe '#push' do
     before { set.push error, options }
     let(:error)  { :invalid }

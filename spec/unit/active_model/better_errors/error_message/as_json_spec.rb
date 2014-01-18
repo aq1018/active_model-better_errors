@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe ErrorMessage, 'as_json' do
+describe ErrorMessage, '#as_json' do
   let(:object)    { described_class.new base, field, type, message, options }
   let(:base)      { User.new }
   let(:field)     { :name }
