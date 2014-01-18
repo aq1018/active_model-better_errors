@@ -32,7 +32,7 @@ describe ErrorMessageSet, '#insert' do
   end
 
   describe 'when accepting error as a tuple' do
-    let(:error)     { [:invalid, { message: 'OMG!!' }] }
+    let(:error)     { { type: :invalid, message: 'OMG!!' } }
 
     it              { should be_a ErrorMessage }
     its(:base)      { should eql base }

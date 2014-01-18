@@ -6,33 +6,21 @@ module ActiveModel
     # ErrorCollection
     #
     class ErrorCollection
-      include Enumerable
+      include Enumerable, Concord.new(:base)
 
-      attr_reader :base
-      def initialize(base)
-        @base = base
-        @collection = {}
-      end
-
-      def clear
-        @collection.clear
-      end
+      delegate :clear, :values, :keys, :delete, to: :collection
 
       def include?(attribute)
-        ( v = @collection[attribute]) && v.any?
+        (v = get(attribute)) && v.any?
       end
 
       def get(attribute)
-        @collection[attribute]
+        collection[attribute]
       end
 
       def set(attribute, errors)
-        return delete attribute if errors.nil?
-        @collection[attribute] = ErrorMessageSet.new(base, attribute, errors)
-      end
-
-      def delete(attribute)
-        @collection.delete attribute
+        return delete(attribute) if errors.nil?
+        collection[attribute] = ErrorMessageSet.new(base, attribute, errors)
       end
 
       def [](attribute)
@@ -44,7 +32,7 @@ module ActiveModel
       end
 
       def each
-        @collection.each_key do |attribute|
+        collection.each_key do |attribute|
           self[attribute].each do |error_message|
             yield attribute, error_message
           end
@@ -56,17 +44,9 @@ module ActiveModel
       end
       alias_method :count, :size
 
-      def values
-        @collection.values
-      end
-
-      def keys
-        @collection.keys
-      end
-
       def to_a
         array = []
-        @collection.each_key do |attribute|
+        collection.each_key do |attribute|
           self[attribute].each { |error_message| array << error_message }
         end
 
@@ -74,7 +54,7 @@ module ActiveModel
       end
 
       def to_hash
-        @collection.dup
+        collection.dup
       end
 
       def empty?
@@ -82,7 +62,9 @@ module ActiveModel
       end
 
       def add(attribute, message, options = {})
-        self[attribute] << [message, options]
+        error = ErrorMessage::Builder.build(base, attribute, message, options)
+        self[attribute] << error
+        error
       end
 
       def added?(attribute, message = nil, options = {})
@@ -91,6 +73,12 @@ module ActiveModel
         )
 
         self[attribute].include? message
+      end
+
+      private
+
+      def collection
+        @collection ||= {}
       end
     end
   end

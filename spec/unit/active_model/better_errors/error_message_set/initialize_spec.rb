@@ -8,7 +8,13 @@ describe ErrorMessageSet, '#initialize' do
   let(:object)    { described_class.new base, field, errors }
   let(:base)      { User.new }
   let(:field)     { :first_name }
-  let(:errors)    { [:invalid, 'no good', [:invalid, { message: 'no good' }]] }
+  let(:errors)    do
+    [
+      :invalid,
+      'no good',
+      { type: :invalid, message: 'no good' }
+    ]
+  end
 
   it              { should be_a Array }
   its(:base)      { should eql base }

@@ -3,46 +3,40 @@
 require 'spec_helper'
 
 describe ErrorMessageSet, '#push' do
-  subject { object }
-
+  subject         { action }
+  let(:action)    { object.push(*errors) }
   let(:object)    { described_class.new base, field }
   let(:base)      { User.new }
   let(:field)     { :first_name }
+  let(:errors)    { [:invalid, 'no good', { type: :bad, message: 'no good' }] }
 
-  context 'without options' do
-    let(:error)       { :invalid }
+  it { should equal object }
+  its(:size) { should eql 3 }
 
-    before            { object.push(error) }
+  describe 'the first error' do
+    subject { action.first }
 
-    its(:size)        { should eql 1 }
-
-    describe 'first error' do
-      subject { object.first }
-
-      it              { should be_a ErrorMessage }
-      its(:base)      { should eql base }
-      its(:attribute) { should eql field }
-      its(:message)   { should be_nil }
-      its(:type)      { should eql error }
-    end
+    its(:base)      { should equal base }
+    its(:attribute) { should equal field }
+    its(:type)      { should equal :invalid }
+    its(:message)   { should equal nil }
   end
 
-  context 'with options' do
-    let(:error)       { :invalid }
-    let(:options)     { { message: 'Invalid' } }
+  describe 'the second error' do
+    subject { action.second }
 
-    before            { object.push(error, options) }
+    its(:base)      { should equal base }
+    its(:attribute) { should equal field }
+    its(:type)      { should equal nil }
+    its(:message)   { should eql 'no good' }
+  end
 
-    its(:size)        { should eql 1 }
+  describe 'the third error' do
+    subject { action.last }
 
-    describe 'first error' do
-      subject { object.first }
-
-      it              { should be_a ErrorMessage }
-      its(:base)      { should eql base }
-      its(:attribute) { should eql field }
-      its(:message)   { should eql options[:message] }
-      its(:type)      { should eql error }
-    end
+    its(:base)      { should equal base }
+    its(:attribute) { should equal field }
+    its(:type)      { should equal :bad }
+    its(:message)   { should eql 'no good' }
   end
 end

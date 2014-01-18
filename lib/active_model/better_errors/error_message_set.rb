@@ -8,24 +8,41 @@ module ActiveModel
     class ErrorMessageSet < Array
       attr_reader :base, :attribute
 
-      def initialize(base, attribute, errors = [])
+      def initialize(base, attribute, errors = nil)
         @base      = base
         @attribute = attribute
-        errors.each { |error| push(*error) }
+        push(*errors)
+      end
+
+      def []=(*args)
+        errors = args.pop
+
+        if errors.is_a?(Array)
+          errors = errors.map { |error| build_error_message(error) }
+        else
+          # singular this case
+          errors = build_error_message(errors)
+        end
+
+        args = args.push(errors)
+
+        super(*args)
       end
 
       def <<(error)
-        super build_error_message(*error)
+        error_message = build_error_message(error)
+        super(error_message)
       end
 
-      def push(message, options = nil)
-        super build_error_message(message, options)
+      def push(*args)
+        errors = args.map { |error| build_error_message(error) }
+        super(*errors)
       end
 
-      def insert(index, error)
-        super index, build_error_message(*error)
+      def insert(index, *args)
+        errors = args.map { |error| build_error_message(error) }
+        super(index, *errors)
       end
-      alias_method :[]=, :insert
 
       def to_a
         dup
@@ -33,8 +50,17 @@ module ActiveModel
 
       private
 
-      def build_error_message(error, options = nil)
-        ErrorMessage::Builder.build(base, attribute, error, options)
+      def build_error_message(error)
+        return error if error.is_a?(ErrorMessage)
+
+        if error.is_a?(Hash)
+          message, options = error.delete(:type), error
+        elsif error.is_a?(Symbol)
+          message = error
+        else
+          message = error.to_s
+        end
+        ErrorMessage::Builder.build(base, attribute, message, options)
       end
     end
   end

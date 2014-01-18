@@ -8,9 +8,9 @@ describe ActiveModel::BetterErrors::ErrorCollection do
   let(:base)  { User.new }
   let(:errors) do
     {
-      :first_name =>  [[:too_long, { count: 3 }]],
-      'last_name' =>  [[:invalid, { message: 'Invalid' }]],
-      :email  =>  [:invalid],
+      :first_name =>  [{ type: :too_long, count: 3 }],
+      'last_name' =>  [{ type: :invalid, message: 'Invalid' }],
+      :email      =>  [:invalid],
     }
   end
 
