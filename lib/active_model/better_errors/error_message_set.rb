@@ -18,7 +18,7 @@ module ActiveModel
         super ErrorMessage::Builder.build(@base, @attribute, *error)
       end
 
-      def push(message, options = {})
+      def push(message, options = nil)
         super ErrorMessage::Builder.build(@base, @attribute, message, options)
       end
 

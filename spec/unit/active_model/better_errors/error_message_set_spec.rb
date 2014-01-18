@@ -9,27 +9,6 @@ describe ActiveModel::BetterErrors::ErrorMessageSet do
   let(:errors)    { [] }
   let(:base)      { User.new }
 
-  describe '#push' do
-    before { set.push error, options }
-    let(:error)  { :invalid }
-    let(:options)   { nil }
-    subject { set.first }
-
-    describe 'without options' do
-      it { should be_a ActiveModel::BetterErrors::ErrorMessage }
-      its(:message)   { should be_nil }
-      its(:type)      { should == error }
-    end
-
-    describe 'with options' do
-      let(:options)   { { message: 'Invalid' } }
-
-      it { should be_a ActiveModel::BetterErrors::ErrorMessage }
-      its(:message)   { should == options[:message] }
-      its(:type)      { should == error }
-    end
-  end
-
   describe '#<<' do
     before  { set << error }
     subject { set.first }
