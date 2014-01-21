@@ -183,3 +183,7 @@ ActiveModel::BetterErrors.set_reporter :hash, MyHashReporter
 Copyright (c) 2013 Aaron Qian. See LICENSE.txt for
 further details.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aq1018/active_model-better_errors/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
