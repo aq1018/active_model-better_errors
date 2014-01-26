@@ -6,12 +6,11 @@ module ActiveModel
     # Errors
     #
     class Errors
-      include Helper, Emulation
+      include Helper, Emulation, Concord.new(:base)
+      public :base
 
-      attr_reader :base, :formatter_type
-
-      def initialize(base)
-        @base, @formatter_type = base, default_formatter_type
+      def formatter_type
+        @formatter_type ||= default_formatter_type
       end
 
       def format(type)
