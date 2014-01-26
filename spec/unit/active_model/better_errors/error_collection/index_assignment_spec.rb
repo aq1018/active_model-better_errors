@@ -10,10 +10,11 @@ describe ErrorCollection, '#[]=' do
   let(:object)      { described_class.new base }
   let(:base)        { User.new }
   let(:field)       { :first_name }
-  let(:errors)      { [:invalid] }
+  let(:error)       { :invalid }
 
-  before { object[field] = errors }
+  before { object[field] = error }
 
   it { should be_a ErrorMessageSet }
   its(:size)    { should eql 1 }
+
 end

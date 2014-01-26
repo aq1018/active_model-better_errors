@@ -61,13 +61,13 @@ module ActiveModel
         size == 0
       end
 
-      def add(attribute, message, options = {})
+      def add(attribute, message, options = nil)
         error = ErrorMessage::Builder.build(base, attribute, message, options)
         self[attribute] << error
         error
       end
 
-      def added?(attribute, message = nil, options = {})
+      def added?(attribute, message = nil, options = nil)
         message = ErrorMessage::Builder.build(
           base, attribute, message, options
         )
