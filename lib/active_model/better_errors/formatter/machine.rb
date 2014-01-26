@@ -12,18 +12,14 @@ module ActiveModel
         #
         # @return [Symbol] the formatted attribute.
         #
-        def format_attribute
-          attribute
-        end
+        alias_method :format_attribute, :attribute
 
         #
         # Format message from `type`.
         #
         # @return [Symbol] the formatted attribute.
         #
-        def format_message
-          type
-        end
+        alias_method :format_message, :type
 
         #
         # Format full message from `attribute`, `type` and `options`.
