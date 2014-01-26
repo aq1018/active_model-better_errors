@@ -5,14 +5,12 @@ module ActiveModel
     #
     # Helper class to handle registration of classes
     class Registry
-      attr_reader :map
-
-      def initialize(map = {})
-        @map = map
+      def map
+        @map ||= {}
       end
 
       def [](type)
-        map[type]
+        map.fetch(type)
       end
 
       def register(type, klass)
