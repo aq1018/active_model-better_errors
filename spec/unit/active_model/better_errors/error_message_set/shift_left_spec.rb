@@ -43,7 +43,7 @@ describe ErrorMessageSet, '#<<' do
     end
   end
 
-  context 'when accepting error as a tuple' do
+  context 'when accepting error as a hash' do
     let(:error)     { { type: :invalid, message: 'OMG!!' } }
 
     it { should equal object }

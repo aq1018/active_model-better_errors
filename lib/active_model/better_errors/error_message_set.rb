@@ -14,19 +14,8 @@ module ActiveModel
         push(*errors)
       end
 
-      def []=(*args)
-        errors = args.pop
-
-        if errors.is_a?(Array)
-          errors = errors.map { |error| build_error_message(error) }
-        else
-          # singular this case
-          errors = build_error_message(errors)
-        end
-
-        args = args.push(errors)
-
-        super(*args)
+      def []=(pos, error)
+        super pos, build_error_message(error)
       end
 
       def <<(error)
@@ -55,10 +44,10 @@ module ActiveModel
 
         if error.is_a?(Hash)
           message, options = error.delete(:type), error
-        elsif error.is_a?(Symbol)
+        elsif error.is_a?(Symbol) || error.is_a?(String)
           message = error
         else
-          message = error.to_s
+          fail ArgumentError, 'error must be a hash, symbol, or string.'
         end
         ErrorMessage::Builder.build(base, attribute, message, options)
       end

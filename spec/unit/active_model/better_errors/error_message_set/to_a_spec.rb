@@ -8,7 +8,13 @@ describe ErrorMessageSet, '#to_a' do
   let(:object)    { described_class.new base, field, errors }
   let(:base)      { User.new }
   let(:field)     { :first_name }
-  let(:errors)    { [:invalid, 'no good', [:invalid, { message: 'no good' }]] }
+  let(:errors)    do
+    [
+      :invalid,
+      'no good',
+      { type: :invalid, message: 'no good' }
+    ]
+  end
 
   it { should eql object }
   it { should_not equal object }

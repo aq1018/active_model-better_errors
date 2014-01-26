@@ -8,55 +8,57 @@ describe ErrorMessageSet, '#build_error_message' do
   subject         { object.send :build_error_message, error }
 
   let(:object)    { described_class.new base, field }
-  let(:error)     { { type: type, message: message } }
   let(:base)      { User.new }
   let(:field)     { :first_name }
 
-  context 'with message' do
-    let(:message) { 'OMG!' }
+  context 'when error is an ErrorMessage' do
+    let(:error)   { ErrorMessage::Builder.build(base, field, :invalid) }
 
-    context 'when accepting type as a symbol' do
-      let(:type)      { :invalid }
-
-      it              { should be_a ErrorMessage }
-      its(:base)      { should eql base }
-      its(:attribute) { should eql field }
-      its(:type)      { should eql type }
-      its(:message)   { should eql message }
-    end
-
-    context 'when accepting type as a string' do
-      let(:type)      { 'no good' }
-
-      it              { should be_a ErrorMessage }
-      its(:base)      { should eql base }
-      its(:attribute) { should eql field }
-      its(:type)      { should eql nil }
-      its(:message)   { should eql message }
-    end
+    it { should equal error }
+    its(:base) { should eql base }
+    its(:attribute) { should eql field }
   end
 
-  context 'without message' do
-    let(:message) { nil }
+  context 'when error is a symbol' do
+    let(:error)     { :invalid }
 
-    context 'when accepting type as a symbol' do
-      let(:type)      { :invalid }
+    it { should be_a ErrorMessage }
+    its(:base) { should eql base }
+    its(:attribute) { should eql field }
+    its(:type)    { should eql error }
+    its(:message) { should be_nil }
+  end
 
-      it              { should be_a ErrorMessage }
-      its(:base)      { should eql base }
-      its(:attribute) { should eql field }
-      its(:type)      { should eql type }
-      its(:message)   { should be_nil }
-    end
+  context 'when error is a Hash' do
+    let(:error)   { { type: type, message: message } }
+    let(:type)    { :invalid }
+    let(:message) { 'no good' }
 
-    context 'when accepting type as a string' do
-      let(:type)      { 'no good' }
+    it { should be_a ErrorMessage }
+    its(:base) { should eql base }
+    its(:attribute) { should eql field }
+    its(:type) { should eql type }
+    its(:message) { should eql message }
+  end
 
-      it              { should be_a ErrorMessage }
-      its(:base)      { should eql base }
-      its(:attribute) { should eql field }
-      its(:type)      { should eql nil }
-      its(:message)   { should eql type }
+  context 'when error is a string' do
+    let(:error)   { 'no good' }
+
+    it { should be_a ErrorMessage }
+    its(:base) { should eql base }
+    its(:attribute) { should eql field }
+    its(:type) { should be_nil }
+    its(:message) { should eql error }
+  end
+
+  context 'when error is not hash, symbol, or string' do
+    let(:error)   { Object.new }
+
+    it 'raises error' do
+      expect { subject }.to raise_error(
+        ArgumentError,
+        'error must be a hash, symbol, or string.'
+      )
     end
   end
 end
