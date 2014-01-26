@@ -8,11 +8,11 @@ module ActiveModel
       #
       class Array < self
         #
-        # Returns a hash of formatted errors.
+        # Returns an array of formatted errors.
         #
         def to_a
-          collection.reduce({}) do |a, e|
-            formatter_for(e).format_full_message
+          collection.map do |_, error_message|
+            formatter_for(error_message).format_full_message
           end
         end
       end
