@@ -59,10 +59,5 @@ describe ErrorCollection, '#added?' do
 
       it { should be_false }
     end
-
-
   end
-
-  # TODO
-  #  write spec
 end
