@@ -3,9 +3,10 @@
 require 'spec_helper'
 
 describe ErrorMessage, '#as_json' do
-  let(:object)    { described_class.new base, field, type, message, options }
+  let(:object)    { described_class.new base, field, error }
   let(:base)      { User.new }
   let(:field)     { :name }
+  let(:error)     { { type: type, message: message, options: options } }
   let(:type)      { :invalid }
   let(:message)   { 'is invalid' }
   let(:options)   { {} }

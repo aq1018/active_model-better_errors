@@ -6,19 +6,23 @@ module ActiveModel
     # ErrorMessage
     #
     class ErrorMessage
-      include Helper, Comparable
-
-      attr_reader :base, :attribute, :type, :message, :options
+      include Helper, Comparable, Concord.new(:base, :attribute, :error)
 
       delegate :hash, to: :to_hash
       delegate :inspect, to: :to_s
 
-      def initialize(base, attribute, type, message, options)
-        @base       = base
-        @attribute  = attribute
-        @type       = type
-        @message    = message
-        @options    = options
+      public :base, :attribute
+
+      def type
+        error[:type]
+      end
+
+      def message
+        error[:message]
+      end
+
+      def options
+        error[:options] || {}
       end
 
       def <=>(other)

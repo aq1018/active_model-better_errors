@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe ErrorMessage, '#to_hash' do
-  subject       { object.to_hash }
+describe ErrorMessage, '#options' do
+  subject       { object.options }
 
   let(:object)    { described_class.new base, field, error }
   let(:base)      { User.new }
@@ -11,16 +11,14 @@ describe ErrorMessage, '#to_hash' do
   let(:error)     { { type: type, message: message, options: options } }
   let(:type)      { :invalid }
   let(:message)   { 'is invalid' }
-  let(:options)   { {} }
 
-  let(:expected) do
-    {
-      attribute: field,
-      type: type,
-      message: message,
-      options: options
-    }
+  context 'without options' do
+    let(:options)   { nil }
+    it { should eql Hash.new }
   end
 
-  its(:to_hash) { should == expected }
+  context 'with options' do
+    let(:options)   { { foo: :bar } }
+    it { should eql options }
+  end
 end

@@ -5,7 +5,8 @@ require 'spec_helper'
 describe ErrorMessage, '#to_s' do
   subject       { object.to_s }
 
-  let(:object)    { described_class.new base, field, type, message, options }
+  let(:object)    { described_class.new base, field, error }
+  let(:error)     { { type: type, message: message, options: options } }
   let(:base)      { User.new }
   let(:field)     { :first_name }
   let(:options)   { {} }

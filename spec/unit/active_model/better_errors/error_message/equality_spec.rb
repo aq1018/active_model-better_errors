@@ -6,9 +6,10 @@ describe ErrorMessage, '#==' do
   subject { left == right }
 
   let(:builder) { described_class.builder }
-  let(:left)    { described_class.new base, field, type, message, {} }
+  let(:left)    { described_class.new base, field, error }
   let(:base)    { User.new }
   let(:field)   { :email }
+  let(:error)     { { type: type, message: message, options: {} } }
   let(:type)    { :invalid }
   let(:message) { :nil }
 
