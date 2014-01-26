@@ -6,12 +6,13 @@ module ActiveModel
     # ErrorMessage
     #
     class ErrorMessage
-      include Helper, Comparable, Concord.new(:base, :attribute, :error)
+      include Helper, Comparable
+      include Adamantium::Flat
+      include Concord.new(:base, :attribute, :error)
+      public :base, :attribute
 
       delegate :hash, to: :to_hash
       delegate :inspect, to: :to_s
-
-      public :base, :attribute
 
       def type
         error[:type]
