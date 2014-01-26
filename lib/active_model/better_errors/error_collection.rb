@@ -7,6 +7,7 @@ module ActiveModel
     #
     class ErrorCollection
       include Enumerable, Concord.new(:base)
+      public :base
 
       delegate :clear, :values, :keys, :delete, to: :collection
 
