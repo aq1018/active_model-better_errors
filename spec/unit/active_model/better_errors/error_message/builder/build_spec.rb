@@ -20,8 +20,8 @@ describe ErrorMessage::Builder, '#build' do
   end
 
   context 'when override is nil' do
-    let(:options)   { {} }
-    let(:expected_options) { {} }
+    let(:options)   { { foo: :bar } }
+    let(:expected_options) { options }
 
     context 'and input is a symbol' do
       let(:input)     { :input_symbol }

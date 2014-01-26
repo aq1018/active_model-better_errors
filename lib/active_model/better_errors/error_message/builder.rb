@@ -79,8 +79,9 @@ module ActiveModel
         def build
           ErrorMessage.new(
             base, attribute,
-            message_symbol, message_string,
-            options
+            type: message_symbol,
+            message: message_string,
+            options: options
           )
         end
       end
