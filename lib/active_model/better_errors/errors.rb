@@ -32,7 +32,7 @@ module ActiveModel
       #
       # Build #message_reporter, #hash_reporter,
       # #array_reporter methods that are used by Emulaltion module.
-      Helper.reporter_types.each do |type|
+      REPORTER_TYPES.each do |type|
         define_method(:"#{type}_reporter") { reporter_for(type) }
       end
     end

@@ -42,6 +42,14 @@ module ActiveModel
       def formatters
         @formatters ||= Registry.new
       end
+
+      def default_formatter_class
+        formatters[default_formatter_type]
+      end
+
+      def reporter_types
+        REPORTER_TYPES
+      end
     end
 
     reporters

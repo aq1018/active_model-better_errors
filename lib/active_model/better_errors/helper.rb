@@ -6,29 +6,22 @@ module ActiveModel
     # Helper
     #
     module Helper
-      def formatters
-        ::ActiveModel::BetterErrors.formatters
-      end
-      module_function :formatters
+      METHODS = [
+        :formatters,
+        :reporters,
+        :default_formatter_type,
+        :default_formatter_class,
+        :REPORTER_TYPES
+      ]
+      extend ActiveSupport::Concern
 
-      def reporters
-        ::ActiveModel::BetterErrors.reporters
-      end
-      module_function :reporters
+      included do
+        class << self
+          delegate(*METHODS, to: ::ActiveModel::BetterErrors)
+        end
 
-      def default_formatter_type
-        ::ActiveModel::BetterErrors.default_formatter_type
+        delegate(*METHODS, to: 'self.class')
       end
-      module_function :default_formatter_type
-
-      def default_formatter_class
-        formatters[default_formatter_type]
-      end
-
-      def reporter_types
-        ::ActiveModel::BetterErrors::REPORTER_TYPES
-      end
-      module_function :reporter_types
     end
   end
 end
