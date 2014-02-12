@@ -21,6 +21,7 @@ task :default => [
   # 'metrics:reek',
 
   # run spec and generate coverage
+  'spec',
   'metrics:coverage',
 
   # We need to kill all mutants before enabling this for ci
