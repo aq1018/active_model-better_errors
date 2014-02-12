@@ -15,6 +15,16 @@ require 'active_model/better_errors/error_collection'
 
 require 'active_model/better_errors/formatter'
 require 'active_model/better_errors/formatter/human'
+require 'active_model/better_errors/formatter/human/builder'
+require 'active_model/better_errors/formatter/human/builder/attribute'
+require 'active_model/better_errors/formatter/human/builder/keys'
+require 'active_model/better_errors/formatter/human/builder/options'
+require 'active_model/better_errors/formatter/human/builder/value'
+require 'active_model/better_errors/formatter/human/translator'
+require 'active_model/better_errors/formatter/human/translator/attribute'
+require 'active_model/better_errors/formatter/human/translator/message'
+require 'active_model/better_errors/formatter/human/translator/full_message'
+
 require 'active_model/better_errors/formatter/machine'
 
 require 'active_model/better_errors/reporter'
