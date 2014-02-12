@@ -7,7 +7,7 @@ module ActiveModel
     #
     class HumanMessageFormatter < Formatter
       def format_message
-        return message if message # && type.nil?
+        return message if message
 
         keys = i18n_keys
         key  = keys.shift
