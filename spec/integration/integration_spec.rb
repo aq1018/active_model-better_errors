@@ -17,8 +17,6 @@ describe ActiveModel::BetterErrors do
       expect(car.changed_for_autosave?).to be_true
       car.save
 
-      p car.errors.full_messages
-
       expect(car.errors).not_to be_nil
     end
   end
