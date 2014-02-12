@@ -37,7 +37,6 @@ module ActiveModel
           delegate(*HASH_REPORTER_METHODS, to: :hash_reporter)
           delegate(*ARRAY_REPORTER_METHODS, to: :array_reporter)
 
-          alias_method :blank?, :empty?
           alias_method :has_key?, :include?
         end
       end
