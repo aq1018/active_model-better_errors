@@ -20,7 +20,6 @@ class BasicModel
   def read_attribute_for_validation(key)
     @data[key]
   end
-
 end
 
 # :nodoc:

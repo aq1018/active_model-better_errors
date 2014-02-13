@@ -37,7 +37,20 @@ require 'active_model/better_errors/errors'
 require 'active_model/better_errors/registry'
 require 'active_model/better_errors/version'
 
+# :nodoc:
 module ActiveModel
+  # Note:
+  #
+  # This lib references `ActiveModel::StrictValidationFailed`, and this class
+  # will only become available when `ActiveModel::Errors` is autoloaded.
+  # The `Errors` line below forces `ActiveModel::StrictValidationFailed`
+  # to be loaded, and consequently breaks rubocop, thus the rubocop inline
+  # instructions...
+  #
+  # rubocop:disable Void
+  Errors
+  # rubocop:enable Void
+
   #
   # BetterErrors
   #
@@ -63,7 +76,7 @@ module ActiveModel
     end
 
     reporters
-      .register(:array, Formatter::Array)
+      .register(:array, Reporter::Array)
       .register(:hash, Reporter::Hash)
       .register(:message, Reporter::Message)
 

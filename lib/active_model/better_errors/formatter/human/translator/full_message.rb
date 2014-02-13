@@ -1,8 +1,11 @@
+# encoding: utf-8
+
 module ActiveModel
   module BetterErrors
     class Formatter
       class Human
         class Translator
+          # :nodoc:
           class FullMessage < self
             def translate
               base_error? ? message : I18n.translate(key, options)

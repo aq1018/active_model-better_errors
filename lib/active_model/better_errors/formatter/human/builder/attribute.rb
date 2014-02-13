@@ -1,8 +1,11 @@
+# encoding: utf-8
+
 module ActiveModel
   module BetterErrors
     class Formatter
       class Human
         class Builder
+          # :nodoc:
           class Attribute < self
             def build
               error_message.base.class.human_attribute_name(

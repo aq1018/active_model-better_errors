@@ -1,8 +1,11 @@
+# encoding: utf-8
+
 module ActiveModel
   module BetterErrors
     class Formatter
       class Human
         class Builder
+          # :nodoc:
           class Options < self
             include Concord.new(:error_message, :keys)
 

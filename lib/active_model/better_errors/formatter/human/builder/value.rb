@@ -1,8 +1,11 @@
+# encoding: utf-8
+
 module ActiveModel
   module BetterErrors
     class Formatter
       class Human
         class Builder
+          # :nodoc:
           class Value < self
             def build
               return if base_error?

@@ -61,12 +61,14 @@ module ActiveModel
           error = ErrorMessage::Builder.build(
             base, attribute, message, options
           )
-          message = ::ActiveModel::BetterErrors.format_message(base, error)
-          full_message = full_message(attribute, message)
-          fail ::ActiveModel::StrictValidationFailed, full_message
+          error = full_message(attribute, error)
+
+          # note: StrictValidationFailed is from `ActiveModel` module
+          # also `ActiveModel::Errors` needs to be loaded before
+          # this class is accessible.
+          fail StrictValidationFailed, error
         end
         error_collection.add attribute, message, options
-
       end
 
       def to_xml(options = {})
