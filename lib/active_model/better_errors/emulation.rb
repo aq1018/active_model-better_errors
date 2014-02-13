@@ -43,15 +43,15 @@ module ActiveModel
 
       def add_on_empty(attributes, options = {})
         [attributes].flatten.each do |attribute|
-          value = @base.send(:read_attribute_for_validation, attribute)
-          is_empty = value.respond_to?(:empty?) ? value.empty? : false
+          value = base.send(:read_attribute_for_validation, attribute)
+          is_empty = value.empty? if value.respond_to?(:empty?)
           add(attribute, :empty, options) if value.nil? || is_empty
         end
       end
 
       def add_on_blank(attributes, options = {})
         [attributes].flatten.each do |attribute|
-          value = @base.send(:read_attribute_for_validation, attribute)
+          value = base.send(:read_attribute_for_validation, attribute)
           add(attribute, :blank, options) if value.blank?
         end
       end
@@ -59,14 +59,14 @@ module ActiveModel
       def add(attribute, message = nil, options = {})
         if options[:strict]
           error = ErrorMessage::Builder.build(
-            @base, attribute, message, options
+            base, attribute, message, options
           )
-
-          message = ::ActiveModel::BetterErrors.format_message(@base, error)
+          message = ::ActiveModel::BetterErrors.format_message(base, error)
           full_message = full_message(attribute, message)
-          fail ActiveModel::StrictValidationFailed, full_message
+          fail ::ActiveModel::StrictValidationFailed, full_message
         end
         error_collection.add attribute, message, options
+
       end
 
       def to_xml(options = {})
