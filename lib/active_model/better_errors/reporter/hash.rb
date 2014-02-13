@@ -10,15 +10,13 @@ module ActiveModel
         #
         # Returns a hash of formatted errors.
         #
-        def to_hash
-          collection.reduce({}) do |a, e|
-            _attribute, error_message = e
+        def to_hash(full_message = nil)
+          collection.reduce({}) do |a, (attribute, error_message)|
             formatter = formatter_for(error_message)
-            attribute = formatter.format_attribute
-            message   = formatter.format_message
-            options   = error_message.options
+            method = full_message ? :format_full_message : :format_message
+            message   = formatter.send method
             a[attribute] ||= []
-            a[attribute] << { message: message, options: options }
+            a[attribute] << message
             a
           end
         end

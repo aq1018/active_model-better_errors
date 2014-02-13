@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-describe Emulation, '#to_xml' do
+describe Emulation, '#as_json' do
   include Helper
 
-  subject { object.to_xml }
+  subject { object.as_json }
 
   let(:klass) do
     Struct.new(
@@ -35,19 +35,16 @@ describe Emulation, '#to_xml' do
   let(:hash_reporter) { reporters.build(:hash, collection, :machine) }
   let(:array_reporter) { reporters.build(:array, collection, :machine) }
 
-  context 'with default options' do
+  context 'without options' do
+    subject { object.as_json({}) }
+
     let(:expected) do
-      <<-XML
-<?xml version="1.0" encoding="UTF-8"?>
-<errors>
-  <error>
-    <attribute>first_name</attribute>
-    <message>invalid</message>
-    <options>
-    </options>
-  </error>
-</errors>
-      XML
+      {
+        first_name: [{
+          message: :invalid,
+          options: {}
+        }],
+      }
     end
 
     before { object.add(:first_name) }
@@ -55,21 +52,32 @@ describe Emulation, '#to_xml' do
     it { should eql expected }
   end
 
-  context 'with non-default options' do
-    subject { object.to_xml(root: 'better_errors') }
+  context 'with empty options' do
+    let(:expected) do
+      {
+        first_name: [{
+          message: :invalid,
+          options: {}
+        }],
+      }
+    end
+
+    before { object.add(:first_name) }
+
+    it { should eql expected }
+  end
+
+  context 'with :full_message option' do
+    subject { object.as_json(full_messages: true) }
 
     let(:expected) do
-      <<-XML
-<?xml version="1.0" encoding="UTF-8"?>
-<better-errors>
-  <better-error>
-    <attribute>first_name</attribute>
-    <message>invalid</message>
-    <options>
-    </options>
-  </better-error>
-</better-errors>
-      XML
+      {
+        first_name: [{
+          attribute: :first_name,
+          message: :invalid,
+          options: {}
+        }]
+      }
     end
 
     before { object.add(:first_name) }

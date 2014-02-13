@@ -31,7 +31,7 @@ describe Reporter::Message, '#generate_message' do
 
     let(:formatter_type)  { :machine }
     let(:type) { nil }
-    let(:expected) { nil }
+    let(:expected) { { message: :invalid, options: {} } }
 
     it { should eql expected }
   end

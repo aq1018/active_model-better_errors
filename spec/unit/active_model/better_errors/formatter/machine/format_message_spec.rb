@@ -11,6 +11,14 @@ describe Formatter::Machine, '#format_attribute' do
   let(:base)            { User.new }
   let(:attribute)       { :first_name }
   let(:type)            { :foo }
+  let(:expected) { { message: :foo, options: {} } }
 
-  it { should eql type }
+  it { should eql expected }
+
+  context 'when type is nil' do
+    let(:type) { nil }
+    let(:expected) { { message: :invalid, options: {} } }
+
+    it { should eql expected }
+  end
 end

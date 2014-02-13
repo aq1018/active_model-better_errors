@@ -19,7 +19,12 @@ module ActiveModel
         #
         # @return [Symbol] the formatted attribute.
         #
-        alias_method :format_message, :type
+        def format_message
+          {
+            message: (type || :invalid),
+            options: options
+          }
+        end
 
         #
         # Format full message from `attribute`, `type` and `options`.
@@ -29,7 +34,7 @@ module ActiveModel
         def format_full_message
           {
             attribute:  format_attribute,
-            message:    format_message,
+            message:    (type || :invalid),
             options:    options
           }
         end

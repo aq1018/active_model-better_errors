@@ -76,7 +76,7 @@ module ActiveModel
       end
 
       def as_json(options = nil)
-        to_hash
+        to_hash(options && options[:full_messages])
       end
     end
   end
