@@ -12,9 +12,11 @@ module ActiveModel
     # The ActiveModel Emulation Layer
     #
     module Emulation
+      include Enumerable
+
       MODEL_METHODS = [
         :clear, :include?, :get, :set, :delete, :[], :[]=,
-        :each, :size, :values, :keys, :count, :empty?, :any?,
+        :each, :size, :length, :values, :keys, :count, :empty?, :any?,
         :added?, :entries
       ]
 
