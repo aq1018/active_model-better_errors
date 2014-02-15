@@ -7,8 +7,10 @@ module ActiveModel
         class Translator
           # :nodoc:
           class FullMessage < self
+            I18N_KEY = 'errors.format'
+
             def translate
-              base_error? ? message : I18n.translate(key, options)
+              base_error? ? message : I18n.translate(I18N_KEY, options)
             end
 
             private
@@ -23,10 +25,6 @@ module ActiveModel
 
             def message
               Message.translate(error_message)
-            end
-
-            def key
-              'errors.format'
             end
 
             def options
