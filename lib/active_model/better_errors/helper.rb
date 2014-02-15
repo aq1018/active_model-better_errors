@@ -11,7 +11,7 @@ module ActiveModel
         :reporters,
         :default_formatter_type,
         :default_formatter_class,
-        :REPORTER_TYPES
+        :reporter_types
       ]
       extend ActiveSupport::Concern
 

@@ -6,6 +6,43 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'active_model'
 
+# Note:
+#
+# This lib references `ActiveModel::StrictValidationFailed`, and this class
+# will only become available when `ActiveModel::Errors` is autoloaded.
+# The `Errors` line below forces `ActiveModel::StrictValidationFailed`
+# to be loaded, and consequently breaks rubocop, thus the rubocop inline
+# instructions...
+#
+# rubocop:disable Void
+ActiveModel::Errors
+# rubocop:enable Void
+
+#
+# BetterErrors
+#
+module ActiveModel::BetterErrors
+  class << self
+    attr_accessor :default_formatter_type
+
+    def reporters
+      @reporters ||= Registry.new
+    end
+
+    def formatters
+      @formatters ||= Registry.new
+    end
+
+    def default_formatter_class
+      formatters[default_formatter_type]
+    end
+
+    def reporter_types
+      REPORTER_TYPES
+    end
+  end
+end
+
 require 'active_model/better_errors/constants'
 require 'active_model/better_errors/helper'
 require 'active_model/better_errors/error_message'
@@ -38,54 +75,17 @@ require 'active_model/better_errors/registry'
 require 'active_model/better_errors/version'
 
 # :nodoc:
-module ActiveModel
-  # Note:
-  #
-  # This lib references `ActiveModel::StrictValidationFailed`, and this class
-  # will only become available when `ActiveModel::Errors` is autoloaded.
-  # The `Errors` line below forces `ActiveModel::StrictValidationFailed`
-  # to be loaded, and consequently breaks rubocop, thus the rubocop inline
-  # instructions...
-  #
-  # rubocop:disable Void
-  Errors
-  # rubocop:enable Void
+module ActiveModel::BetterErrors
+  reporters
+    .register(:array, Reporter::Array)
+    .register(:hash, Reporter::Hash)
+    .register(:message, Reporter::Message)
 
-  #
-  # BetterErrors
-  #
-  module BetterErrors
-    class << self
-      attr_accessor :default_formatter_type
+  formatters
+    .register(:human, Formatter::Human)
+    .register(:machine, Formatter::Machine)
 
-      def reporters
-        @reporters ||= Registry.new
-      end
-
-      def formatters
-        @formatters ||= Registry.new
-      end
-
-      def default_formatter_class
-        formatters[default_formatter_type]
-      end
-
-      def reporter_types
-        REPORTER_TYPES
-      end
-    end
-
-    reporters
-      .register(:array, Reporter::Array)
-      .register(:hash, Reporter::Hash)
-      .register(:message, Reporter::Message)
-
-    formatters
-      .register(:human, Formatter::Human)
-      .register(:machine, Formatter::Machine)
-
-    self.default_formatter_type = :human
-  end
+  self.default_formatter_type = :human
 end
 
 # Overrides ActiveSupport::Validation#errors here

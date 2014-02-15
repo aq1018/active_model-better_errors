@@ -6,6 +6,7 @@ module ActiveModel
     # Errors
     #
     class Errors
+      include Enumerable
       include Helper, Emulation, Concord.new(:base)
       public :base
 
@@ -31,7 +32,7 @@ module ActiveModel
       #
       # Build #message_reporter, #hash_reporter,
       # #array_reporter methods that are used by Emulaltion module.
-      REPORTER_TYPES.each do |type|
+      reporter_types.each do |type|
         define_method(:"#{type}_reporter") { reporter_for(type) }
       end
     end
