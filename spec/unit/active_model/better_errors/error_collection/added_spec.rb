@@ -15,13 +15,13 @@ describe ErrorCollection, '#added?' do
     context 'when attribute is in collection' do
       subject { object.added?(field) }
 
-      it { should be_true }
+      it { should be true }
     end
 
     context 'when attribute is not in collection' do
       subject { object.added?(:not_there) }
 
-      it { should be_false }
+      it { should be false }
     end
   end
 
@@ -31,13 +31,13 @@ describe ErrorCollection, '#added?' do
     context 'when messgage is in collection' do
       subject { object.added?(field, message) }
 
-      it { should be_true }
+      it { should be true }
     end
 
     context 'when message is not in collection' do
       subject { object.added?(field, type) }
 
-      it { should be_false }
+      it { should be false }
     end
   end
 
@@ -51,13 +51,13 @@ describe ErrorCollection, '#added?' do
 
       subject { object.added?(field, type, options) }
 
-      it { should be_true }
+      it { should be true }
     end
 
     context 'when testing for string' do
       subject { object.added?(field, type, {}) }
 
-      it { should be_false }
+      it { should be false }
     end
   end
 end

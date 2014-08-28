@@ -10,7 +10,7 @@ describe ErrorCollection, '#empty?' do
   let(:field)       { :first_name }
 
   context 'with no existing errors' do
-    it { should be_true }
+    it { should be true }
   end
 
   context 'with pre-existing errors' do
@@ -18,6 +18,6 @@ describe ErrorCollection, '#empty?' do
 
     let(:errors)  { [:invalid] }
 
-    it { should be_false }
+    it { should be false }
   end
 end

@@ -10,16 +10,16 @@ describe ErrorCollection, '#include?' do
   let(:field)       { :first_name }
 
   context 'when errors for attribute is nil' do
-    it { should be_false }
+    it { should be false }
   end
 
   context 'when errors for attribute is empty' do
     before { object[field] }
-    it { should be_false }
+    it { should be false }
   end
 
   context 'when errors for attribute contain error' do
     before { object[field] << :invalid }
-    it { should be_true }
+    it { should be true }
   end
 end

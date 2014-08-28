@@ -15,27 +15,27 @@ describe ErrorMessage, '#==' do
 
   context 'when right is :invalid' do
     let(:right) { :invalid }
-    it { should be_true }
+    it { should be true }
   end
 
   context 'when right is :no_good' do
     let(:right) { :no_good }
-    it { should_not be_true }
+    it { should_not be true }
   end
 
   context 'when right is "is invalid"' do
     let(:right) { 'is invalid' }
-    it { should be_true }
+    it { should be true }
   end
 
   context 'when right is "no good"' do
     let(:right) { 'no good' }
-    it { should_not be_true }
+    it { should_not be true }
   end
 
   context 'when right is nil' do
     let(:right) { nil }
-    it { should_not be_true }
+    it { should_not be true }
   end
 
   context 'when right is a #to_s ducktype' do
@@ -43,12 +43,12 @@ describe ErrorMessage, '#==' do
 
     context 'and returns "is invalid"' do
       before { right.stub(:to_s).and_return('is invalid') }
-      it { should be_true }
+      it { should be true }
     end
 
     context 'and returns "no good"' do
       before { right.stub(:to_s).and_return('no good') }
-      it { should_not be_true }
+      it { should_not be true }
     end
 
   end
