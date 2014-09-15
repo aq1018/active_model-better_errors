@@ -48,7 +48,7 @@ module ActiveModel
       end
 
       def ==(other)
-        return type == other if other.is_a?(Symbol)
+        return type == other if other.instance_of?(Symbol)
         to_s == other.to_s
       end
     end

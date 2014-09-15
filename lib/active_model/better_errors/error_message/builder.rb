@@ -59,17 +59,17 @@ module ActiveModel
         memoize :normalized_override
 
         def message_symbol
-          if normalized_override.is_a?(Symbol)
+          if normalized_override.instance_of?(Symbol)
             normalized_override
-          elsif normalized_message.is_a?(Symbol)
+          elsif normalized_message.instance_of?(Symbol)
             normalized_message
           end
         end
 
         def message_string
-          str = if normalized_override.is_a?(String)
+          str = if normalized_override.instance_of?(String)
                   normalized_override
-                elsif normalized_message.is_a?(String)
+                elsif normalized_message.instance_of?(String)
                   normalized_message
                 end
 
