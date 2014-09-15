@@ -12,7 +12,7 @@ module ActiveModel
       delegate :clear, :values, :keys, :delete, to: :collection
 
       def include?(attribute)
-        !!((v = get(attribute)) && v.any?)
+        (v = get(attribute)) && v.any?
       end
 
       def get(attribute)

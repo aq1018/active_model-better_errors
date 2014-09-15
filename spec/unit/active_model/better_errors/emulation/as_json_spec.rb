@@ -43,7 +43,7 @@ describe Emulation, '#as_json' do
         first_name: [{
           message: :invalid,
           options: {}
-        }],
+        }]
       }
     end
 
@@ -58,7 +58,7 @@ describe Emulation, '#as_json' do
         first_name: [{
           message: :invalid,
           options: {}
-        }],
+        }]
       }
     end
 

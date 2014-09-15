@@ -2,8 +2,8 @@
 
 # :nodoc:
 class BasicModel
-  extend  ActiveModel::Naming
-  extend  ActiveModel::Translation
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
   include ActiveModel::Validations
   include ActiveModel::Conversion
 

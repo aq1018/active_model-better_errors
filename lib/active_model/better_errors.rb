@@ -18,27 +18,30 @@ require 'active_model'
 ActiveModel::Errors
 # rubocop:enable Void
 
-#
-# BetterErrors
-#
-module ActiveModel::BetterErrors
-  class << self
-    attr_accessor :default_formatter_type
+# :nodoc:
+module ActiveModel
+  #
+  # BetterErrors
+  #
+  module BetterErrors
+    class << self
+      attr_accessor :default_formatter_type
 
-    def reporters
-      @reporters ||= Registry.new
-    end
+      def reporters
+        @reporters ||= Registry.new
+      end
 
-    def formatters
-      @formatters ||= Registry.new
-    end
+      def formatters
+        @formatters ||= Registry.new
+      end
 
-    def default_formatter_class
-      formatters[default_formatter_type]
-    end
+      def default_formatter_class
+        formatters[default_formatter_type]
+      end
 
-    def reporter_types
-      REPORTER_TYPES
+      def reporter_types
+        REPORTER_TYPES
+      end
     end
   end
 end
@@ -75,17 +78,20 @@ require 'active_model/better_errors/registry'
 require 'active_model/better_errors/version'
 
 # :nodoc:
-module ActiveModel::BetterErrors
-  reporters
-    .register(:array, Reporter::Array)
-    .register(:hash, Reporter::Hash)
-    .register(:message, Reporter::Message)
+module ActiveModel
+  # :nodoc:
+  module BetterErrors
+    reporters
+      .register(:array, Reporter::Array)
+      .register(:hash, Reporter::Hash)
+      .register(:message, Reporter::Message)
 
-  formatters
-    .register(:human, Formatter::Human)
-    .register(:machine, Formatter::Machine)
+    formatters
+      .register(:human, Formatter::Human)
+      .register(:machine, Formatter::Machine)
 
-  self.default_formatter_type = :human
+    self.default_formatter_type = :human
+  end
 end
 
 # Overrides ActiveSupport::Validation#errors here

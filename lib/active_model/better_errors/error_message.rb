@@ -39,7 +39,7 @@ module ActiveModel
         }
       end
 
-      def as_json(*json_args)
+      def as_json(*_json_args)
         to_hash
       end
 
