@@ -4,9 +4,8 @@ install:
   - "travis_retry bundle install --without yard guard benchmarks release"
 script: "bundle exec rake"
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.1
+  - 1.9.3-p547
+  - 2.0.0-p481
   - 2.1.2
   - jruby-19mode
 gemfile:
