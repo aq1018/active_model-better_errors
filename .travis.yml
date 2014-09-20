@@ -1,5 +1,7 @@
 language: ruby
 bundler_args: --without yard guard benchmarks release
+install:
+  - "travis_retry bundle install --without yard guard benchmarks release"
 script: "bundle exec rake"
 rvm:
   - 1.9.3
