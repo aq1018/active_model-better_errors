@@ -8,7 +8,16 @@ group :development do
   gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
   gem 'bogus'
   gem 'activerecord', '~> 3.2.19'
-  gem 'sqlite3'
+
+  platform :mri do
+    gem 'sqlite3'
+  end
+
+  platform :jruby do
+    group :jruby do
+      gem 'activerecord-jdbcsqlite3-adapter'
+    end
+  end
 end
 
 group :release do
