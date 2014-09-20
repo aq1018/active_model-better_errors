@@ -4,7 +4,9 @@ module ActiveModel
   module BetterErrors
     class Reporter
       #
-      # Hash Reporter
+      # Converts a ErrorCollection into a hash.
+      # It provides compatible interface for ActiveModel::Errors#to_hash
+      # Elements of the hash depends on the formatter.
       #
       class Hash < self
         #

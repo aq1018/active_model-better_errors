@@ -3,7 +3,8 @@
 module ActiveModel
   module BetterErrors
     #
-    # Reporter
+    # Abstract Reporter used to interface with
+    # various ActiveModel::Errors methods
     #
     class Reporter
       include Helper, Concord.new(:collection, :formatter_type)

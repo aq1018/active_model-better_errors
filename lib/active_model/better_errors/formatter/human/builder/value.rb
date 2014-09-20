@@ -5,7 +5,9 @@ module ActiveModel
     class Formatter
       class Human
         class Builder
-          # :nodoc:
+          #
+          # Retreive ActiveModel attribute value.
+          #
           class Value < self
             def build
               return if base_error?

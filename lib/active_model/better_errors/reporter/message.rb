@@ -4,7 +4,8 @@ module ActiveModel
   module BetterErrors
     class Reporter
       #
-      # Message Reporter
+      # Provides interface for ActiveModel::Errors#full_messages,
+      # #full_message, #full_message_for, and #generate_message
       #
       class Message < self
         def full_messages

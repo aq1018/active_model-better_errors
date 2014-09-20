@@ -3,7 +3,7 @@
 module ActiveModel
   module BetterErrors
     #
-    # ErrorCollection
+    # Represents a collection of [attribute, ErrorMessageSet] tuples
     #
     class ErrorCollection
       include Enumerable, Concord.new(:base)

@@ -4,7 +4,10 @@ module ActiveModel
   module BetterErrors
     class Formatter
       class Human
-        # :nodoc:
+        #
+        # Abstract Builder used in Translator to
+        # encapsulate common logic and build translations.
+        #
         class Builder
           include AbstractType, Concord.new(:error_message)
 

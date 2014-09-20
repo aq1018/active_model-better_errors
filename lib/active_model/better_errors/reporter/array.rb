@@ -4,7 +4,9 @@ module ActiveModel
   module BetterErrors
     class Reporter
       #
-      # Array Reporter
+      # Converts a ErrorCollection into an array.
+      # It provides compatible interface for ActiveModel::Errors#to_a
+      # Elements of the array depends on the formatter.
       #
       class Array < self
         #

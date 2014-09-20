@@ -5,7 +5,9 @@ module ActiveModel
     class Formatter
       class Human
         class Builder
-          # :nodoc:
+          #
+          # Builds I18n translation options.
+          #
           class Options < self
             include Concord.new(:error_message, :keys)
 

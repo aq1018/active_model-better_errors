@@ -5,7 +5,9 @@ module ActiveModel
     class Formatter
       class Human
         class Translator
-          # :nodoc:
+          #
+          # Translates a model attribute.
+          #
           class Attribute < self
             def translate
               Builder::Attribute.build(error_message)

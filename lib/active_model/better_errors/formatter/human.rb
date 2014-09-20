@@ -4,8 +4,7 @@ module ActiveModel
   module BetterErrors
     class Formatter
       #
-      # Human Formatter
-      # Uses `i18n` to translate error into human readable format.
+      # Uses `i18n` to translate error messages into human readable format.
       #
       class Human < self
         #

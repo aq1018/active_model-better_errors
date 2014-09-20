@@ -5,7 +5,9 @@ module ActiveModel
     class Formatter
       class Human
         class Builder
-          # :nodoc:
+          #
+          # Builds I18n translation keys.
+          #
           class Keys < self
             def build
               keys      = ancestor_keys

@@ -5,7 +5,9 @@ module ActiveModel
     class Formatter
       class Human
         class Translator
-          # :nodoc:
+          #
+          # Translates attribute and error message.
+          #
           class FullMessage < self
             I18N_KEY = 'errors.format'
 

@@ -3,7 +3,7 @@
 module ActiveModel
   module BetterErrors
     #
-    # Errors
+    # Provides compatible interface to fully replace for ActiveModel::Errors.
     #
     class Errors
       include Enumerable

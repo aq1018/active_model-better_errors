@@ -5,7 +5,9 @@ module ActiveModel
     class Formatter
       class Human
         class Translator
-          # :nodoc:
+          #
+          # Translates error message.
+          #
           class Message < self
             attr_reader :key, :keys
 

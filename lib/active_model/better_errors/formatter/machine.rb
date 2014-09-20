@@ -4,7 +4,7 @@ module ActiveModel
   module BetterErrors
     class Formatter
       #
-      # Machine Formatter
+      # Formates messages into machine readable format.
       #
       class Machine < self
         #

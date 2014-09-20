@@ -3,7 +3,9 @@
 module ActiveModel
   module BetterErrors
     #
-    # ErrorMessageSet
+    # Represents a set of ErrorMessages.
+    # It can convert various error representations (strings, symbols, or both)
+    # into ErrorMessage objects by using ErrorMessage::Builder
     #
     class ErrorMessageSet < Array
       attr_reader :base, :attribute

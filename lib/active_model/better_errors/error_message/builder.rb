@@ -4,7 +4,8 @@ module ActiveModel
   module BetterErrors
     class ErrorMessage
       #
-      # Builder
+      # Utility class containing the business logic needed
+      # to build an ErrorMessage object.
       #
       class Builder
         include Adamantium::Flat

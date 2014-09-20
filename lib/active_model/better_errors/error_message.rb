@@ -3,7 +3,7 @@
 module ActiveModel
   module BetterErrors
     #
-    # ErrorMessage
+    # Represents an actual error message.
     #
     class ErrorMessage
       include Helper, Comparable

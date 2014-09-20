@@ -3,7 +3,9 @@
 module ActiveModel
   module BetterErrors
     #
-    # Abstract Formatter class
+    # Abstract Formatter class.
+    # Defines interface for all Formatter subclasses.
+    #
     class Formatter
       include AbstractType, Concord.new(:error_message)
 
