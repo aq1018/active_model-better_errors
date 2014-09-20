@@ -44,9 +44,11 @@ module ActiveModel
               base      = error_message.base
 
               base.class.lookup_ancestors.map do |klass|
+                prefix = key_base(klass)
+
                 [
-                  :"#{key_base(klass)}.attributes.#{attribute}.#{type}",
-                  :"#{key_base(klass)}.#{type}"
+                  :"#{prefix}.attributes.#{attribute}.#{type}",
+                  :"#{prefix}.#{type}"
                 ]
               end
             end

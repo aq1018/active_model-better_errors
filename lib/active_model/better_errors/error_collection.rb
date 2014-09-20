@@ -12,8 +12,8 @@ module ActiveModel
       delegate :clear, :values, :keys, :delete, to: :collection
 
       def include?(attribute)
-        v = get(attribute)
-        !v.nil? && v.any?
+        val = get(attribute)
+        !val.nil? && val.any?
       end
 
       def get(attribute)
@@ -26,7 +26,8 @@ module ActiveModel
       end
 
       def [](attribute)
-        get(attribute.to_sym) || set(attribute.to_sym, [])
+        attribute = attribute.to_sym
+        get(attribute) || set(attribute, [])
       end
 
       def []=(attribute, error)
@@ -42,8 +43,11 @@ module ActiveModel
       end
 
       def size
-        values.reduce(0) { |a, e| a + e.size }
+        values.reduce(0) do |size, val|
+          size + val.size
+        end
       end
+
       alias_method :count, :size
 
       def to_a

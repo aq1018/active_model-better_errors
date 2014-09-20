@@ -8,10 +8,10 @@ module ActiveModel
           # :nodoc:
           class Attribute < self
             def build
-              error_message.base.class.human_attribute_name(
-                error_message.attribute,
-                default: error_message.attribute.to_s.gsub('.', '_').humanize
-              )
+              attribute = error_message.attribute
+              default = attribute.to_s.gsub('.', '_').humanize
+              klass = error_message.base.class
+              klass.human_attribute_name(attribute, default: default)
             end
           end
         end

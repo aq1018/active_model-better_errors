@@ -11,7 +11,7 @@ module ActiveModel
         # Returns an array of formatted errors.
         #
         def to_a
-          collection.map do |_, error_message|
+          collection.map do |_attribute, error_message|
             formatter_for(error_message).format_full_message
           end
         end

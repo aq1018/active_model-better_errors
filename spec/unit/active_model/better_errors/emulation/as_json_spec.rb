@@ -35,53 +35,18 @@ describe Emulation, '#as_json' do
   let(:hash_reporter) { reporters.build(:hash, collection, :machine) }
   let(:array_reporter) { reporters.build(:array, collection, :machine) }
 
-  context 'without options' do
-    subject { object.as_json({}) }
+  subject { object.as_json({}) }
 
-    let(:expected) do
-      {
-        first_name: [{
-          message: :invalid,
-          options: {}
-        }]
-      }
-    end
-
-    before { object.add(:first_name) }
-
-    it { should eql expected }
+  let(:expected) do
+    {
+      first_name: [{
+        message: :invalid,
+        options: {}
+      }]
+    }
   end
 
-  context 'with empty options' do
-    let(:expected) do
-      {
-        first_name: [{
-          message: :invalid,
-          options: {}
-        }]
-      }
-    end
+  before { object.add(:first_name) }
 
-    before { object.add(:first_name) }
-
-    it { should eql expected }
-  end
-
-  context 'with :full_message option' do
-    subject { object.as_json(full_messages: true) }
-
-    let(:expected) do
-      {
-        first_name: [{
-          attribute: :first_name,
-          message: :invalid,
-          options: {}
-        }]
-      }
-    end
-
-    before { object.add(:first_name) }
-
-    it { should eql expected }
-  end
+  it { should eql expected }
 end

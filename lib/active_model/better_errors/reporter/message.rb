@@ -8,7 +8,7 @@ module ActiveModel
       #
       class Message < self
         def full_messages
-          collection.map do |_, error_message|
+          collection.map do |_attribute, error_message|
             formatter_for(error_message).format_full_message
           end
         end

@@ -75,8 +75,8 @@ module ActiveModel
         to_a.to_xml options.reverse_merge(root: 'errors', skip_types: true)
       end
 
-      def as_json(options = nil)
-        to_hash(options && options[:full_messages])
+      def as_json(_options = nil)
+        to_hash
       end
     end
   end
