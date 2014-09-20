@@ -42,12 +42,16 @@ describe ErrorMessage, '#==' do
     let(:right) { double }
 
     context 'and returns "is invalid"' do
-      before { right.stub(:to_s).and_return('is invalid') }
+      before do
+        allow(right).to receive(:to_s).and_return('is invalid')
+      end
       it { should be true }
     end
 
     context 'and returns "no good"' do
-      before { right.stub(:to_s).and_return('no good') }
+      before do
+        allow(right).to receive(:to_s).and_return('no good')
+      end
       it { should_not be true }
     end
 

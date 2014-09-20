@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 module ActiveModel
+  # :nodoc:
   module BetterErrors
     class Reporter
       #
@@ -22,5 +23,7 @@ module ActiveModel
         end
       end
     end
+
+    reporters.register(:hash, Reporter::Hash)
   end
 end

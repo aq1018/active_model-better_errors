@@ -13,8 +13,7 @@ describe Reporter::Message, '#full_message' do
   let(:attribute)       { :first_name }
 
   before do
-    base.class
-      .stub(:human_attribute_name)
+    allow(base.class).to receive(:human_attribute_name)
       .with(attribute, default: 'First name')
       .and_return('Given Name')
   end

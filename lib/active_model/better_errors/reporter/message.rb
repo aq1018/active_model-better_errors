@@ -1,18 +1,15 @@
 # encoding: utf-8
 
 module ActiveModel
+  # :nodoc:
   module BetterErrors
     class Reporter
       #
       # Provides interface for ActiveModel::Errors#full_messages,
       # #full_message, #full_message_for, and #generate_message
       #
-      class Message < self
-        def full_messages
-          collection.map do |_attribute, error_message|
-            formatter_for(error_message).format_full_message
-          end
-        end
+      class Message < Array
+        alias_method :full_messages, :to_a
 
         def full_message(attribute, message)
           message = ErrorMessage::Builder.build(base, attribute, message)
@@ -35,5 +32,7 @@ module ActiveModel
         end
       end
     end
+
+    reporters.register(:message, Reporter::Message)
   end
 end

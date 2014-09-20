@@ -1,6 +1,7 @@
 # coding: utf-8
 
 module ActiveModel
+  # :nodoc:
   module BetterErrors
     class Formatter
       #
@@ -40,5 +41,7 @@ module ActiveModel
         end
       end
     end
+
+    formatters.register(:machine, Formatter::Machine)
   end
 end

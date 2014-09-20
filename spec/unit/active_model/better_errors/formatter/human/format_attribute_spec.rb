@@ -27,8 +27,7 @@ describe Formatter::Human, '#format_attribute' do
     let(:expected)        { 'Given name' }
 
     before do
-      base.class
-        .should_receive(:human_attribute_name)
+      expect(base.class).to receive(:human_attribute_name)
         .with(attribute, default: 'First name')
         .and_return(expected)
     end

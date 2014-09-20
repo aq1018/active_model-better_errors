@@ -27,16 +27,11 @@ describe Emulation, '#as_json' do
     )
   end
 
-  before { klass.send :include, described_class }
-
   let(:base) { User.new }
   let(:collection) { ErrorCollection.new(base) }
   let(:message_reporter) { reporters.build(:message, collection, :human) }
   let(:hash_reporter) { reporters.build(:hash, collection, :machine) }
   let(:array_reporter) { reporters.build(:array, collection, :machine) }
-
-  subject { object.as_json({}) }
-
   let(:expected) do
     {
       first_name: [{
@@ -46,6 +41,7 @@ describe Emulation, '#as_json' do
     }
   end
 
+  before { klass.send :include, described_class }
   before { object.add(:first_name) }
 
   it { should eql expected }

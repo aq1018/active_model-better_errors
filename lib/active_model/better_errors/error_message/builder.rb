@@ -60,21 +60,20 @@ module ActiveModel
         memoize :normalized_override
 
         def message_symbol
-          if normalized_override.instance_of?(Symbol)
-            normalized_override
-          elsif normalized_message.instance_of?(Symbol)
-            normalized_message
-          end
+          prioritize_message_with(Symbol)
         end
 
         def message_string
-          str = if normalized_override.instance_of?(String)
-                  normalized_override
-                elsif normalized_message.instance_of?(String)
-                  normalized_message
-                end
-
+          str = prioritize_message_with(String)
           str unless str.blank?
+        end
+
+        def prioritize_message_with(klass)
+          if normalized_override.instance_of?(klass)
+            normalized_override
+          elsif normalized_message.instance_of?(klass)
+            normalized_message
+          end
         end
 
         def build

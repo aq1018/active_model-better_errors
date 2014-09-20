@@ -38,7 +38,7 @@ describe Emulation, '.included' do
     :added?, :entries
   ].each do |method|
     it "delegates ##{method} to error_collection" do
-      error_collection.should_receive(method)
+      expect(error_collection).to receive(method)
       object.send(method)
     end
   end
@@ -48,23 +48,23 @@ describe Emulation, '.included' do
     :full_message, :generate_message
   ].each do |method|
     it "delegates ##{method} to message_reporter" do
-      message_reporter.should_receive(method)
+      expect(message_reporter).to receive(method)
       object.send(method)
     end
   end
 
   it 'delegates #to_hash to hash_reporter' do
-    hash_reporter.should_receive(:to_hash)
+    expect(hash_reporter).to receive(:to_hash)
     object.send(:to_hash)
   end
 
   it 'delegates #to_a to array_reporter' do
-    array_reporter.should_receive(:to_a)
+    expect(array_reporter).to receive(:to_a)
     object.send(:to_a)
   end
 
   it 'aliases #has_key? to #include?' do
-    error_collection.should_receive(:include?)
+    expect(error_collection).to receive(:include?)
     object.send(:has_key?)
   end
 end

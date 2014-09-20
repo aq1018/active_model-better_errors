@@ -16,8 +16,7 @@ describe Reporter, '#formatter_for' do
   let(:formatter)       { double('Formatter') }
 
   before do
-    ::ActiveModel::BetterErrors.formatters
-      .should_receive(:build)
+    expect(ActiveModel::BetterErrors.formatters).to receive(:build)
       .with(formatter_type, error)
       .and_return(formatter)
   end

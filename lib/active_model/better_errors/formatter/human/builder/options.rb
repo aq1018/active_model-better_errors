@@ -12,12 +12,13 @@ module ActiveModel
             include Concord.new(:error_message, :keys)
 
             def build
-              {
-                default:    keys,
-                model:      model,
-                attribute:  attribute,
-                value:      value
-              }.merge(error_message.options)
+              opt = {}
+              opt[:default] = keys
+              opt[:model] = model
+              opt[:attribute] = attribute
+              opt[:value] = value
+              opt.merge!(error_message.options)
+              opt
             end
 
             private
