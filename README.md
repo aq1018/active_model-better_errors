@@ -20,7 +20,7 @@ API.
 
 ## How Better Errors Work
 
-`active_model-better_errors` works by sperating the concerns of error message storage and presentation.
+`active_model-better_errors` works by separating the concerns of error message storage and presentation.
 `ActiveModel::Errors` really handles four tasks in a single class:
 
 * error data storage
