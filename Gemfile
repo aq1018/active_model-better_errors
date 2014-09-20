@@ -7,8 +7,8 @@ gemspec
 group :development do
   gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
   gem 'bogus'
-  # rainbow 2.x is not compatible with rubocop ( yet )
-  gem 'rainbow', '~> 1.99.2'
+  gem 'activerecord'
+  gem 'sqlite3'
 end
 
 group :release do
